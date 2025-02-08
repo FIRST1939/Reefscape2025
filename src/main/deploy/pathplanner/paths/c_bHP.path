@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6745924660086104,
-        "y": 3.016588894944755
+        "x": 3.7115841628586446,
+        "y": 3.0061549590031307
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.856747071271769,
-        "y": 1.8716053423131758
+        "x": 3.211584162858645,
+        "y": 2.140129555218692
       },
       "isLocked": false,
       "linkedName": "bhp_c"
@@ -20,8 +20,8 @@
         "y": 0.7100274926511793
       },
       "prevControl": {
-        "x": 2.0950915491256215,
-        "y": 1.479764334756676
+        "x": 2.056275759654793,
+        "y": 1.576052896435618
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 55.0
+    "rotation": 54.011
   },
   "reversed": false,
   "folder": null,

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6754934210526313,
-        "y": 2.0814144736842106
+        "x": 3.4954201829990392,
+        "y": 1.965532443681277
       },
       "isLocked": false,
       "linkedName": "StartD"
@@ -20,8 +20,8 @@
         "y": 0.7100274926511793
       },
       "prevControl": {
-        "x": 2.4824013157894735,
-        "y": 2.042927631578947
+        "x": 2.056275759654793,
+        "y": 1.576052896435618
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 55.0
+    "rotation": 54.011
   },
   "reversed": false,
   "folder": null,

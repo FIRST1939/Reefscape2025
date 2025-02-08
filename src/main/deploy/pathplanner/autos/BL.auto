@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start_D"
+            "pathName": "BL_D"
           }
         },
         {
@@ -25,19 +25,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "c_bHP"
+            "pathName": "C_BHP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "BHP_b"
+            "pathName": "BHP_B"
           }
         }
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": null,
   "choreoAuto": false
 }
