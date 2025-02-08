@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.029999999999999,
+        "x": 6.03,
         "y": 4.192
       },
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef to Reef",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

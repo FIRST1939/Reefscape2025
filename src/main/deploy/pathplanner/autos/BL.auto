@@ -38,6 +38,6 @@
     }
   },
   "resetOdom": false,
-  "folder": null,
+  "folder": "Autos",
   "choreoAuto": false
 }
