@@ -3,9 +3,10 @@
   "robotLength": 0.8509,
   "holonomicMode": true,
   "pathFolders": [
+    "Reef to Net",
+    "Reef Alignment",
     "Reef to Human Player",
     "Reef to Proccesor",
-    "Reef Alignment",
     "Starting Positions"
   ],
   "autoFolders": [],
