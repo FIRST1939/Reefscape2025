@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0205592105263155,
-        "y": 6.555509868421052
+        "x": 2.204077289769157,
+        "y": 6.573847147552199
       },
       "isLocked": false,
       "linkedName": "THP"
@@ -20,7 +20,7 @@
         "y": 4.178947368421053
       },
       "prevControl": {
-        "x": 2.049786184210526,
+        "x": 2.184786184210526,
         "y": 4.178947368421053
       },
       "nextControl": null,
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": -54.011
   },
   "useDefaultConstraints": true
 }
