@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CL_AEF"
+            "pathName": "CL_EF"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "AEF_P"
+            "pathName": "EF_P"
           }
         },
         {
@@ -31,13 +31,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CN_AIJ"
+            "pathName": "CN_IJ"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "AIJ_TN"
+            "pathName": "IJ_TN"
           }
         }
       ]
