@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CF_AHG"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AHG_CF"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CF_AEF"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AEF_CF"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CF_AJI"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AJI_CF"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
