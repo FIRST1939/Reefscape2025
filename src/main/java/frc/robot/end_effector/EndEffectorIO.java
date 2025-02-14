@@ -7,6 +7,7 @@ public interface EndEffectorIO {
     @AutoLog
     public static class EndEffectorIOInputs {
 
+        public boolean isRunning;
         public double algaeIntakePosition = 0.0;
         public double algaeIntakeVelocity = 0.0;
         public double algaeIntakeVoltage = 0.0;
@@ -21,7 +22,6 @@ public interface EndEffectorIO {
         public double coralIntakeVelocity = 0.0;
         public double coralIntakeVoltage = 0.0;
         public double coralIntakeCurrent = 0.0;
-        public byte[] isRunning;
     }
 
     public default void updateInputs (EndEffectorIOInputs inputs) {}

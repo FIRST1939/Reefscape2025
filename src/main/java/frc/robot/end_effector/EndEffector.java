@@ -22,7 +22,7 @@ public void periodic() {
     Logger.recordOutput("EndEffector/AlgaeIntakeVoltage", ((EndEffectorIOInputs) inputs).algaeIntakeVoltage);
     Logger.recordOutput("EndEffector/AlgaeWristVoltage", ((EndEffectorIOInputs) inputs).algaeWristVoltage);
     Logger.recordOutput("EndEffector/CoralIntakeVoltage", ((EndEffectorIOInputs) inputs).coralIntakeVoltage);
-    Logger.recordOutput("EndEffector/IsRunning", ((EndEffectorIOInputs) inputs).isRunning);
+    Logger.recordOutput("EndEffector/IsRunning", inputs.isRunning);
 }
 
 
