@@ -29,7 +29,7 @@ public void periodic() {
     public void runVoltage (double algaeIntakeVolts, double algaeWristVolts, double coralIntakeVolts) {
 
         io.setAlgaeIntakeVoltage(algaeIntakeVolts);
-        io.setAlgaeIntakeVoltage(algaeWristVolts);
+        io.setAlgaeWristVoltage(algaeWristVolts);
         io.setCoralIntakeVoltage(coralIntakeVolts);
     }
 };

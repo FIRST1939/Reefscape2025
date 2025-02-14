@@ -13,9 +13,9 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
     private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
     private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
-    private final RelativeEncoder algaeIntakeEncoder = coralIntake.getEncoder();
+    private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
     private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
-    private final RelativeEncoder algaeWristEncoder = coralIntake.getEncoder();
+    private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
 
     public EndEffectorIOVortex () {
 

@@ -22,9 +22,9 @@ public class EndEffectorIOSim implements EndEffectorIO {
         DCMotor.getNeoVortex(1)
     );
 
-    private double algaeIntakeAppliedVolts = 0.0;
-    private double algaeWristAppliedVolts = 0.0;
-    private double coralIntakeAppliedVolts = 0.0;
+    private double algaeIntakeAppliedVolts;
+    private double algaeWristAppliedVolts;
+    private double coralIntakeAppliedVolts;
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
