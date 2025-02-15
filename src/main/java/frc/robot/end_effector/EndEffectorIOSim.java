@@ -8,17 +8,17 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 public class EndEffectorIOSim implements EndEffectorIO {
  
     private final DCMotorSim algaeIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.028, 1.0),
         DCMotor.getNeoVortex(1)
     );
 
     private final DCMotorSim algaeWrist = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.177, 1.0),
         DCMotor.getNeoVortex(1)
     );
 
     private final DCMotorSim coralIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.017, 1.0),
         DCMotor.getNeoVortex(1)
     );
 
