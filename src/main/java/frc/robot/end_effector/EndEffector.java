@@ -1,13 +1,9 @@
 package frc.robot.end_effector;
-
-import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.end_effector.EndEffectorIO.EndEffectorIOInputs;
-
 public class EndEffector extends SubsystemBase {
     
     private final EndEffectorIO io;
-    private final EndEffectorIOInputs inputs = new EndEffectorIOInputs();
+    private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
     public EndEffector (EndEffectorIO io) {
 
@@ -15,21 +11,15 @@ public class EndEffector extends SubsystemBase {
     }
 
    @Override
-public void periodic() {
-    io.updateInputs((EndEffectorIOInputs) inputs);
-
-    // Log each input manually
-    Logger.recordOutput("EndEffector/AlgaeIntakeVoltage", ((EndEffectorIOInputs) inputs).algaeIntakeVoltage);
-    Logger.recordOutput("EndEffector/AlgaeWristVoltage", ((EndEffectorIOInputs) inputs).algaeWristVoltage);
-    Logger.recordOutput("EndEffector/CoralIntakeVoltage", ((EndEffectorIOInputs) inputs).coralIntakeVoltage);
-    Logger.recordOutput("EndEffector/IsRunning", inputs.isRunning);
-}
+   public void periodic() {
+    io.updateInputs(inputs);
+    }
 
 
-    public void runVoltage (double algaeIntakeVolts, double algaeWristVolts, double coralIntakeVolts) {
+    public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {
 
+        io.setCoralIntakeVoltage(coralIntakeVolts);
         io.setAlgaeIntakeVoltage(algaeIntakeVolts);
         io.setAlgaeWristVoltage(algaeWristVolts);
-        io.setCoralIntakeVoltage(coralIntakeVolts);
     }
 };

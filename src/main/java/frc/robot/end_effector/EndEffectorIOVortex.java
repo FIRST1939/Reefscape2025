@@ -8,6 +8,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 public class EndEffectorIOVortex implements EndEffectorIO {
     
     private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
@@ -16,12 +20,15 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
     private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
     private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
-
+    private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(0); //configure the DIO port for the Beam Break Sensor after the robot is wired.
+    private final LaserCan LaserCan = new LaserCan(0);
     public EndEffectorIOVortex () {
 
         SparkFlexConfig config = new SparkFlexConfig();
 
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.currentLimit).voltageCompensation(12.0);
+        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.coralIntakecurrentLimit).voltageCompensation(12.0);
+        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakecurrentLimit).voltageCompensation(12.0);
+        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristcurrentLimit).voltageCompensation(12.0);
 
         config.encoder
             .positionConversionFactor(2.0 * Math.PI)
@@ -51,18 +58,28 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWrist.getAppliedOutput() * algaeWrist.getBusVoltage();
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
+        inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
     }
-
-    @Override
-    public void setAlgaeIntakeVoltage (double volts) {
-
-        algaeIntake.setVoltage(volts);
+   
+    public void periodic() {
+    LaserCan.Measurement measurement = LaserCan.getMeasurement();
+    if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
+      System.out.println("The target is " + measurement.distance_mm + "mm away!");
+    } else {
+      System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
     }
+     }
 
     @Override
     public void setCoralIntakeVoltage (double volts) {
 
         coralIntake.setVoltage(volts);
+    }
+    
+    @Override
+    public void setAlgaeIntakeVoltage (double volts) {
+
+        algaeIntake.setVoltage(volts);
     }
 
     @Override

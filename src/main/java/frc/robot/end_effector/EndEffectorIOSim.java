@@ -7,27 +7,31 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
 public class EndEffectorIOSim implements EndEffectorIO {
  
+    private final DCMotorSim coralIntake = new DCMotorSim(
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.017, EndEffectorConstants.coralIntakeGearReduction),
+        DCMotor.getNeoVortex(1)
+    );
+
     private final DCMotorSim algaeIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.028, 1.0),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.028, EndEffectorConstants.algaeIntakeGearReduction),
         DCMotor.getNeoVortex(1)
     );
 
     private final DCMotorSim algaeWrist = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.177, 1.0),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.177, EndEffectorConstants.algaeWristGearReduction),
         DCMotor.getNeoVortex(1)
     );
-
-    private final DCMotorSim coralIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.017, 1.0),
-        DCMotor.getNeoVortex(1)
-    );
-
+    
+    
+    private double coralIntakeAppliedVolts;
     private double algaeIntakeAppliedVolts;
     private double algaeWristAppliedVolts;
-    private double coralIntakeAppliedVolts;
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
+
+        coralIntake.setInputVoltage(coralIntakeAppliedVolts);
+        coralIntake.update(0.02);
 
         algaeIntake.setInputVoltage(algaeIntakeAppliedVolts);
         algaeIntake.update(0.02);
@@ -35,8 +39,10 @@ public class EndEffectorIOSim implements EndEffectorIO {
         algaeWrist.setInputVoltage(algaeWristAppliedVolts);
         algaeWrist.update(0.02);
 
-        coralIntake.setInputVoltage(coralIntakeAppliedVolts);
-        coralIntake.update(0.02);
+        inputs.coralIntakePosition = coralIntake.getAngularPositionRad();
+        inputs.coralIntakeVelocity = coralIntake.getAngularVelocityRadPerSec();
+        inputs.coralIntakeVoltage = coralIntakeAppliedVolts;
+        inputs.coralIntakeCurrent = coralIntake.getCurrentDrawAmps();
 
         inputs.algaeIntakePosition = algaeIntake.getAngularPositionRad();
         inputs.algaeIntakeVelocity = algaeIntake.getAngularVelocityRadPerSec();
@@ -48,10 +54,13 @@ public class EndEffectorIOSim implements EndEffectorIO {
         inputs.algaeWristVoltage = algaeWristAppliedVolts;
         inputs.algaeWristCurrent = algaeWrist.getCurrentDrawAmps();
 
-        inputs.coralIntakePosition = coralIntake.getAngularPositionRad();
-        inputs.coralIntakeVelocity = coralIntake.getAngularVelocityRadPerSec();
-        inputs.coralIntakeVoltage = coralIntakeAppliedVolts;
-        inputs.coralIntakeCurrent = coralIntake.getCurrentDrawAmps();
+        
+    }
+
+    @Override
+    public void setCoralIntakeVoltage (double volts) {
+
+        coralIntakeAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
     }
 
     @Override
@@ -65,10 +74,5 @@ public class EndEffectorIOSim implements EndEffectorIO {
 
         algaeWristAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
     }
-    
-    @Override
-    public void setCoralIntakeVoltage (double volts) {
 
-        coralIntakeAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
-    }
 }

@@ -6,8 +6,11 @@ public interface EndEffectorIO {
     
     @AutoLog
     public static class EndEffectorIOInputs {
+        public double coralIntakePosition = 0.0;
+        public double coralIntakeVelocity = 0.0;
+        public double coralIntakeVoltage = 0.0;
+        public double coralIntakeCurrent = 0.0;
 
-        public boolean isRunning;
         public double algaeIntakePosition = 0.0;
         public double algaeIntakeVelocity = 0.0;
         public double algaeIntakeVoltage = 0.0;
@@ -18,14 +21,12 @@ public interface EndEffectorIO {
         public double algaeWristVoltage = 0.0;
         public double algaeWristCurrent = 0.0;
 
-        public double coralIntakePosition = 0.0;
-        public double coralIntakeVelocity = 0.0;
-        public double coralIntakeVoltage = 0.0;
-        public double coralIntakeCurrent = 0.0;
+        public boolean coralIntakeBeamBreak = true;
+
     }
 
     public default void updateInputs (EndEffectorIOInputs inputs) {}
-    public default void setAlgaeIntakeVoltage (double volts) {}
     public default void setCoralIntakeVoltage (double volts) {}
+    public default void setAlgaeIntakeVoltage (double volts) {}
     public default void setAlgaeWristVoltage (double volts) {}
 }
