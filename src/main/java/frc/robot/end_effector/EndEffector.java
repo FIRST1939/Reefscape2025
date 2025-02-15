@@ -1,5 +1,7 @@
 package frc.robot.end_effector;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 public class EndEffector extends SubsystemBase {
     
     private final EndEffectorIO io;
@@ -9,10 +11,11 @@ public class EndEffector extends SubsystemBase {
 
         this.io = io;
     }
-
-   @Override
-   public void periodic() {
-    io.updateInputs(inputs);
+    
+    @Override
+    public void periodic() {
+        
+        io.updateInputs(inputs);
     }
 
 
@@ -22,4 +25,4 @@ public class EndEffector extends SubsystemBase {
         io.setAlgaeIntakeVoltage(algaeIntakeVolts);
         io.setAlgaeWristVoltage(algaeWristVolts);
     }
-};
+}

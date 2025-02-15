@@ -6,6 +6,7 @@ public interface EndEffectorIO {
     
     @AutoLog
     public static class EndEffectorIOInputs {
+
         public double coralIntakePosition = 0.0;
         public double coralIntakeVelocity = 0.0;
         public double coralIntakeVoltage = 0.0;
@@ -22,7 +23,6 @@ public interface EndEffectorIO {
         public double algaeWristCurrent = 0.0;
 
         public boolean coralIntakeBeamBreak = true;
-
     }
 
     public default void updateInputs (EndEffectorIOInputs inputs) {}

@@ -2,15 +2,18 @@ package frc.robot.end_effector;
 
 public class EndEffectorConstants {
     
-    public static final int coralIntakeCAN = 38; //TODO coral Intake CAN ID AFTER ROBOT IS WIRED
-    public static final double coralIntakeGearReduction = (36/56);
-    public static final int coralIntakecurrentLimit = 40;
-    public static final int algaeIntakeCAN = 39; //TODO algae Intake CAN ID AFTER ROBOT IS WIRED
-    public static final double algaeIntakeGearReduction = (36/56);
-    public static final int algaeIntakecurrentLimit = 40; 
-    public static final int algaeWristCAN = 39; //TODO algae Wrist CAN ID AFTER ROBOT IS WIRED
-    public static final double algaeWristGearReduction = (42/42);
-    public static final int algaeWristcurrentLimit = 40; 
-    public static final int coralIntakeBeamBreakCAN = 40; //TODO Beam Break CAN ID AFTER ROBOT IS WIRED
-    public static final int AlgaeIntakeLaserCAN = 40; //TODO Laser CAN CAN ID AFTER ROBOT IS WIRED
+    public static final int CORAL_INTAKE_CAN = 0; //TODO Coral Intake CAN ID
+    public static final double CORAL_INTAKE_REDUCTION = (36/56);
+    public static final int CORAL_INTAKE_CURRENT_LIMIT = 40; // TODO Coral Intake Current Limit
+
+    public static final int ALGAE_INTAKE_CAN = 0; //TODO Algae Intake CAN ID
+    public static final double ALGAE_INTAKE_REDUCTION = (36/56);
+    public static final int ALGAE_INTAKE_CURRENT_LIMIT = 40; // TODO Algae Intake Current Limit
+
+    public static final int ALGAE_WRIST_CAN = 0; //TODO Algae Wrist CAN ID
+    public static final double ALGAE_WRIST_REDUCTION = (42/42);
+    public static final int ALGAE_WRIST_CURRENT_LIMIT = 40; // TODO Algae Wrist Current Limit
+
+    public static final int CORAL_INTAKE_BEAMBREAK = 0; //TODO Coral Intake Beambreak DIO Port
+    public static final int ALGAE_INTAKE_LASERCAN = 0; //TODO Algae Intake LaserCAN CAN ID
 }

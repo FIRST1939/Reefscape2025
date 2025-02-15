@@ -8,17 +8,17 @@ import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 public class EndEffectorIOSim implements EndEffectorIO {
  
     private final DCMotorSim coralIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.017, EndEffectorConstants.coralIntakeGearReduction),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.017, EndEffectorConstants.CORAL_INTAKE_REDUCTION),
         DCMotor.getNeoVortex(1)
     );
 
     private final DCMotorSim algaeIntake = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.028, EndEffectorConstants.algaeIntakeGearReduction),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.028, EndEffectorConstants.ALGAE_INTAKE_REDUCTION),
         DCMotor.getNeoVortex(1)
     );
 
     private final DCMotorSim algaeWrist = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.177, EndEffectorConstants.algaeWristGearReduction),
+        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.177, EndEffectorConstants.ALGAE_WRIST_REDUCTION),
         DCMotor.getNeoVortex(1)
     );
     
@@ -53,8 +53,6 @@ public class EndEffectorIOSim implements EndEffectorIO {
         inputs.algaeWristVelocity = algaeWrist.getAngularVelocityRadPerSec();
         inputs.algaeWristVoltage = algaeWristAppliedVolts;
         inputs.algaeWristCurrent = algaeWrist.getCurrentDrawAmps();
-
-        
     }
 
     @Override
@@ -74,5 +72,4 @@ public class EndEffectorIOSim implements EndEffectorIO {
 
         algaeWristAppliedVolts = MathUtil.clamp(volts, -12.0, 12.0);
     }
-
 }
