@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.77,
-        "y": 4.0
+        "x": 1.5562757596547936,
+        "y": 0.7100274926511793
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.77,
-        "y": 4.0
+        "x": 2.143905681002898,
+        "y": 1.5191573187831917
       },
-      "isLocked": true,
-      "linkedName": "GH"
+      "isLocked": false,
+      "linkedName": "BHP"
     },
     {
       "anchor": {
-        "x": 5.982311844536626,
-        "y": 0.5410226640987992
+        "x": 3.2,
+        "y": 3.865
       },
       "prevControl": {
-        "x": 5.982311844536626,
-        "y": 1.5410226640988018
+        "x": 2.2,
+        "y": 3.865
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "P"
+      "isLocked": false,
+      "linkedName": "b"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Reef to Proccesor",
+  "folder": "Reef to Human Player",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 54.011
   },
   "useDefaultConstraints": true
 }
