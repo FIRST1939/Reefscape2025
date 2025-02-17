@@ -21,8 +21,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
         private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
         private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(EndEffectorConstants.coralIntakeBeamBreakDIO); 
-        private final static LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.AlgaeIntakeLaserCAN); 
-        public static double laserDistance = -1.0; //Default measurement indicating no measurement yet
+        private final LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.AlgaeIntakeLaserCAN); 
+        private double laserDistance = -1.0; //Default measurement indicating no measurement yet
     public EndEffectorIOVortex () {
 
         SparkFlexConfig coralIntakeconfig = new SparkFlexConfig();
@@ -82,13 +82,14 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
 
         inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
-        inputs.laserDistance = laserDistance;
         LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
         if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
             laserDistance = measurement.distance_mm;
         } else {
             laserDistance = -1.0;  // Error value
         }
+        
+        inputs.laserDistance = laserDistance;
 
     }
 
