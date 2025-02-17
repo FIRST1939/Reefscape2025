@@ -18,11 +18,20 @@ public class EndEffector extends SubsystemBase {
         io.updateInputs(inputs);
     }
 
-
     public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {
 
         io.setCoralIntakeVoltage(coralIntakeVolts);
         io.setAlgaeIntakeVoltage(algaeIntakeVolts);
         io.setAlgaeWristVoltage(algaeWristVolts);
+    }
+
+    public boolean getCoralIntakeBeambreak () {
+
+        return inputs.coralIntakeBeambreak;
+    }
+
+    public double getAlgaeIntakeLaserDistance () {
+
+        return inputs.algaeIntakelaserDistance;
     }
 }

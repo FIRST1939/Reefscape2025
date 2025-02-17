@@ -14,36 +14,41 @@ import au.grapplerobotics.interfaces.LaserCanInterface;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
-        private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
-        private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
-        private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
-        private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
-        private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
-        private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
-        private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(EndEffectorConstants.coralIntakeBeamBreakDIO); 
-        private final LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.AlgaeIntakeLaserCAN); 
-        private double laserDistance = -1.0; //Default measurement indicating no measurement yet
+
+    private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
+    private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
+
+    private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
+    private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
+
+    private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
+    private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
+
+    private final DigitalInput coralIntakeBeambreak = new DigitalInput(EndEffectorConstants.coralIntakeBeambreakDIO); 
+    private final LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.algaeIntakeLaserCAN);
+
     public EndEffectorIOVortex () {
 
         SparkFlexConfig coralIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
-
-        coralIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.coralIntakecurrentLimit).voltageCompensation(12.0);
-        algaeIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakecurrentLimit).voltageCompensation(12.0);
-        algaeWristconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristcurrentLimit).voltageCompensation(12.0);
+        coralIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.coralIntakeCurrentLimit).voltageCompensation(12.0);
+        algaeIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakeCurrentLimit).voltageCompensation(12.0);
+        algaeWristconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristCurrentLimit).voltageCompensation(12.0);
 
         coralIntakeconfig.encoder
             .positionConversionFactor(2.0 * Math.PI)
             .velocityConversionFactor((2.0 * Math.PI) / 60.0)
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
+
         algaeIntakeconfig.encoder
             .positionConversionFactor(2.0 * Math.PI)
             .velocityConversionFactor((2.0 * Math.PI) / 60.0)
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
+
         algaeWristconfig.encoder
             .positionConversionFactor(2.0 * Math.PI)
             .velocityConversionFactor((2.0 * Math.PI) / 60.0)
@@ -53,15 +58,17 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntake.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntake.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWrist.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-           try {
-        LaserCanSensor.setRangingMode(LaserCan.RangingMode.SHORT);
-        LaserCanSensor.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-        LaserCanSensor.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+        
+        try {
+
+            LaserCanSensor.setRangingMode(LaserCan.RangingMode.SHORT);
+            LaserCanSensor.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+            LaserCanSensor.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
         } catch (ConfigurationFailedException error) {
-        System.out.println("LaserCAN configuration failed! " + error);
+
+            System.out.println("LaserCAN configuration failed! " + error);
         }
     }
-        
         
     @Override
     public void updateInputs (EndEffectorIOInputs inputs) {
@@ -81,16 +88,17 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristVoltage = algaeWrist.getAppliedOutput() * algaeWrist.getBusVoltage();
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
 
-        inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
-        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
-        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-            laserDistance = measurement.distance_mm;
-        } else {
-            laserDistance = -1.0;  // Error value
-        }
-        
-        inputs.laserDistance = laserDistance;
+        inputs.coralIntakeBeambreak = coralIntakeBeambreak.get();
 
+        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
+
+        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
+
+            inputs.algaeIntakelaserDistance = measurement.distance_mm;
+        } else {
+
+            inputs.algaeIntakelaserDistance = -1.0;
+        }
     }
 
 
