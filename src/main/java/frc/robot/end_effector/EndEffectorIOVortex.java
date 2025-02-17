@@ -13,7 +13,6 @@ import au.grapplerobotics.interfaces.LaserCanInterface;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
-    
         private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
         private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
         private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
@@ -66,12 +65,12 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWrist.getAppliedOutput() * algaeWrist.getBusVoltage();
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
+
         inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
         inputs.laserDistance = EndEffectorConstants.laserDistance;
 
     }
-   
-    
+
 
     @Override
     public void setCoralIntakeVoltage (double volts) {
