@@ -5,6 +5,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
+// TODO End Effector Simulation
 public class EndEffectorIOSim implements EndEffectorIO {
  
     private final DCMotorSim coralIntake = new DCMotorSim(
