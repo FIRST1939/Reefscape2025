@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
     
-    private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
-    private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
-    private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
-    private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
-    private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
-    private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
-    private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(0); //configure the DIO port for the Beam Break Sensor after the robot is wired.
-    private final LaserCan LaserCan = new LaserCan(0);
+        private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
+        private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
+        private final SparkFlex algaeIntake = new SparkFlex(EndEffectorConstants.algaeIntakeCAN, MotorType.kBrushless);
+        private final RelativeEncoder algaeIntakeEncoder = algaeIntake.getEncoder();
+        private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
+        private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
+        private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(EndEffectorConstants.coralIntakeBeamBreakDIO); 
+        private final static LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.AlgaeIntakeLaserCAN); 
     public EndEffectorIOVortex () {
 
         SparkFlexConfig config = new SparkFlexConfig();
@@ -39,8 +39,16 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntake.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntake.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWrist.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
+        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
+        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
+            EndEffectorConstants.laserDistance = measurement.distance_mm;
+        } else {
+            EndEffectorConstants.laserDistance = -1.0;  // Error value
+        }
 
+        }
+        
+        
     @Override
     public void updateInputs (EndEffectorIOInputs inputs) {
 
@@ -59,16 +67,11 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristVoltage = algaeWrist.getAppliedOutput() * algaeWrist.getBusVoltage();
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
         inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
+        inputs.laserDistance = EndEffectorConstants.laserDistance;
+
     }
    
-    public void periodic() {
-    LaserCan.Measurement measurement = LaserCan.getMeasurement();
-    if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-      System.out.println("The target is " + measurement.distance_mm + "mm away!");
-    } else {
-      System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
-    }
-     }
+    
 
     @Override
     public void setCoralIntakeVoltage (double volts) {

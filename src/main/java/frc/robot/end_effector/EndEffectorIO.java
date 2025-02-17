@@ -20,8 +20,9 @@ public interface EndEffectorIO {
         public double algaeWristVelocity = 0.0;
         public double algaeWristVoltage = 0.0;
         public double algaeWristCurrent = 0.0;
-
+        public double LaserCANOutput = 0.0;
         public boolean coralIntakeBeamBreak = true;
+        public double laserDistance;
 
     }
 
