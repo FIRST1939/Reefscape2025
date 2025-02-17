@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import au.grapplerobotics.interfaces.LaserCanInterface;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -52,14 +53,14 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntake.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntake.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWrist.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
-        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-            laserDistance = measurement.distance_mm;
-        } else {
-            laserDistance = -1.0;  // Error value
+           try {
+        LaserCanSensor.setRangingMode(LaserCan.RangingMode.SHORT);
+        LaserCanSensor.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+        LaserCanSensor.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+        } catch (ConfigurationFailedException error) {
+        System.out.println("LaserCAN configuration failed! " + error);
         }
-
-        }
+    }
         
         
     @Override
@@ -82,6 +83,12 @@ public class EndEffectorIOVortex implements EndEffectorIO {
 
         inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
         inputs.laserDistance = laserDistance;
+        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
+        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
+            laserDistance = measurement.distance_mm;
+        } else {
+            laserDistance = -1.0;  // Error value
+        }
 
     }
 
