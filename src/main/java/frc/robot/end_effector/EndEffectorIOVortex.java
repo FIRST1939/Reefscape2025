@@ -21,28 +21,42 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
         private final DigitalInput coralIntakeBeamBreakDigitalInput = new DigitalInput(EndEffectorConstants.coralIntakeBeamBreakDIO); 
         private final static LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.AlgaeIntakeLaserCAN); 
+        public static double laserDistance = -1.0; //Default measurement indicating no measurement yet
     public EndEffectorIOVortex () {
 
-        SparkFlexConfig config = new SparkFlexConfig();
+        SparkFlexConfig coralIntakeconfig = new SparkFlexConfig();
+        SparkFlexConfig algaeIntakeconfig = new SparkFlexConfig();
+        SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.coralIntakecurrentLimit).voltageCompensation(12.0);
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakecurrentLimit).voltageCompensation(12.0);
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristcurrentLimit).voltageCompensation(12.0);
 
-        config.encoder
+        coralIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.coralIntakecurrentLimit).voltageCompensation(12.0);
+        algaeIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakecurrentLimit).voltageCompensation(12.0);
+        algaeWristconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristcurrentLimit).voltageCompensation(12.0);
+
+        coralIntakeconfig.encoder
+            .positionConversionFactor(2.0 * Math.PI)
+            .velocityConversionFactor((2.0 * Math.PI) / 60.0)
+            .uvwMeasurementPeriod(10)
+            .uvwAverageDepth(2);
+        algaeIntakeconfig.encoder
+            .positionConversionFactor(2.0 * Math.PI)
+            .velocityConversionFactor((2.0 * Math.PI) / 60.0)
+            .uvwMeasurementPeriod(10)
+            .uvwAverageDepth(2);
+        algaeWristconfig.encoder
             .positionConversionFactor(2.0 * Math.PI)
             .velocityConversionFactor((2.0 * Math.PI) / 60.0)
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
 
-        coralIntake.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        algaeIntake.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        algaeWrist.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        coralIntake.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        algaeIntake.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        algaeWrist.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
         if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-            EndEffectorConstants.laserDistance = measurement.distance_mm;
+            laserDistance = measurement.distance_mm;
         } else {
-            EndEffectorConstants.laserDistance = -1.0;  // Error value
+            laserDistance = -1.0;  // Error value
         }
 
         }
@@ -67,7 +81,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
 
         inputs.coralIntakeBeamBreak = coralIntakeBeamBreakDigitalInput.get();
-        inputs.laserDistance = EndEffectorConstants.laserDistance;
+        inputs.laserDistance = laserDistance;
 
     }
 
