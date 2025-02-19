@@ -18,7 +18,7 @@ public interface elevatorIO {
         public double bottomCurrent = 0.0;
     }
 
-    public default void updateInputs (ExampleIOInputs inputs) {}
+    public default void updateInputs (ElevatorIOInputs inputs) {}
     public default void setTopVoltage (double volts) {}
     public default void setBottomVoltage (double volts) {}
     public default void move(double speedpercent){}

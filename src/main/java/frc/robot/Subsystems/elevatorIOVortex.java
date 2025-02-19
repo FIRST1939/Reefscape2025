@@ -13,14 +13,14 @@ public class elevatorIOVortex implements ElevatorIO {
     private final SparkFlex elevatorMotorLeader = new SparkFlex(elevatorConstants.elevatorMotorLeaderID, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoderLeader = elevatorMotorLeader.getEncoder();
 
-    private final SparkFlex elevatorMotorFollower = new SparkFlex(ExampleConstants.bottomCAN, MotorType.kBrushless);
+    private final SparkFlex elevatorMotorFollower = new SparkFlex(ElevatorConstants.bottomCAN, MotorType.kBrushless);
     private final RelativeEncoder elevatorEncoderFollower = elevatorMotorFollower.getEncoder();
 
-    public ExampleIOVortex () {
+    public ElevatorIOVortex () {
 
         SparkFlexConfig config = new SparkFlexConfig();
 
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(ExampleConstants.currentLimit).voltageCompensation(12.0);
+        config.idleMode(IdleMode.kBrake).smartCurrentLimit(ElevatorConstants.currentLimit).voltageCompensation(12.0);
 
         // config.encoder
         //     .positionConversionFactor(2.0 * Math.PI)
@@ -32,7 +32,7 @@ public class elevatorIOVortex implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs (ExampleIOInputs inputs) {
+    public void updateInputs (ElevatorIOInputs inputs) {
 
         inputs.topPosition = elevatorEncoderLeader.getPosition();
         inputs.topVelocity = elevatorEncoderLeader.getVelocity();
