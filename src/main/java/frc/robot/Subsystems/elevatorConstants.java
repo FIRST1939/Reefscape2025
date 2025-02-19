@@ -1,8 +1,8 @@
-package frc.robot;
+package frc.robot.subsystems;
 
-public class elevatorConstants {
+public class ElevatorConstants {
     
-    public static final int elevatorMotorLeaderID = 38;
-    public static final int elevatorMotorFollowerID = 39;
-
+    public static final int leaderCAN = 38; // TODO Elevator Leader CAN ID
+    public static final int followerCAN = 39; // TODO Elevator Follower CAN ID
+    public static final int currentLimit = 40; // TODO Elevator Current Limit
 }

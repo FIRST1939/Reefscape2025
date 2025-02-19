@@ -1,11 +1,11 @@
-package frc.robot;
+package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.AutoLog;
 
-public interface elevatorIO {
+public interface ElevatorIO {
     
     @AutoLog
-    public static class elevatorIOInputs {
+    public static class ElevatorIOInputs {
 
         public double topPosition = 0.0;
         public double topVelocity = 0.0;
@@ -18,7 +18,7 @@ public interface elevatorIO {
         public double bottomCurrent = 0.0;
     }
 
-    public default void updateInputs (ExampleIOInputs inputs) {}
+    public default void updateInputs (ElevatorIOInputs inputs) {}
     public default void setTopVoltage (double volts) {}
     public default void setBottomVoltage (double volts) {}
     public default void move(double speedpercent){}

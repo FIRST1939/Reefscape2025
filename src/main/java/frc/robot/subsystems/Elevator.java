@@ -1,16 +1,15 @@
-package frc.robot;
+package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class elevatorSubsystem extends SubsystemBase {
+public class Elevator extends SubsystemBase {
     
-    private final elevatorIO io;
-    private final elevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+    private final ElevatorIO io;
+    private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
-    public Elevator (elevatorIO io) {
+    public Elevator (ElevatorIO io) {
 
         this.io = io;
     }
