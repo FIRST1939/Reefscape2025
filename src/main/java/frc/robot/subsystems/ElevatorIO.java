@@ -19,3 +19,13 @@ public interface ElevatorIO {
 
   
     public default void move(double volts){}
+
+
+    public void setLeaderVoltage(double leaderVolts);
+
+
+    public void setFollowerVoltage(double followerVolts);
+
+
+    public void updateInputs(ElevatorIOInputsAutoLogged inputs);
+}

@@ -15,15 +15,17 @@ public class ElevatorIOVortex implements ElevatorIO {
     public ElevatorIOVortex () {
 
         SparkFlexConfig config = new SparkFlexConfig();
+        SparkFlexConfig followerConfig = new SparkFlexConfig();
+
 
         config.idleMode(IdleMode.kBrake).smartCurrentLimit(ElevatorConstants.currentLimit).voltageCompensation(12.0);
-        config.setReversed(false)
+        config.inverted(false);
+        followerConfig.follow(ElevatorConstants.leaderCAN);
         elevatorMotorLeader.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_elevatorMotorFollower.follow(m_elevatorMotorLeader);
         }
 
-    @Override
-    public void updateInputs (ElevatorIOInputs inputs) {
+    //@Override
+    public void updateInputs(ElevatorIOInputs inputs) {
 
         inputs.leaderVoltage = elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage();
         inputs.leaderCurrent = elevatorMotorLeader.getOutputCurrent();
@@ -35,7 +37,23 @@ public class ElevatorIOVortex implements ElevatorIO {
     @Override
     public void move (double volts) {
 
-        elevatorMotorLeader.setVoltage(volts);
-        elevatorMotorFollower.setVoltage(-volts);
+    }
+
+    @Override
+    public void setLeaderVoltage(double leaderVolts) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setLeaderVoltage'");
+    }
+
+    @Override
+    public void setFollowerVoltage(double followerVolts) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setFollowerVoltage'");
+    }
+
+    @Override
+    public void updateInputs(ElevatorIOInputsAutoLogged inputs) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateInputs'");
     }
 }

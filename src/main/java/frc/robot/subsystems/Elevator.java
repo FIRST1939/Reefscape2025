@@ -1,5 +1,4 @@
-package frc.ro
-.subsystems;
+package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -18,7 +17,6 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic () {
 
-        io.updateInputs(inputs);
         Logger.processInputs("Elevator", inputs);
     }
 
