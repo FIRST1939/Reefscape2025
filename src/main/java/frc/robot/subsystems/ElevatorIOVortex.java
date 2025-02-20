@@ -17,19 +17,19 @@ public class ElevatorIOVortex implements ElevatorIO {
         SparkFlexConfig config = new SparkFlexConfig();
 
         config.idleMode(IdleMode.kBrake).smartCurrentLimit(ElevatorConstants.currentLimit).voltageCompensation(12.0);
-
+        config.setReversed(false)
         elevatorMotorLeader.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        elevatorMotorFollower.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
+        m_elevatorMotorFollower.follow(m_elevatorMotorLeader);
+        }
 
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
 
-        inputs.topVoltage = elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage();
-        inputs.topCurrent = elevatorMotorLeader.getOutputCurrent();
+        inputs.leaderVoltage = elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage();
+        inputs.leaderCurrent = elevatorMotorLeader.getOutputCurrent();
 
-        inputs.bottomVoltage = elevatorMotorFollower.getAppliedOutput() * elevatorMotorFollower.getBusVoltage();
-        inputs.bottomCurrent = elevatorMotorFollower.getOutputCurrent();
+        inputs.followerVoltage = elevatorMotorFollower.getAppliedOutput() * elevatorMotorFollower.getBusVoltage();
+        inputs.followerCurrent = elevatorMotorFollower.getOutputCurrent();
     }
 
     @Override

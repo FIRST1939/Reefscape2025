@@ -7,19 +7,15 @@ public interface ElevatorIO {
     @AutoLog
     public static class ElevatorIOInputs {
 
-        public double topPosition = 0.0;
-        public double topVelocity = 0.0;
-        public double topVoltage = 0.0;
-        public double topCurrent = 0.0;
+        public double elevatorPosition = 0.0;
+        public double elevatorVelocity = 0.0;
+        public double leaderVoltage = 0.0;
+        public double leaderCurrent = 0.0;
 
-        public double bottomPosition = 0.0;
-        public double bottomVelocity = 0.0;
-        public double bottomVoltage = 0.0;
-        public double bottomCurrent = 0.0;
+    
+        public double followerVoltage = 0.0;
+        public double followerCurrent = 0.0;
     }
 
-    public default void updateInputs (ElevatorIOInputs inputs) {}
-    public default void setTopVoltage (double volts) {}
-    public default void setBottomVoltage (double volts) {}
-    public default void move(double speedpercent){}
-}
+  
+    public default void move(double volts){}

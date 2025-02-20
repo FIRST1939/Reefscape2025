@@ -1,4 +1,5 @@
-package frc.robot.subsystems;
+package frc.ro
+.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -21,9 +22,9 @@ public class Elevator extends SubsystemBase {
         Logger.processInputs("Elevator", inputs);
     }
 
-    public void runVoltage (double topVolts, double bottomVolts) {
+    public void runVoltage (double leaderVolts, double followerVolts) {
 
-        io.setTopVoltage(topVolts);
-        io.setBottomVoltage(bottomVolts);
+        io.setLeaderVoltage(leaderVolts);
+        io.setFollowerVoltage(followerVolts);
     }
 }
