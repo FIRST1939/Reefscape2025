@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.638322368421052,
-        "y": 4.025
+        "x": 5.782648026315789,
+        "y": 4.015378289473684
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.638322368421052,
-        "y": 4.025
+        "x": 6.782648026315787,
+        "y": 4.015378289473684
       },
       "isLocked": false,
-      "linkedName": "AHG"
+      "linkedName": "AHGNew"
     },
     {
       "anchor": {
-        "x": 8.04375,
-        "y": 4.025
+        "x": 7.841694078947367,
+        "y": 5.477878289473683
       },
       "prevControl": {
-        "x": 7.043749999999999,
-        "y": 4.025
+        "x": 8.36126644736842,
+        "y": 5.381661184210526
+      },
+      "nextControl": {
+        "x": 7.216632935543914,
+        "y": 5.593630353066914
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.089884868421052,
+        "y": 5.150740131578948
+      },
+      "prevControl": {
+        "x": 5.561348684210526,
+        "y": 6.305345394736841
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CF"
+      "linkedName": "AJI"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.39049342332478
+    "rotation": -114.51964268819074
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -178.492564241225
   },
   "useDefaultConstraints": true
 }

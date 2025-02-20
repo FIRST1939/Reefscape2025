@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.003289473684211,
-        "y": 5.035279605263158
+        "x": 5.089884868421052,
+        "y": 5.150740131578948
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.003289473684211,
-        "y": 5.035279605263158
+        "x": 5.893744089862511,
+        "y": 6.543065145248316
       },
       "isLocked": false,
-      "linkedName": "aji"
+      "linkedName": "AJI"
     },
     {
       "anchor": {
-        "x": 8.04375,
-        "y": 4.025
+        "x": 7.745476973684211,
+        "y": 5.910855263157895
       },
       "prevControl": {
-        "x": 7.043749999999999,
-        "y": 4.025
+        "x": 6.638609603538038,
+        "y": 5.9495079234487065
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CF"
+      "linkedName": "AJI_RFNEWENDPOINT"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.39049342332478
+    "rotation": 0.47745377730954935
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -117.96984322711296
+    "rotation": -114.51964268819074
   },
   "useDefaultConstraints": true
 }
