@@ -15,6 +15,8 @@ public interface ElevatorIO {
     
         public double followerVoltage = 0.0;
         public double followerCurrent = 0.0;
+        public double elevatorlaserDistance = 0.0;
+
     }
 
   
