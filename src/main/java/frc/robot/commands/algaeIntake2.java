@@ -2,9 +2,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class ElevatorMove extends Command{
+public class algaeIntake2 extends Command{
 
-    public ElevatorMove(double elevatormanualupspeed) {
+    public algaeIntake2(double algaeintakespeed) {
         //TODO Auto-generated constructor stub
     }
     

@@ -18,15 +18,15 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    this.driverTwo.leftBumper().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight));
-    this.driverTwo.leftTrigger().whileTrue(new AlgaeOuttake(SetPointConstants.algaeOuttakeSpeed));
-    this.driverTwo.rightTrigger().whileTrue(new AlgaeIntake(SetPointConstants.algaeIntakeSpeed));
-    this.driverTwo.a().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL1));
-    this.driverTwo.b().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL2));
-    this.driverTwo.x().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL3));
-    this.driverTwo.y().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL4));
-    this.driverTwo.povUp().whileTrue(new ElevatorMove(SetPointConstants.elevatorManualUpSpeed));
-    this.driverTwo.povDown().whileTrue(new ElevatorMove(SetPointConstants.elevatorManualDownSpeed));
+    this.driverTwo.leftBumper().whileTrue(new elevatorMoveToHeight2(SetPointConstants.coralIntakeHeight));
+    this.driverTwo.leftTrigger().whileTrue(new algaeOuttake2(SetPointConstants.algaeOuttakeSpeed));
+    this.driverTwo.rightTrigger().whileTrue(new algaeIntake2(SetPointConstants.algaeIntakeSpeed));
+    this.driverTwo.a().whileTrue(new elevatorMoveToHeight2(SetPointConstants.coralOuttakeHeightL1));
+    this.driverTwo.b().whileTrue(new elevatorMoveToHeight2(SetPointConstants.coralOuttakeHeightL2));
+    this.driverTwo.x().whileTrue(new elevatorMoveToHeight2(SetPointConstants.coralOuttakeHeightL3));
+    this.driverTwo.y().whileTrue(new elevatorMoveToHeight2(SetPointConstants.coralOuttakeHeightL4));
+    this.driverTwo.povUp().whileTrue(new elevatorMove2(SetPointConstants.elevatorManualUpSpeed));
+    this.driverTwo.povDown().whileTrue(new elevatorMove2(SetPointConstants.elevatorManualDownSpeed));
   }
 
   public Command getAutonomousCommand() {
