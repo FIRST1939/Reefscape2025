@@ -20,7 +20,7 @@ public interface ElevatorIO {
     }
 
   
-    public default void move(double volts){}
+    public  void move(double volts);
 
 
     public void setLeaderVoltage(double leaderVolts);
