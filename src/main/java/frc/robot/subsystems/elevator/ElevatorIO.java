@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.elevator;
 
 import org.littletonrobotics.junction.AutoLog;
 
@@ -15,19 +15,8 @@ public interface ElevatorIO {
     
         public double followerVoltage = 0.0;
         public double followerCurrent = 0.0;
-        public double elevatorlaserDistance = 0.0;
-
     }
 
-  
-    public  void move(double volts);
-
-
-    public void setLeaderVoltage(double leaderVolts);
-
-
-    public void setFollowerVoltage(double followerVolts);
-
-
-    public void updateInputs(ElevatorIOInputsAutoLogged inputs);
+    public default void updateInputs (ElevatorIOInputs inputs) {}
+    public default void move (double volts) {}
 }

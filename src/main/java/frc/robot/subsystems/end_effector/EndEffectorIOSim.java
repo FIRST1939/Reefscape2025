@@ -1,4 +1,4 @@
-package frc.robot.end_effector;
+package frc.robot.subsystems.end_effector;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.system.plant.DCMotor;
