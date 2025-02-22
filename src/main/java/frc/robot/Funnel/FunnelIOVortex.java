@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.Funnel;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -7,11 +7,11 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.CANSparkFlex; 
+// import com.revrobotics.CANSparkFlex; 
 
-import au.grapplerobotics.ConfigurationFailedException;
-import au.grapplerobotics.LaserCan;
-import au.grapplerobotics.interfaces.LaserCanInterface;
+// import au.grapplerobotics.ConfigurationFailedException;
+// import au.grapplerobotics.LaserCan;
+// import au.grapplerobotics.interfaces.LaserCanInterface;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 
