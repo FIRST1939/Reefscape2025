@@ -18,7 +18,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    this.driverTwo.leftBumper().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight));
+    this.driverTwo.leftBumper().whileTrue(new CoralLoad());
     this.driverTwo.leftTrigger().whileTrue(new AlgaeOuttake(SetPointConstants.algaeOuttakeSpeed));
     this.driverTwo.rightTrigger().whileTrue(new AlgaeIntake(SetPointConstants.algaeIntakeSpeed));
     this.driverTwo.a().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL1));
