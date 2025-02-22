@@ -68,24 +68,30 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void move (double volts) {
-
+        elevatorMotorLeader.setVoltage(volts);
+        elevatorMotorFollower.setVoltage(-volts);
     }
 
     @Override
     public void setLeaderVoltage(double leaderVolts) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setLeaderVoltage'");
+      elevatorMotorLeader.setVoltage(leaderVolts);
     }
 
     @Override
     public void setFollowerVoltage(double followerVolts) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFollowerVoltage'");
+      
+        elevatorMotorFollower.setVoltage(followerVolts);
     }
 
     @Override
     public void updateInputs(ElevatorIOInputsAutoLogged inputs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateInputs'");
+        
+        inputs.elevatorPosition = 0.0;
+        inputs.elevatorVelocity = 0.0;
+        inputs.leaderVoltage = elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage();
+        inputs.leaderCurrent = elevatorMotorLeader.getOutputCurrent();
+        inputs.followerVoltage = elevatorMotorFollower.getAppliedOutput() * elevatorMotorFollower.getBusVoltage();
+        inputs.followerCurrent = elevatorMotorFollower.getOutputCurrent();
+        inputs.elevatorlaserDistance = 0.0;
     }
 }

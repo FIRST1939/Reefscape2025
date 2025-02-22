@@ -1,21 +1,12 @@
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
 public class ElevatorIOSim implements ElevatorIO {
  
-    private final DCMotorSim topRoller = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
-        DCMotor.getNeoVortex(1)
-    );
-
-    private final DCMotorSim bottomRoller = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
-        DCMotor.getNeoVortex(1)
-    );
+   
     
     
     private final DCMotorSim elevatorMotorLeader = new DCMotorSim(
@@ -29,19 +20,19 @@ public class ElevatorIOSim implements ElevatorIO {
     ); //TODO Update sim constants
     //private final LaserCan LaserCanSensor = new LaserCan(ElevatorConstants.elevatorLaserCAN);
 
-    private double topAppliedVolts = 0.0;
-    private double bottomAppliedVolts = 0.0;
+    private double leaderAppliedVolts = 0.0;
+    private double followerAppliedVolts = 0.0;
 
     @Override
     
     public void updateInputs(ElevatorIOInputsAutoLogged inputs) {
 
 
-        topRoller.setInputVoltage(topAppliedVolts);
-        topRoller.update(0.02);
+        elevatorMotorLeader.setInputVoltage(leaderAppliedVolts);
+        elevatorMotorLeader.update(0.02);
         
-        bottomRoller.setInputVoltage(bottomAppliedVolts);
-        bottomRoller.update(0.02);
+        elevatorMotorFollower.setInputVoltage(followerAppliedVolts);
+        elevatorMotorFollower.update(0.02);
         inputs.elevatorPosition = 0.0;
         inputs.elevatorVelocity = 0.0;
         inputs.leaderVoltage = 0.0;
