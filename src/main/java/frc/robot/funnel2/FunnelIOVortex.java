@@ -1,4 +1,4 @@
-package frc.robot.Funnel;
+package frc.robot.funnel2;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;

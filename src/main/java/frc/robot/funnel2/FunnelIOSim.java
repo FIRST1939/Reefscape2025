@@ -1,4 +1,4 @@
-package frc.robot.Funnel;
+package frc.robot.funnel2;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;

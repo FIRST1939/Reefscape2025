@@ -1,4 +1,4 @@
-package frc.robot.Funnel;
+package frc.robot.funnel2;
  // Should change is later
 
 public class FunnelConstants {
