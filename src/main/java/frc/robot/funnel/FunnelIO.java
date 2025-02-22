@@ -16,6 +16,6 @@ public interface FunnelIO {
 
     }
 
-    public default void updateInputs (FunnelIOInputs inputs);
-    public default void setFunnelVoltage (double volts);
+    public default void updateInputs (FunnelIOInputs inputs) {}
+    public default void setFunnelVoltage (double volts) {}
 }
