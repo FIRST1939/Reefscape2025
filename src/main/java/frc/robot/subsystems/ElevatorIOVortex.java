@@ -11,8 +11,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import au.grapplerobotics.interfaces.LaserCanInterface;
-import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.end_effector.EndEffectorConstants;
+
 
 
 public class ElevatorIOVortex implements ElevatorIO {
