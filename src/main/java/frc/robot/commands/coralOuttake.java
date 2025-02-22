@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
-public class coralOuttake {
+import edu.wpi.first.wpilibj2.command.Command;
+
+public class CoralOuttake extends Command{
     
 }

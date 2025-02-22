@@ -1,5 +1,12 @@
 package frc.robot.commands;
 
-public class algaeOuttake {
+import edu.wpi.first.wpilibj2.command.Command;
+
+public class AlgaeOuttake extends Command{
+
+    public AlgaeOuttake(double algaeouttakespeed) {
+        //TODO Auto-generated constructor stub
+    }
+
     
 }
