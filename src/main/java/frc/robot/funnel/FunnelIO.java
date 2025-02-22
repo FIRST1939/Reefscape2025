@@ -1,4 +1,4 @@
-package frc.robot.funnel2;
+package frc.robot.funnel;
 
 import org.littletonrobotics.junction.AutoLog;
 
