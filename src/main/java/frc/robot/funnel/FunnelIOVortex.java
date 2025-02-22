@@ -7,21 +7,15 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-// import com.revrobotics.CANSparkFlex; 
 
-// import au.grapplerobotics.ConfigurationFailedException;
-// import au.grapplerobotics.LaserCan;
-// import au.grapplerobotics.interfaces.LaserCanInterface;
 import edu.wpi.first.wpilibj.DigitalInput;
-
 
 public class FunnelIOVortex implements FunnelIO {
     
     private final SparkFlex funnel = new SparkFlex(FunnelConstants.funnelCAN, MotorType.kBrushless);
     private final RelativeEncoder funnelEncoder = funnel.getEncoder();
 
-    private final DigitalInput funnelBeambreak = new DigitalInput(FunnelConstants.funnelBeambreakDIO); 
-    // private final LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.algaeIntakeLaserCAN);
+    private final DigitalInput funnelBeambreak = new DigitalInput(FunnelConstants.funnelBeambreakDIO);
 
     public FunnelIOVortex () {
 
@@ -45,12 +39,13 @@ public class FunnelIOVortex implements FunnelIO {
         inputs.funnelVelocity = funnelEncoder.getVelocity();
         inputs.funnelVoltage = funnel.getAppliedOutput() * funnel.getBusVoltage();
         inputs.funnelCurrent = funnel.getOutputCurrent();
-        inputs.funnelBeambreak = funnelBeambreak.get();
 
+        inputs.funnelBeambreak = funnelBeambreak.get();
     }
 
     @Override
-        public void setFunnelVoltage(double volts) {
+    public void setFunnelVoltage (double volts) {
+
         funnel.setVoltage(volts);
     }
 }
