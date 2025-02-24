@@ -6,15 +6,36 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.Drive;
+import frc.robot.subsystems.Swerve;
 
 public class RobotContainer {
-  public RobotContainer() {
-    configureBindings();
-  }
 
-  private void configureBindings() {}
+    private final CommandXboxController driver = new CommandXboxController(0);
+    private final CommandXboxController operator = new CommandXboxController(1);
 
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-  }
+    private final Swerve swerve = new Swerve();
+
+    public RobotContainer () {
+
+        configureBindings();
+    }
+
+    private void configureBindings () {
+
+        this.swerve.setDefaultCommand(
+            new Drive(
+                swerve, 
+                () -> -driver.getLeftY(), 
+                () -> -driver.getLeftX(), 
+                () -> driver.getRightX()
+            )
+        );
+    }
+
+    public Command getAutonomousCommand () {
+
+        return Commands.print("No autonomous command configured");
+    }
 }
