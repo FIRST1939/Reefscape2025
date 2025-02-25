@@ -1,6 +1,7 @@
 package frc.robot.end_effector;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.end_effector.EndEffectorIOInputsAutoLogged;
 
 public class EndEffector extends SubsystemBase {
     
