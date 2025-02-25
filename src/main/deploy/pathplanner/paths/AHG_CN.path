@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.745476973684211,
-        "y": 5.910855263157895
+        "x": 5.812007941136094,
+        "y": 4.009589947329737
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.745498614255957,
-        "y": 5.917434068154134
+        "x": 6.812007941136092,
+        "y": 4.009589947329737
       },
       "isLocked": false,
-      "linkedName": "AJI_RFNEWENDPOINT"
+      "linkedName": "AHGNew"
     },
     {
       "anchor": {
-        "x": 5.234210526315789,
-        "y": 2.899259868421052
+        "x": 7.745476973684211,
+        "y": 5.910855263157895
       },
       "prevControl": {
-        "x": 5.992466027578383,
-        "y": 1.585922815115632
+        "x": 6.745476973684211,
+        "y": 5.910855263157895
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AEFNEW"
+      "linkedName": "CN"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 122.38067770656916
+    "rotation": 0.47745377730954935
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.47745377730954935
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

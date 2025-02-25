@@ -19,25 +19,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AHG_RF"
+            "pathName": "AHG_CN"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RF_AJI"
+            "pathName": "CN_AJI"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "AJI_RF"
+            "pathName": "AJI_TN"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RF_AEF"
+            "pathName": "TN_AEF"
           }
         },
         {
