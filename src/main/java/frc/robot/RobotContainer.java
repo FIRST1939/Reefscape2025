@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.Drive;
+import frc.robot.commands.ConfirmAlliance;
+import frc.robot.commands.swerve.Drive;
+import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.Swerve;
 
 public class RobotContainer {
@@ -20,6 +22,8 @@ public class RobotContainer {
     public RobotContainer () {
 
         configureBindings();
+
+        new ConfirmAlliance().andThen(new ZeroGyro(this.swerve)).schedule();
     }
 
     private void configureBindings () {

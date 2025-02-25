@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.io.File;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -9,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
+import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
@@ -35,6 +37,8 @@ public class Swerve extends SubsystemBase {
         this.swerveDrive.setAngularVelocityCompensation(true, true, 0.1); // TODO Swerve Angular Velocity Compensation
         this.swerveDrive.setModuleEncoderAutoSynchronize(false, 0);
 
+        this.configureFeedforwards();
+
         // TODO Setup PathPlanner
         // TODO Setup Vision (Override Odometry Periodic Update)
     }
@@ -46,7 +50,13 @@ public class Swerve extends SubsystemBase {
 
     private void configureFeedforwards () {
 
-        // TODO Configure Swerve Feedforwards
+        SwerveModule[] modules = this.swerveDrive.getModules();
+        SimpleMotorFeedforward[] feedforwards = SwerveConstants.MODULE_FEEDFORWARDS;
+
+        for (int i = 0; i < 4; i++) {
+
+            modules[i].setFeedforward(feedforwards[i]);
+        }
     }
 
     public Pose2d getPose () {
@@ -65,7 +75,6 @@ public class Swerve extends SubsystemBase {
         return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
     }
 
-    // TODO Zero Gyro at Startup
     public void zeroGyro () {
 
         if (this.isRedAlliance()) {
