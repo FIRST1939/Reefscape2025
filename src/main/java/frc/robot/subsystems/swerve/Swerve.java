@@ -4,6 +4,10 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -31,6 +35,7 @@ public class Swerve extends SubsystemBase {
 
         try {
 
+            // TODO Swerve Configuration
             File configuration = new File(Filesystem.getDeployDirectory(), "swerve");
             this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
         } catch (Exception e) {
@@ -48,14 +53,34 @@ public class Swerve extends SubsystemBase {
         this.configureFeedforwards();
         this.swerveDrive.stopOdometryThread();
 
-        // TODO Setup PathPlanner
+        // TODO PathPlanner Holonomic Controller
+        AutoBuilder.configure(
+            this::getPose,
+            this::resetOdometry,
+            this::getRobotVelocity,
+            (robotRelativeSpeeds, moduleFeedforwards) -> {
+
+                this.swerveDrive.drive(
+                    robotRelativeSpeeds,
+                    this.swerveDrive.kinematics.toSwerveModuleStates(robotRelativeSpeeds),
+                    moduleFeedforwards.linearForces()
+                );
+            },
+            new PPHolonomicDriveController(
+                new PIDConstants(5.0, 0.0, 0.0),
+                new PIDConstants(5.0, 0.0, 0.0)
+            ),
+            SwerveConstants.ROBOT_CONFIG,
+            this::isRedAlliance,
+            this
+        );
     }
 
     @Override
     public void periodic () {
 
         this.swerveDrive.updateOdometry();
-        
+
         this.vision.updatePoseEstimation(
             this.swerveDrive.getYaw().getDegrees(), 
             this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
@@ -81,6 +106,11 @@ public class Swerve extends SubsystemBase {
     public Pose2d getPose () {
 
         return this.swerveDrive.getPose();
+    }
+
+    public ChassisSpeeds getRobotVelocity () {
+
+        return this.swerveDrive.getRobotVelocity();
     }
 
     public void addVisionMeasurement (Pose2d pose, double timestamp, Matrix<N3, N1> standardDeviations) {

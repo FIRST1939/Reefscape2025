@@ -4,19 +4,29 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.pathfinding.Pathfinding;
+
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends TimedRobot {
-    private Command m_autonomousCommand;
-
-    private final RobotContainer m_robotContainer;
+    
+    private final RobotContainer robotContainer;
+    private final SendableChooser<Command> autoSelector;
+    private Command autoCommand;
 
     public Robot () {
 
-        m_robotContainer = new RobotContainer();
+        robotContainer = new RobotContainer();
+        autoSelector = AutoBuilder.buildAutoChooser();
+
+        SmartDashboard.putData("Auto Selector", autoSelector);
     }
 
     @Override
@@ -28,6 +38,8 @@ public class Robot extends TimedRobot {
             PortForwarder.add(port, "limelight-left.local", port);
             PortForwarder.add(port + 10, "limelight-right.local", port);
         }
+
+        Pathfinding.setPathfinder(new LocalADStarAK());
     }
 
     @Override
@@ -48,11 +60,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit () {
 
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        autoCommand = autoSelector.getSelected();
 
-        if (m_autonomousCommand != null) {
+        if (autoCommand != null) {
 
-            m_autonomousCommand.schedule();
+            autoCommand.schedule();
         }
     }
 
@@ -65,9 +77,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit () {
 
-        if (m_autonomousCommand != null) {
+        if (autoCommand != null) {
 
-            m_autonomousCommand.cancel();
+            autoCommand.cancel();
         }
     }
 
