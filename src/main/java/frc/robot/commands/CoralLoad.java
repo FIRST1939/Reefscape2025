@@ -9,6 +9,6 @@ public class CoralLoad extends SequentialCommandGroup{
     {
         this.addCommands(
             (new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight)
-            .andThen(new CoralIntake()).alongWith(new FunnelIntake())));    
+            .andThen(new CoralIntake(0)).alongWith(new FunnelIntake())));    
     }
 }
