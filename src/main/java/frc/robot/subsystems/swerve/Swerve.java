@@ -1,11 +1,16 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.swerve;
+
+import static edu.wpi.first.units.Units.DegreesPerSecond;
 
 import java.io.File;
 
+import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +23,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class Swerve extends SubsystemBase {
     
     private final SwerveDrive swerveDrive;
+    private final Vision vision;
 
     public Swerve () {
 
@@ -32,15 +38,28 @@ public class Swerve extends SubsystemBase {
             throw new RuntimeException(e);
         }
 
+        this.vision = new Vision(this);
+
         this.swerveDrive.setHeadingCorrection(false); // TODO Swerve Heading Control
         this.swerveDrive.setCosineCompensator(false); // TODO Disable Swerve Cosine Compensation for Simulation
         this.swerveDrive.setAngularVelocityCompensation(true, true, 0.1); // TODO Swerve Angular Velocity Compensation
         this.swerveDrive.setModuleEncoderAutoSynchronize(false, 0);
 
         this.configureFeedforwards();
+        this.swerveDrive.stopOdometryThread();
 
         // TODO Setup PathPlanner
-        // TODO Setup Vision (Override Odometry Periodic Update)
+    }
+
+    @Override
+    public void periodic () {
+
+        this.swerveDrive.updateOdometry();
+        
+        this.vision.updatePoseEstimation(
+            this.swerveDrive.getYaw().getDegrees(), 
+            this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+        );
     }
 
     public SwerveDrive getSwerveDrive () {
@@ -62,6 +81,11 @@ public class Swerve extends SubsystemBase {
     public Pose2d getPose () {
 
         return this.swerveDrive.getPose();
+    }
+
+    public void addVisionMeasurement (Pose2d pose, double timestamp, Matrix<N3, N1> standardDeviations) {
+
+        this.swerveDrive.addVisionMeasurement(pose, timestamp, standardDeviations);
     }
 
     public void resetOdometry (Pose2d initialPose) {
