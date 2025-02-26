@@ -8,18 +8,17 @@ import frc.robot.subsystems.elevator.Elevator;
 
 public class ElevatorMove extends Command{
     private Elevator elevator;
-    private DoubleSupplier elevatorManualUpSpeed;
+    private double elevatorManualUpSpeed;
 
-    public ElevatorMove(DoubleSupplier elevatormanualupspeed, Elevator elevator) {
+    public ElevatorMove(double elevatormanualupspeed) {
         //TODO Auto-generated constructor stub
         //elevator.move(elevatorManualUpSpeed)
-        this.elevator=elevator;
         this.addRequirements(elevator);
     }
 
     @Override
 public void initialize () 
 {
-    elevator.runVoltage(elevatorManualUpSpeed.getAsDouble());
+    elevator.runVoltage(elevatorManualUpSpeed);
 }
 }

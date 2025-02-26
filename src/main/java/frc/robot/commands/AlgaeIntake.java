@@ -1,7 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.end_effector.EndEffector;
+import frc.robot.subsystems.end_effector.EndEffector;
+
 
 public class AlgaeIntake extends Command{
 

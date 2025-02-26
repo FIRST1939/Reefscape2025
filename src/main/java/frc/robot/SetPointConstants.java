@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
 public class SetPointConstants {
     public static final double coralIntakeHeight = 0.0;
     public static final double coralOuttakeHeightL1 = 0.0;

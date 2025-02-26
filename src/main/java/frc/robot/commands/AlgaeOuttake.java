@@ -6,20 +6,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.end_effector.EndEffector;
 public class AlgaeOuttake extends Command{
     private EndEffector endEffector;
-    private DoubleSupplier algaeouttakespeedSupplier;
+    private Double algaeouttakespeedSupplier;
     public AlgaeOuttake(EndEffector endEffector, DoubleSupplier algaeouttakespeed) {
         this.endEffector=endEffector;
-        this.addRequirements(endEffector);
     }
-
-public AlgaeOuttake(double algaeouttakespeed) {
         //TODO Auto-generated constructor stub
-    }
 
 @Override
-public void initialize () 
+public void initialize ()
 {
-    endEffector.runVoltage(0,algaeouttakespeedSupplier.getAsDouble(),0);
+    execute();
+    endEffector.runVoltage(0,algaeouttakespeedSupplier,0);
 }
 
     
