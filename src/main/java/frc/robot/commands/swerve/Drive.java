@@ -17,11 +17,12 @@ public class Drive extends Command {
 
         this.swerve = swerve;
 
-        // TODO Swerve Input Scaling
         // TODO Swerve Input Simulation 
         this.driverInputStream = SwerveInputStream.of(this.swerve.getSwerveDrive(), vx, vy)
             .withControllerRotationAxis(omega)
-            .deadband(ControllerConstants.SWERVE_TRANSLATION_DEADBAND)
+            .deadband(ControllerConstants.SWERVE_DEADBAND)
+            .scaleTranslation(ControllerConstants.SWERVE_TRANSLATION_SCALING)
+            .cubeTranslationControllerAxis(true)
             .allianceRelativeControl(true);
 
         this.activeInputStream = driverInputStream;

@@ -17,16 +17,15 @@ import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends TimedRobot {
     
-    private final RobotContainer robotContainer;
     private final SendableChooser<Command> autoSelector;
     private Command autoCommand;
 
     public Robot () {
 
-        robotContainer = new RobotContainer();
-        autoSelector = AutoBuilder.buildAutoChooser();
+        new RobotContainer();
+        this.autoSelector = AutoBuilder.buildAutoChooser();
 
-        SmartDashboard.putData("Auto Selector", autoSelector);
+        SmartDashboard.putData("Auto Selector", this.autoSelector);
     }
 
     @Override
@@ -60,11 +59,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit () {
 
-        autoCommand = autoSelector.getSelected();
+        this.autoCommand = this.autoSelector.getSelected();
 
-        if (autoCommand != null) {
+        if (this.autoCommand != null) {
 
-            autoCommand.schedule();
+            this.autoCommand.schedule();
         }
     }
 
@@ -77,9 +76,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit () {
 
-        if (autoCommand != null) {
+        if (this.autoCommand != null) {
 
-            autoCommand.cancel();
+            this.autoCommand.cancel();
         }
     }
 
