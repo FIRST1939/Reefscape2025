@@ -2,11 +2,12 @@ package frc.robot.funnel;
 
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.funnel.FunnelIO.FunnelIOInputs;
 
 public class Funnel extends SubsystemBase { 
 
     private final FunnelIO io;
-    private final FunnelIOInputsAutoLogged inputs = new FunnelIOInputsAutoLogged();
+    private final FunnelIOInputs inputs = new FunnelIOInputsAutoLogged();
 
     public Funnel (FunnelIO io) {
 
