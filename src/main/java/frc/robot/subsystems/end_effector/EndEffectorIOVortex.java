@@ -1,4 +1,4 @@
-package frc.robot.end_effector;
+package frc.robot.subsystems.end_effector;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
