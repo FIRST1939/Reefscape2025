@@ -1,23 +1,21 @@
 package frc.robot.commands;
-
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.Elevator;
 
 
 public class ElevatorMove extends Command{
+   
     private Elevator elevator;
+   
     private double elevatorManualUpSpeed;
 
     public ElevatorMove(double elevatormanualupspeed) {
-        //TODO Auto-generated constructor stub
-        //elevator.move(elevatorManualUpSpeed)
-        this.addRequirements(elevator);
+        
+        this.addRequirements(this.elevator);
     }
 
     @Override
-public void initialize () 
+    public void execute () 
 {
     elevator.runVoltage(elevatorManualUpSpeed);
 }

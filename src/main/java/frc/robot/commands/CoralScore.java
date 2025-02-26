@@ -1,13 +1,16 @@
 package frc.robot.commands;
-
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.SetPointConstants;
+import frc.robot.subsystems.end_effector.EndEffector;
 
 public class CoralScore extends SequentialCommandGroup{
-    public CoralScore()
+
+    public CoralScore(EndEffector endEffector)
     {
-        this.addCommands(new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight), andThen(new CoralIntake(0)),
-        alongWith(new FunnelIntake()));    
+        this.addCommands(
+            new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight),
+            new CoralIntake(endEffector, 0),
+            new FunnelIntake(endEffector, 0)
+        );    
     }
 }
