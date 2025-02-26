@@ -22,15 +22,14 @@ public class SwerveConstants {
         new SimpleMotorFeedforward(0.0, 0.0)
     };
 
-    // TODO Limelight Positions
     public static final Pose3d LEFT_LIMELIGHT_POSITION = new Pose3d(
-        new Translation3d(0.199548, -0.278274, 0.495475), 
-        new Rotation3d(0.0, 25.584974, 9.885544)
+        new Translation3d(0.199254, -0.278278, 0.495475), 
+        new Rotation3d(0.0, -27.0, -20.0)
     );
 
     public static final Pose3d RIGHT_LIMELIGHT_POSITION = new Pose3d(
-        new Translation3d(0.200643, 0.276554, 0.492158), 
-        new Rotation3d(0.0, 25.584974, 9.885544)
+        new Translation3d(0.200349, 0.276550, 0.492158), 
+        new Rotation3d(0.0, -27.0, 20.0)
     );
 
     // TODO PathPlanner Robot Configuration
