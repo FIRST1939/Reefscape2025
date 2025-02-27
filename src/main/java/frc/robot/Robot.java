@@ -44,7 +44,7 @@ public class Robot extends LoggedRobot {
 
     Logger.start();
 
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer(isReal());
   }
 
   @Override

@@ -7,13 +7,38 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.*;
+import frc.robot.funnel.Funnel;
+import frc.robot.funnel.FunnelIOSim;
+import frc.robot.funnel.FunnelIOVortex;
+import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.ElevatorIOSim;
+import frc.robot.subsystems.elevator.ElevatorIOVortex;
+import frc.robot.subsystems.end_effector.EndEffector;
+import frc.robot.subsystems.end_effector.EndEffectorIOSim;
+import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 
 public class RobotContainer {
   final CommandXboxController driverOne = new CommandXboxController(0);
   final CommandXboxController driverTwo = new CommandXboxController(0);
 
-  public RobotContainer() {
+  private final EndEffector endEffector;
+  private final Elevator elevator;
+  private final Funnel funnel;
+
+  public RobotContainer (boolean isReal) {
     
+    if (isReal) {
+
+        this.endEffector = new EndEffector(new EndEffectorIOVortex());
+        this.elevator = new Elevator(new ElevatorIOVortex());
+        this.funnel = new Funnel(new FunnelIOVortex());
+    } else {
+
+        this.endEffector = new EndEffector(new EndEffectorIOSim());
+        this.elevator = new Elevator(new ElevatorIOSim());
+        this.funnel = new Funnel(new FunnelIOSim());
+    }
+
     configureBindings();
   }
 
