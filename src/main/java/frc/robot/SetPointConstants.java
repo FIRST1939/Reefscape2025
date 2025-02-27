@@ -2,16 +2,15 @@ package frc.robot;
 
 
 public class SetPointConstants {
-    public static final double coralIntakeHeight = 0.0;
-    public static final double coralOuttakeHeightL1 = 0.0;
-    public static final double coralOuttakeHeightL2 = 0.0;
-    public static final double coralOuttakeHeightL3 = 0.0;
-    public static final double coralOuttakeHeightL4 = 0.0;
-    public static final double elevatorManualUpSpeed = 0.0;
-    public static final double elevatorManualDownSpeed = 0.0;
-    public static final double algaeIntakeSpeed = 0.0;
-    public static final double algaeOuttakeSpeed = 0.0;
-    public static final double coralIntakeSpeed = 0.0;
-    public static final double funnelIntakeSpeed = 0.0;
+    public static final double CORAL_INTAKE_HEIGHT = 0.0;
+    public static final double CORAL_OUTTAKE_HEIGHT_L1 = 0.0;
+    public static final double CORAL_OUTTAKE_HEIGHT_L2 = 0.0;
+    public static final double CORAL_OUTTAKE_HEIGHT_L3 = 0.0;
+    public static final double CORAL_OUTTAKE_HEIGHT_L4 = 0.0;
+    public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 0.0;
+    public static final double ALGAE_INTAKE_SPEED = 0.0;
+    public static final double ALGAE_OUTTAKE_SPEED = 0.0;
+    public static final double CORAL_INTAKE_SPEED = 0.0;
+    public static final double FUNNEL_INTAKE_SPEED = 0.0;
 }
     

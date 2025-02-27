@@ -43,15 +43,16 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    this.driverTwo.leftBumper().whileTrue(new CoralLoad());
-    this.driverTwo.leftTrigger().whileTrue(new AlgaeOuttake(SetPointConstants.algaeOuttakeSpeed));
-    this.driverTwo.rightTrigger().whileTrue(new AlgaeIntake(SetPointConstants.algaeIntakeSpeed));
-    this.driverTwo.a().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL1));
-    this.driverTwo.b().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL2));
-    this.driverTwo.x().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL3));
-    this.driverTwo.y().whileTrue(new ElevatorMoveToHeight(SetPointConstants.coralOuttakeHeightL4));
-    this.driverTwo.povUp().whileTrue(new ElevatorMove(SetPointConstants.elevatorManualUpSpeed));
-    this.driverTwo.povDown().whileTrue(new ElevatorMove(SetPointConstants.elevatorManualDownSpeed));
+    this.driverTwo.leftBumper().whileTrue(new CoralScore(endEffector));
+    this.driverTwo.leftTrigger().whileTrue(new AlgaeOuttake(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
+    this.driverTwo.rightTrigger().whileTrue(new AlgaeIntake(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+    this.driverTwo.a().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L1));
+    this.driverTwo.b().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+    this.driverTwo.x().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+    this.driverTwo.y().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+    this.driverTwo.povUp().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
+    this.driverTwo.povDown().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * -(SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED)));
+
   }
 
   public Command getAutonomousCommand() {
