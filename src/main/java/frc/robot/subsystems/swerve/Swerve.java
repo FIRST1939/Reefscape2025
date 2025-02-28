@@ -62,6 +62,7 @@ public class Swerve extends SubsystemBase {
 
        // this.vision = new Vision(this);
 
+        // TODO Swerve Angle PID Wrapping
         this.swerveDrive.setHeadingCorrection(false); // TODO Swerve Heading Control
         this.swerveDrive.setCosineCompensator(false); // TODO Disable Swerve Cosine Compensation for Simulation
         this.swerveDrive.setAngularVelocityCompensation(true, true, 0.1); // TODO Swerve Angular Velocity Compensation

@@ -17,6 +17,7 @@ public class Drive extends Command {
 
         this.swerve = swerve;
 
+        // TODO Swerve Input Scaling (Cubed)
         // TODO Swerve Input Simulation 
         this.driverInputStream = SwerveInputStream.of(this.swerve.getSwerveDrive(), vx, vy)
             .withControllerRotationAxis(omega)

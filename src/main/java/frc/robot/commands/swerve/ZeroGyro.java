@@ -18,4 +18,10 @@ public class ZeroGyro extends InstantCommand {
 
         this.swerve.zeroGyro();
     }
+
+    @Override
+    public boolean runsWhenDisabled () {
+
+        return true;
+    }
 }
