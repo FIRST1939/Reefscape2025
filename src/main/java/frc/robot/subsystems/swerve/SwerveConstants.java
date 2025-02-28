@@ -15,12 +15,7 @@ public class SwerveConstants {
     public static final double MAX_SPEED = 4.34;
 
     // TODO Swerve Module Feedforwards
-    public static final SimpleMotorFeedforward[] MODULE_FEEDFORWARDS = {
-        new SimpleMotorFeedforward(0.0, 0.0),
-        new SimpleMotorFeedforward(0.0, 0.0),
-        new SimpleMotorFeedforward(0.0, 0.0),
-        new SimpleMotorFeedforward(0.0, 0.0)
-    };
+
 
     public static final Pose3d LEFT_LIMELIGHT_POSITION = new Pose3d(
         new Translation3d(0.199254, -0.278278, 0.495475), 
@@ -33,24 +28,26 @@ public class SwerveConstants {
     );
 
     // TODO PathPlanner Robot Configuration
-    public static final RobotConfig ROBOT_CONFIG = new RobotConfig(
-        0.0, 
-        0.0, 
-        new ModuleConfig(
-            0.0, 
-            0.0, 
-            0.0, 
-            new DCMotor(
-                0.0, 
-                0.0, 
-                0.0, 
-                0.0, 
-                0.0, 
-                0), 
-            0.0, 
-            0.0, 
-            0
-        ), 
-        new Translation2d[] {}
-    );
+
+    // This throws.. 
+    // public static final RobotConfig ROBOT_CONFIG = new RobotConfig(
+    //     0.0, 
+    //     0.0, 
+    //     new ModuleConfig(
+    //         0.0, 
+    //         0.0, 
+    //         0.0, 
+    //         new DCMotor(
+    //             0.0, 
+    //             0.0, 
+    //             0.0, 
+    //             0.0, 
+    //             0.0, 
+    //             0), 
+    //         0.0, 
+    //         0.0, 
+    //         0
+    //     ), 
+    //     new Translation2d[] {}
+    // );
 }

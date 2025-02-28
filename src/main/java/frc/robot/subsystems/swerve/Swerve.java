@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.DegreesPerSecond;
 
 import java.io.File;
 
+import com.google.flatbuffers.Constants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -12,9 +13,11 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,7 +30,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class Swerve extends SubsystemBase {
     
     private final SwerveDrive swerveDrive;
-    private final Vision vision;
+    //private final Vision vision;
 
     public Swerve () {
 
@@ -36,71 +39,74 @@ public class Swerve extends SubsystemBase {
         try {
 
             // TODO Swerve Configuration
-            File configuration = new File(Filesystem.getDeployDirectory(), "swerve");
-            this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
+            File configuration = new File(Filesystem.getDeployDirectory(),
+            "swerve/1939-TestBase");
+            //this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
+          this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
+            // Units.feetToMeters(14.5),
+            //                                                       new Pose2d(new Translation2d(1,
+            //                                                                                    4),
+            //                                                                  Rotation2d.fromDegrees(0)));
+      
+      
+          
         } catch (Exception e) {
 
             throw new RuntimeException(e);
         }
+        // for (SwerveModule swerveModule : this.swerveDrive.getModules()) {
 
-        this.vision = new Vision(this);
+        //     swerveModule.getAngleMotor().configurePIDWrapping(-180, 180);
+        // }
+
+
+       // this.vision = new Vision(this);
 
         this.swerveDrive.setHeadingCorrection(false); // TODO Swerve Heading Control
         this.swerveDrive.setCosineCompensator(false); // TODO Disable Swerve Cosine Compensation for Simulation
         this.swerveDrive.setAngularVelocityCompensation(true, true, 0.1); // TODO Swerve Angular Velocity Compensation
-        this.swerveDrive.setModuleEncoderAutoSynchronize(false, 0);
+        this.swerveDrive.setModuleEncoderAutoSynchronize(false, 1);
 
-        this.configureFeedforwards();
         this.swerveDrive.stopOdometryThread();
+        //Robot SwerveConstants.ROBOT_CONFIG throws an e.
+        // // TODO PathPlanner Holonomic Controller
+        //     AutoBuilder.configure(
+        //     this::getPose,
+        //     this::resetOdometry,
+        //     this::getRobotVelocity,
+        //     (robotRelativeSpeeds, moduleFeedforwards) -> {
 
-        // TODO PathPlanner Holonomic Controller
-        AutoBuilder.configure(
-            this::getPose,
-            this::resetOdometry,
-            this::getRobotVelocity,
-            (robotRelativeSpeeds, moduleFeedforwards) -> {
-
-                this.swerveDrive.drive(
-                    robotRelativeSpeeds,
-                    this.swerveDrive.kinematics.toSwerveModuleStates(robotRelativeSpeeds),
-                    moduleFeedforwards.linearForces()
-                );
-            },
-            new PPHolonomicDriveController(
-                new PIDConstants(5.0, 0.0, 0.0),
-                new PIDConstants(5.0, 0.0, 0.0)
-            ),
-            SwerveConstants.ROBOT_CONFIG,
-            this::isRedAlliance,
-            this
-        );
+        //         this.swerveDrive.drive(
+        //             robotRelativeSpeeds,
+        //             this.swerveDrive.kinematics.toSwerveModuleStates(robotRelativeSpeeds),
+        //             moduleFeedforwards.linearForces()
+        //         );
+        //     },
+        //     new PPHolonomicDriveController(
+        //         new PIDConstants(5.0, 0.0, 0.0),
+        //         new PIDConstants(5.0, 0.0, 0.0)
+        //     ),
+        //     SwerveConstants.ROBOT_CONFIG,
+        //     this::isRedAlliance,
+        //     this
+        // );
     }
+        
 
     @Override
     public void periodic () {
 
         this.swerveDrive.updateOdometry();
 
-        this.vision.updatePoseEstimation(
-            this.swerveDrive.getYaw().getDegrees(), 
-            this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
-        );
+        // this.vision.updatePoseEstimation(
+        //     this.swerveDrive.getYaw().getDegrees(), 
+        //     this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+        // );
     }
 
     public SwerveDrive getSwerveDrive () {
 
         return this.swerveDrive;
-    }
-
-    private void configureFeedforwards () {
-
-        SwerveModule[] modules = this.swerveDrive.getModules();
-        SimpleMotorFeedforward[] feedforwards = SwerveConstants.MODULE_FEEDFORWARDS;
-
-        for (int i = 0; i < 4; i++) {
-
-            modules[i].setFeedforward(feedforwards[i]);
-        }
     }
 
     public Pose2d getPose () {

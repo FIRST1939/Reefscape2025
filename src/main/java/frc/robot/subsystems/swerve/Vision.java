@@ -11,7 +11,7 @@ public class Vision {
     public Vision (Swerve swerve) {
 
         this.swerve = swerve;
-
+      try{
         LimelightHelpers.setPipelineIndex("left-limelight", 0);
         LimelightHelpers.setPipelineIndex("right-limelight", 0);
 
@@ -37,11 +37,16 @@ public class Vision {
 
         LimelightHelpers.setLEDMode_ForceOff("left-limelight");
         LimelightHelpers.setLEDMode_ForceOff("right-limelight");
+      }
+      catch(Exception e)
+      {}
     }
+    
 
     // TODO Filter Out Erroneous AprilTags
     public void updatePoseEstimation (double yaw, double yawRate) {
-
+            try
+            {
         if (yawRate > 720.0) { return; }
 
         LimelightHelpers.SetRobotOrientation("left-limelight", yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
@@ -69,4 +74,9 @@ public class Vision {
             );
         }
     }
+    catch(Exception e)
+    {
+
+    }
+}
 }

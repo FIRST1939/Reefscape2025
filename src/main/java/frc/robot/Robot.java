@@ -13,19 +13,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.swerve.LocalADStarAK;
+//import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends TimedRobot {
     
-    private final SendableChooser<Command> autoSelector;
+    //private final SendableChooser<Command> autoSelector;
     private Command autoCommand;
 
     public Robot () {
 
         new RobotContainer();
-        this.autoSelector = AutoBuilder.buildAutoChooser();
+//        this.autoSelector = AutoBuilder.buildAutoChooser();
 
-        SmartDashboard.putData("Auto Selector", this.autoSelector);
+  //      SmartDashboard.putData("Auto Selector", this.autoSelector);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
             PortForwarder.add(port + 10, "limelight-right.local", port);
         }
 
-        Pathfinding.setPathfinder(new LocalADStarAK());
+      //  Pathfinding.setPathfinder(new LocalADStarAK());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit () {
 
-        this.autoCommand = this.autoSelector.getSelected();
+        //this.autoCommand = this.autoSelector.getSelected();
 
         if (this.autoCommand != null) {
 
