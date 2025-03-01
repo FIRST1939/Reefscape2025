@@ -54,10 +54,10 @@ public class Swerve extends SubsystemBase {
 
             throw new RuntimeException(e);
         }
-        // for (SwerveModule swerveModule : this.swerveDrive.getModules()) {
+        for (SwerveModule swerveModule : this.swerveDrive.getModules()) {
 
-        //     swerveModule.getAngleMotor().configurePIDWrapping(-180, 180);
-        // }
+            swerveModule.getAngleMotor().configurePIDWrapping(-180, 180);
+        }
 
 
        // this.vision = new Vision(this);
