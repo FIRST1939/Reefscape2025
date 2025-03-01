@@ -18,7 +18,7 @@ public class ElevatorIOVortex implements ElevatorIO {
     private final LaserCan laserCAN = new LaserCan(ElevatorConstants.laserCAN);
 
     public ElevatorIOVortex () {
-
+        try {
         SparkFlexConfig leaderConfig = new SparkFlexConfig();
         SparkFlexConfig followerConfig = new SparkFlexConfig();
 
@@ -28,10 +28,13 @@ public class ElevatorIOVortex implements ElevatorIO {
         elevatorMotorLeader.configure(leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         followerConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(ElevatorConstants.currentLimit).voltageCompensation(12.0);
-        followerConfig.inverted(ElevatorConstants.followerReversed);
-        followerConfig.follow(ElevatorConstants.leaderCAN);
-        
-        try {
+       // followerConfig.inverted(ElevatorConstants.followerReversed);
+       // This doesn't work.. you have to put the follower reversed in the follow command
+       
+       followerConfig.follow(ElevatorConstants.leaderCAN,ElevatorConstants.followerReversed);
+        elevatorMotorFollower.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+      
 
             // TODO Elevator LaserCAN ROI
             laserCAN.setRangingMode(LaserCan.RangingMode.LONG);
@@ -64,5 +67,6 @@ public class ElevatorIOVortex implements ElevatorIO {
     public void move (double volts) {
 
         elevatorMotorLeader.setVoltage(volts);
+       // elevatorMotorFollower.setVoltage(-volts);
     }
 }

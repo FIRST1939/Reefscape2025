@@ -7,7 +7,7 @@ import frc.robot.SetPointConstants;
 public class CoralLoad extends SequentialCommandGroup{
     public CoralLoad(double coralIntakeSpeed)
     {
-        this.addCommands(new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight), andThen(new CoralIntake(0)),
-        alongWith(new FunnelIntake(coralIntakeSpeed)));    
+        // this.addCommands(new ElevatorMoveToHeight(SetPointConstants.coralIntakeHeight), andThen(new CoralIntake(0)),
+        // alongWith(new FunnelIntake(coralIntakeSpeed)));    
     }
 }

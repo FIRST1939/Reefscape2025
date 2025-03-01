@@ -7,7 +7,7 @@ import frc.robot.funnel.FunnelIO.FunnelIOInputs;
 public class Funnel extends SubsystemBase { 
 
     private final FunnelIO io;
-    private final FunnelIOInputs inputs = new FunnelIOInputsAutoLogged();
+    private final FunnelIOInputsAutoLogged inputs = new FunnelIOInputsAutoLogged();
 
     public Funnel (FunnelIO io) {
 
@@ -18,7 +18,7 @@ public class Funnel extends SubsystemBase {
     public void periodic () {
 
         io.updateInputs(inputs);
-        Logger.processInputs("Funnel", inputs);
+      //  Logger.processInputs("Funnel", inputs);
     }
 
     public void runVoltage (double volts) {

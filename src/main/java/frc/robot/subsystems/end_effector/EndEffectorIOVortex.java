@@ -112,7 +112,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     public void setAlgaeIntakeVoltage (double volts) {
 
         algaeIntake.setVoltage(volts);
-    }
+     }
 
     @Override
     public void setAlgaeWristVoltage (double volts) {

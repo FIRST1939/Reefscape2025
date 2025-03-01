@@ -33,19 +33,19 @@ public class FunnelIOVortex implements FunnelIO {
     }
 
     @Override
-    public void updateInputs (FunnelIOInputs inputs) {
+    public void updateInputs (FunnelIOInputsAutoLogged inputs) {
 
-        inputs.funnelPosition = funnelEncoder.getPosition();
-        inputs.funnelVelocity = funnelEncoder.getVelocity();
-        inputs.funnelVoltage = funnel.getAppliedOutput() * funnel.getBusVoltage();
-        inputs.funnelCurrent = funnel.getOutputCurrent();
+        // inputs.funnelPosition = funnelEncoder.getPosition();
+        // inputs.funnelVelocity = funnelEncoder.getVelocity();
+        // inputs.funnelVoltage = funnel.getAppliedOutput() * funnel.getBusVoltage();
+        // inputs.funnelCurrent = funnel.getOutputCurrent();
 
-        inputs.funnelBeambreak = funnelBeambreak.get();
+        // inputs.funnelBeambreak = funnelBeambreak.get();
     }
 
     @Override
     public void setFunnelVoltage (double volts) {
-
-        funnel.setVoltage(volts);
+       
+         funnel.setVoltage(volts);
     }
 }

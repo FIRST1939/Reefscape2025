@@ -4,10 +4,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.funnel.Funnel;
-import frc.robot.subsystems.end_effector.EndEffector;
 
 
-public class FunnelIntake extends Command{
+
+public class FunnelMove extends Command{
     
   private double funnelspeed;
     
@@ -16,19 +16,22 @@ public class FunnelIntake extends Command{
 
     
       
-    public FunnelIntake(EndEffector endEffector, double funnelspeed) {
+    public FunnelMove(Funnel funnel, double funnelspeed) {
         
       this.funnelspeed = funnelspeed;
+      this.funnel=funnel;
         
 
     }
         
-
 @Override
 public void initialize () 
 {
-   funnel.runVoltage(funnelspeed);
-
-    
+   funnel.runVoltage(funnelspeed);  
 }
+@Override
+public void end (boolean interrupted) {
+  funnel.runVoltage(0);
+}
+
 }

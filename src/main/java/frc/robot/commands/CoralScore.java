@@ -9,8 +9,8 @@ public class CoralScore extends SequentialCommandGroup{
     {
         this.addCommands(
             new ElevatorMoveToHeight(SetPointConstants.CORAL_INTAKE_HEIGHT),
-            new CoralIntake(endEffector, 0),
-            new FunnelIntake(endEffector, 0)
+            new CoralMove(endEffector, 0)
+            //new FunnelIntake(endEffector, 0)
         );    
     }
 }
