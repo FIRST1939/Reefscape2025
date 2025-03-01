@@ -40,7 +40,7 @@ public class Swerve extends SubsystemBase {
 
             // TODO Swerve Configuration
             File configuration = new File(Filesystem.getDeployDirectory(),
-            "swerve/1939-TestBase");
+            "swerve");
             //this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
           this.swerveDrive = new SwerveParser(configuration).createSwerveDrive(SwerveConstants.MAX_SPEED);
             // Units.feetToMeters(14.5),
