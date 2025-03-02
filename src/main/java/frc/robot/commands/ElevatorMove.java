@@ -8,19 +8,19 @@ import frc.robot.subsystems.elevator.Elevator;
 public class ElevatorMove extends Command{
    
     private final Elevator elevator;
-   
-    public final DoubleSupplier elevatorManualUpSpeed;
+    public final DoubleSupplier voltageInput;
 
-    public ElevatorMove(Elevator elevator, DoubleSupplier elevatorManualUpSpeed) {
+    public ElevatorMove(Elevator elevator, DoubleSupplier voltageInput) {
 
         this.elevator = elevator;
-        this.elevatorManualUpSpeed = elevatorManualUpSpeed;
+        this.voltageInput = voltageInput;
+
         this.addRequirements(this.elevator);
     }
 
     @Override
-    public void execute () 
-{
-    elevator.runVoltage(this.elevatorManualUpSpeed.getAsDouble());
-}
+    public void execute () {
+
+        elevator.runVoltage(this.voltageInput.getAsDouble());
+    }
 }

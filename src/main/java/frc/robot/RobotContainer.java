@@ -18,28 +18,28 @@ import frc.robot.subsystems.end_effector.EndEffectorIOSim;
 import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 
 public class RobotContainer {
-  final CommandXboxController driverOne = new CommandXboxController(0);
-  final CommandXboxController driverTwo = new CommandXboxController(1);
+  private final CommandXboxController driver = new CommandXboxController(0);
+  private final CommandXboxController operator = new CommandXboxController(1);
 
-   private final EndEffector endEffector;
-
-  private final Funnel funnel;
   private final Elevator elevator;
+  private final EndEffector endEffector;
+  private final Funnel funnel;
+
   public RobotContainer (boolean isReal) {
     
     if (isReal) {
 
-         this.endEffector = new EndEffector(new EndEffectorIOVortex());
-         this.elevator = new Elevator(new ElevatorIOVortex());
-        this.funnel = new Funnel(new FunnelIOVortex());
+      this.endEffector = new EndEffector(new EndEffectorIOVortex());
+      this.elevator = new Elevator(new ElevatorIOVortex());
+      this.funnel = new Funnel(new FunnelIOVortex());
     } else {
 
-        this.endEffector = new EndEffector(new EndEffectorIOSim());
-         this.elevator = new Elevator(new ElevatorIOSim());
-        this.funnel = new Funnel(new FunnelIOSim());
+      this.endEffector = new EndEffector(new EndEffectorIOSim());
+      this.elevator = new Elevator(new ElevatorIOSim());
+      this.funnel = new Funnel(new FunnelIOSim());
     }
 
-    configureBindings();
+    this.configureBindings();
   }
 
   private void configureBindings() {
@@ -50,12 +50,14 @@ public class RobotContainer {
     // this.driverTwo.b().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
     // this.driverTwo.x().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
     // this.driverTwo.y().onTrue(new ElevatorMoveToHeight(SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
-     //this.driverTwo.povUp().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
-     //this.driverTwo.povDown().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * -(SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED)));
-    this.driverTwo.a().onTrue(new ElevatorMove(elevator, ()-> .5 ));
-    this.driverTwo.b().onTrue(new FunnelMove(funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
-    this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
-    this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+    //this.driverTwo.povUp().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
+    //this.driverTwo.povDown().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * -(SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED)));
+    //this.driverTwo.a().onTrue(new ElevatorMove(elevator, ()-> .5 ));
+    //this.driverTwo.b().onTrue(new FunnelMove(funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
+    //this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
+    //this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+
+    this.elevator.setDefaultCommand(new ElevatorMove(this.elevator, () -> -this.driver.getRightY() * 3.0));
   }
 
   public Command getAutonomousCommand() {
