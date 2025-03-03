@@ -3,7 +3,6 @@ package frc.robot.subsystems.funnel;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
-import frc.robot.subsystems.funnel.FunnelIOInputsAutoLogged;
 
 // TODO Funnel Simulation
 public class FunnelIOSim implements FunnelIO {
@@ -37,7 +36,7 @@ public class FunnelIOSim implements FunnelIO {
     }
 
     @Override
-    public void setFunnelVoltage(double volts) {
+    public void runVoltage(double volts) {
         
         appliedVolts = volts;
     }

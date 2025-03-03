@@ -4,25 +4,26 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-
-import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.subsystems.funnel.FunnelIOInputsAutoLogged;
 
 public class FunnelIOVortex implements FunnelIO {
     
     private final SparkFlex funnel = new SparkFlex(FunnelConstants.funnelCAN, MotorType.kBrushless);
     private final RelativeEncoder funnelEncoder = funnel.getEncoder();
-
-    private final DigitalInput funnelBeambreak = new DigitalInput(FunnelConstants.funnelBeambreakDIO);
+    private final SparkLimitSwitch funnelBeambreak = funnel.getForwardLimitSwitch();
 
     public FunnelIOVortex () {
 
         SparkFlexConfig config = new SparkFlexConfig();
 
-        config.idleMode(IdleMode.kBrake).smartCurrentLimit(FunnelConstants.currentLimit).voltageCompensation(12.0);
+        config
+            .inverted(FunnelConstants.funnelInverted)
+            .idleMode(IdleMode.kBrake)
+            .smartCurrentLimit(FunnelConstants.currentLimit)
+            .voltageCompensation(12.0);
 
         config.encoder
             .positionConversionFactor(2.0 * Math.PI)
@@ -30,23 +31,23 @@ public class FunnelIOVortex implements FunnelIO {
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
 
-        funnel.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        this.funnel.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     @Override
     public void updateInputs (FunnelIOInputsAutoLogged inputs) {
 
-        // inputs.funnelPosition = funnelEncoder.getPosition();
-        // inputs.funnelVelocity = funnelEncoder.getVelocity();
-        // inputs.funnelVoltage = funnel.getAppliedOutput() * funnel.getBusVoltage();
-        // inputs.funnelCurrent = funnel.getOutputCurrent();
+        inputs.funnelPosition = this.funnelEncoder.getPosition();
+        inputs.funnelVelocity = this.funnelEncoder.getVelocity();
+        inputs.funnelVoltage = this.funnel.getAppliedOutput() * this.funnel.getBusVoltage();
+        inputs.funnelCurrent = this.funnel.getOutputCurrent();
 
-        // inputs.funnelBeambreak = funnelBeambreak.get();
+        inputs.funnelBeambreak = !this.funnelBeambreak.isPressed();
     }
 
     @Override
-    public void setFunnelVoltage (double volts) {
+    public void runVoltage (double volts) {
        
-         funnel.setVoltage(volts);
+        this.funnel.setVoltage(volts);
     }
 }
