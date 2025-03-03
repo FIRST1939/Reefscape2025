@@ -2,6 +2,7 @@ package frc.robot.subsystems.elevator;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -12,15 +13,12 @@ public class Elevator extends SubsystemBase {
     private final ElevatorIO io;
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
-    private boolean manual = false;
-
     private final ElevatorFeedforward feedforward = new ElevatorFeedforward(
         ElevatorConstants.kS,
         ElevatorConstants.kG,
         ElevatorConstants.kV
     );
 
-    // TODO Initialize Elevator Goal
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
         ElevatorConstants.kI, 
@@ -40,20 +38,26 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic () {
 
-        this.io.updateInputs(inputs);
-        Logger.processInputs("Elevator", inputs);
+        this.io.updateInputs(this.inputs);
+        Logger.processInputs("Elevator", this.inputs);
 
-        if (!this.manual) {
+        if (!this.isManual()) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
             double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
-            this.io.move(feedback + feedforward);
+
+            double voltage = MathUtil.clamp(feedback + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
+            this.io.move(voltage);
         }
+    }
+
+    public boolean isManual () {
+
+        return this.inputs.manual;
     }
 
     public void setGoal (double goal) {
 
-        this.manual = false;
         this.controller.setGoal(goal);
     }
 
@@ -64,7 +68,7 @@ public class Elevator extends SubsystemBase {
 
     public void runVoltage (double volts) {
 
-        this.manual = true;
         io.move(volts);
+        this.controller.setGoal(this.inputs.elevatorPosition);
     }
 }

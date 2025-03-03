@@ -19,5 +19,6 @@ public class ElevatorConstants {
 
     public static final double maxVelocity = 1.4;
     public static final double maxAcceleration = 5.0;
+    public static final double maxVoltage = 6.0;
     public static final double tolerance = 0.02;
 }

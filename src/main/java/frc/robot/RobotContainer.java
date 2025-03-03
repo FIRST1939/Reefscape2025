@@ -6,6 +6,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -54,12 +55,13 @@ public class RobotContainer {
         //this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
         //this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
 
-        //this.elevator.setDefaultCommand(new ElevatorMove(this.elevator, () -> -this.driver.getRightY() * 3.0));
-        
-        this.driver.a().onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L1));
-        this.driver.b().onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        this.driver.x().onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        this.driver.y().onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
+        Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
+
+        elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L1));
+        elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
     }
 
     public Command getAutonomousCommand() {

@@ -1,5 +1,7 @@
 package frc.robot.subsystems.elevator;
 
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -13,6 +15,8 @@ import au.grapplerobotics.LaserCan;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
+
     private final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.leaderCAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.followerCAN, MotorType.kBrushless);
 
@@ -61,6 +65,8 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
+
+        inputs.manual = this.manual.get();
 
         inputs.elevatorPosition = (this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0;
         inputs.elevatorVelocity = (this.leadEncoder.getVelocity() - this.followerEncoder.getVelocity()) / 2.0;
