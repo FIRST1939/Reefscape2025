@@ -3,15 +3,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.Elevator;
 
-public class ElevatorMoveToHeight extends Command {
+public class SetpointElevator extends Command {
 
     private final Elevator elevator;
-    private final double height;
+    private final double setpoint;
 
-    public ElevatorMoveToHeight (Elevator elevator, double height) {
+    public SetpointElevator (Elevator elevator, double setpoint) {
 
         this.elevator = elevator;
-        this.height = height;
+        this.setpoint = setpoint;
 
         this.addRequirements(this.elevator);
     }
@@ -19,12 +19,12 @@ public class ElevatorMoveToHeight extends Command {
     @Override
     public void initialize () {
 
-        this.elevator.setPosition(this.height);
+        this.elevator.setGoal(this.setpoint);
     }
 
     @Override
     public boolean isFinished () {
 
-        return this.elevator.atHeight();
+        return this.elevator.atGoal();
     }
 }

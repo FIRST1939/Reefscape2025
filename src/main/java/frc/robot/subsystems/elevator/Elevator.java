@@ -5,7 +5,6 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -21,6 +20,7 @@ public class Elevator extends SubsystemBase {
         ElevatorConstants.kV
     );
 
+    // TODO Initialize Elevator Goal
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
         ElevatorConstants.kI, 
@@ -47,22 +47,17 @@ public class Elevator extends SubsystemBase {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
             double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
-
             this.io.move(feedback + feedforward);
-            SmartDashboard.putNumber("Target_Height", this.controller.getSetpoint().position);
-            SmartDashboard.putNumber("Target_Velocity", this.controller.getSetpoint().velocity);
-            SmartDashboard.putNumber("Feedforward", feedforward);
-            SmartDashboard.putNumber("Feedback", feedback);
         }
     }
 
-    public void setPosition (double position) {
+    public void setGoal (double goal) {
 
         this.manual = false;
-        this.controller.setGoal(position);
+        this.controller.setGoal(goal);
     }
 
-    public boolean atHeight () {
+    public boolean atGoal () {
 
         return this.controller.atGoal();
     }

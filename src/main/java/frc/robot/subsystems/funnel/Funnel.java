@@ -1,8 +1,9 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.funnel.FunnelIO.FunnelIOInputs;
+import frc.robot.subsystems.funnel.FunnelIOInputsAutoLogged;
+import frc.robot.subsystems.funnel.FunnelIO.FunnelIOInputs;
 
 public class Funnel extends SubsystemBase { 
 

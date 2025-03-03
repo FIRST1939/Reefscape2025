@@ -1,6 +1,8 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 import org.littletonrobotics.junction.AutoLog;
+
+import frc.robot.subsystems.funnel.FunnelIOInputsAutoLogged;
 
 public interface FunnelIO {
 

@@ -1,4 +1,4 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 public class FunnelConstants {
     

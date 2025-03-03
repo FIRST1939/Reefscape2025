@@ -3,7 +3,7 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.funnel.Funnel;
+import frc.robot.subsystems.funnel.Funnel;
 
 
 

@@ -9,9 +9,9 @@ public interface ElevatorIO {
 
         public double elevatorPosition = 0.0;
         public double elevatorVelocity = 0.0;
+        
         public double leaderVoltage = 0.0;
         public double leaderCurrent = 0.0;
-
     
         public double followerVoltage = 0.0;
         public double followerCurrent = 0.0;

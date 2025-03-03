@@ -1,4 +1,4 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -9,6 +9,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.subsystems.funnel.FunnelIOInputsAutoLogged;
 
 public class FunnelIOVortex implements FunnelIO {
     
