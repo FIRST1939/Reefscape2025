@@ -9,14 +9,15 @@ public class ElevatorConstants {
     public static final boolean followerReversed = true;
     public static final int laserCAN = 5; //TODO Elevator LaserCAN CAN ID
 
-    public static final double kS = 0.998;
-    public static final double kG = 0.665;
-    public static final double kV = 0.045;
+    public static final double kS = 0.475;
+    public static final double kG = 0.755;
+    public static final double kV = 1.35;
 
-    public static final double kP = 0.0;
+    public static final double kP = 39.0;
     public static final double kI = 0.0;
-    public static final double kD = 0.0;
+    public static final double kD = 1.0;
 
-    public static final double maxVelocity = 0.0;
-    public static final double maxAcceleration = 0.0;
+    public static final double maxVelocity = 1.4;
+    public static final double maxAcceleration = 5.0;
+    public static final double tolerance = 0.02;
 }

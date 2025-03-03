@@ -23,4 +23,10 @@ public class ElevatorMove extends Command{
 
         elevator.runVoltage(this.voltageInput.getAsDouble());
     }
+
+    @Override
+    public void end (boolean interrupted) {
+
+        elevator.runVoltage(0.0);
+    }
 }

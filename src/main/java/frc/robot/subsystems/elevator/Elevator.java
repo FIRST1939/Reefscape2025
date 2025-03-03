@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -33,11 +34,13 @@ public class Elevator extends SubsystemBase {
     public Elevator (ElevatorIO io) {
 
         this.io = io;
+        this.controller.setTolerance(ElevatorConstants.tolerance);
     }
 
     @Override
     public void periodic () {
 
+        this.io.updateInputs(inputs);
         Logger.processInputs("Elevator", inputs);
 
         if (!this.manual) {
@@ -46,6 +49,10 @@ public class Elevator extends SubsystemBase {
             double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
 
             this.io.move(feedback + feedforward);
+            SmartDashboard.putNumber("Target_Height", this.controller.getSetpoint().position);
+            SmartDashboard.putNumber("Target_Velocity", this.controller.getSetpoint().velocity);
+            SmartDashboard.putNumber("Feedforward", feedforward);
+            SmartDashboard.putNumber("Feedback", feedback);
         }
     }
 
@@ -53,6 +60,11 @@ public class Elevator extends SubsystemBase {
 
         this.manual = false;
         this.controller.setGoal(position);
+    }
+
+    public boolean atHeight () {
+
+        return this.controller.atGoal();
     }
 
     public void runVoltage (double volts) {

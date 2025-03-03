@@ -63,37 +63,22 @@ public class ElevatorIOVortex implements ElevatorIO {
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
 
+        inputs.elevatorPosition = (this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0;
+        inputs.elevatorVelocity = (this.leadEncoder.getVelocity() - this.followerEncoder.getVelocity()) / 2.0;
+
         inputs.leaderVoltage = elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage();
         inputs.leaderCurrent = elevatorMotorLeader.getOutputCurrent();
 
         inputs.followerVoltage = elevatorMotorFollower.getAppliedOutput() * elevatorMotorFollower.getBusVoltage();
         inputs.followerCurrent = elevatorMotorFollower.getOutputCurrent();
-
-        LaserCan.Measurement measurement = laserCAN.getMeasurement();
-
-        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-
-            inputs.elevatorVelocity = (measurement.distance_mm - inputs.elevatorPosition) / 0.02;
-            inputs.elevatorPosition = measurement.distance_mm;
-        }
     }
 
     @Override
     public void move (double volts) {
 
         SmartDashboard.putNumber(
-            "Elevator_Height", 
-            (this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0
-        );
-
-        SmartDashboard.putNumber(
-            "Elevator_Velocity", 
-            (this.leadEncoder.getVelocity() - this.followerEncoder.getVelocity()) / 2.0
-        );
-
-        SmartDashboard.putNumber(
             "Elevator_Voltage", 
-            volts
+            ((elevatorMotorLeader.getAppliedOutput() * elevatorMotorLeader.getBusVoltage()) - (elevatorMotorFollower.getAppliedOutput() * elevatorMotorFollower.getBusVoltage())) / 2.0
         );
 
         elevatorMotorLeader.setVoltage(volts);
