@@ -1,5 +1,7 @@
 package frc.robot.subsystems.funnel;
 
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -11,6 +13,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 public class FunnelIOVortex implements FunnelIO {
     
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Funnel", false);
+
     private final SparkFlex funnel = new SparkFlex(FunnelConstants.funnelCAN, MotorType.kBrushless);
     private final RelativeEncoder funnelEncoder = funnel.getEncoder();
     private final SparkLimitSwitch funnelBeambreak = funnel.getForwardLimitSwitch();
@@ -36,6 +40,8 @@ public class FunnelIOVortex implements FunnelIO {
 
     @Override
     public void updateInputs (FunnelIOInputsAutoLogged inputs) {
+
+        inputs.manual = this.manual.get();
 
         inputs.funnelPosition = this.funnelEncoder.getPosition();
         inputs.funnelVelocity = this.funnelEncoder.getVelocity();

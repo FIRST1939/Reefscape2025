@@ -20,8 +20,18 @@ public class Funnel extends SubsystemBase {
         Logger.processInputs("Funnel", this.inputs);
     }
 
+    public boolean isManual () {
+
+        return this.inputs.manual;
+    }
+
     public void runVoltage (double volts) {
 
         io.runVoltage(volts);
+    }
+
+    public boolean getBeambreak () {
+
+        return this.inputs.funnelBeambreak;
     }
 }

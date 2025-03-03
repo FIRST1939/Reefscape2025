@@ -7,6 +7,8 @@ public interface FunnelIO {
     @AutoLog
     public static class FunnelIOInputs {
 
+        public boolean manual = false;
+
         public double funnelPosition = 0.0;
         public double funnelVelocity = 0.0;
         public double funnelVoltage = 0.0;

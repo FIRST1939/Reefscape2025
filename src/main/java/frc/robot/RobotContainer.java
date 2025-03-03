@@ -51,7 +51,6 @@ public class RobotContainer {
         //this.driverTwo.povUp().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
         //this.driverTwo.povDown().whileTrue(new ElevatorMove(elevator, () -> this.driverTwo.getRightY() * -(SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED)));
         //this.driverTwo.a().onTrue(new ElevatorMove(elevator, ()-> .5 ));
-        //this.driverTwo.b().onTrue(new FunnelMove(funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
         //this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
         //this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
 
@@ -62,6 +61,9 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
         elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
         elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+
+        new Trigger(this.funnel::isManual).and(this.operator.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
+        new Trigger(this.funnel::isManual).negate().and(this.operator.rightBumper()).onTrue(new AutomaticFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED)); // TODO Funnel Intake Deadline
     }
 
     public Command getAutonomousCommand() {
