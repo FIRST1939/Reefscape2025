@@ -10,5 +10,7 @@ public class SetPointConstants {
     public static final double ALGAE_INTAKE_SPEED = -2.0;
     public static final double ALGAE_OUTTAKE_SPEED = 2.0;
     public static final double CORAL_INTAKE_SPEED = 0.0;
-    public static final double FUNNEL_INTAKE_SPEED = 2;
+    public static final double FUNNEL_INTAKE_SPEED = 1.5;
+    public static final double FUNNEL_OUTTAKE_SPEED = -1.5;
+    public static final double FUNNEL_STUCK_SPEED = -1.65;
 }

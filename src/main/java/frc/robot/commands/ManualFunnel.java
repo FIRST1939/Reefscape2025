@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.funnel.Funnel;
 
@@ -12,6 +14,8 @@ public class ManualFunnel extends Command{
         
         this.funnel = funnel;
         this.voltage = voltage;
+
+        this.addRequirements(this.funnel);
     }
         
     @Override

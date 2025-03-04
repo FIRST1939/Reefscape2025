@@ -54,7 +54,7 @@ public class RobotContainer {
         //this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
         //this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
 
-        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
+        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
         elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L1));
@@ -62,8 +62,9 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
         elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
 
-        new Trigger(this.funnel::isManual).and(this.operator.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
-        new Trigger(this.funnel::isManual).negate().and(this.operator.rightBumper()).onTrue(new AutomaticFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED)); // TODO Funnel Intake Deadline
+        new Trigger(this.funnel::isManual).and(this.driver.leftBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_OUTTAKE_SPEED));
+        new Trigger(this.funnel::isManual).and(this.driver.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
+        new Trigger(this.funnel::isManual).negate().and(this.driver.rightBumper()).onTrue(new AutomaticFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED, SetPointConstants.FUNNEL_STUCK_SPEED)); // TODO Funnel Intake Deadline
     }
 
     public Command getAutonomousCommand() {

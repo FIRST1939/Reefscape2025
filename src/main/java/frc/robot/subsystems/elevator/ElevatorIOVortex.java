@@ -15,7 +15,7 @@ import au.grapplerobotics.LaserCan;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
-    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", true);
 
     private final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.leaderCAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.followerCAN, MotorType.kBrushless);

@@ -8,22 +8,32 @@ import frc.robot.subsystems.funnel.Funnel;
 public class AutomaticFunnel extends Command{
     
     private final Funnel funnel;
-    private final double voltage;
+    private final double intakeVoltage;
+    private final double stuckVoltage;
 
-    private boolean isFinished = false;
+    private boolean isFinished;
       
-    public AutomaticFunnel (Funnel funnel, double voltage) {
+    public AutomaticFunnel (Funnel funnel, double intakeVoltage, double stuckVoltage) {
         
         this.funnel = funnel;
-        this.voltage = voltage;
+        this.intakeVoltage = intakeVoltage;
+        this.stuckVoltage = stuckVoltage;
 
-        new Trigger(this.funnel::getBeambreak).onTrue(Commands.run(() -> this.isFinished = true));
+        new Trigger(this.funnel::getBeambreak).onTrue(Commands.runOnce(() -> this.isFinished = true));
+        this.addRequirements(this.funnel);
     }
-        
+
     @Override
     public void initialize () {
 
-        this.funnel.runVoltage(this.voltage);  
+        this.isFinished = false;
+    }
+        
+    @Override
+    public void execute () {
+
+        if (!this.funnel.coralStuck()) { this.funnel.runVoltage(this.intakeVoltage); }
+        else { this.funnel.runVoltage(this.stuckVoltage); }
     }
 
     @Override

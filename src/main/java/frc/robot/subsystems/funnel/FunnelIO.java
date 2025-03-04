@@ -14,6 +14,7 @@ public interface FunnelIO {
         public double funnelVoltage = 0.0;
         public double funnelCurrent = 0.0;
 
+        public boolean coralStuck = false;
         public boolean funnelBeambreak = false;
     }
 
