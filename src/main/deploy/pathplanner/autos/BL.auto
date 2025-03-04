@@ -25,13 +25,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C_BHP"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "BHP_B"
+            "pathName": null
           }
         }
       ]

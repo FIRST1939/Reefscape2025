@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.71,
-        "y": 2.985
+        "x": 3.866,
+        "y": 2.943
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.210000000000001,
-        "y": 2.118974596215561
+        "x": 3.366000000000001,
+        "y": 2.0769745962155612
       },
       "isLocked": false,
       "linkedName": "bhp_c"
