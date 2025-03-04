@@ -2,6 +2,8 @@ package frc.robot.commands.swerve;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.ControllerConstants;
 import frc.robot.subsystems.swerve.Swerve;
@@ -19,8 +21,7 @@ public class Drive extends Command {
 
         // TODO Swerve Input Scaling (Cubed)
         // TODO Swerve Input Simulation 
-        this.driverInputStream = SwerveInputStream.of(this.swerve.getSwerveDrive(), vx, vy)
-            .withControllerRotationAxis(omega)
+        this.driverInputStream = new SwerveInputStream(this.swerve.getSwerveDrive(), vx, vy, omega)
             .deadband(ControllerConstants.SWERVE_DEADBAND)
             .scaleTranslation(ControllerConstants.SWERVE_TRANSLATION_SCALING)
             .cubeTranslationControllerAxis(true)
@@ -36,5 +37,6 @@ public class Drive extends Command {
 
         // TODO Heading Lock
         this.swerve.driveFieldOriented(this.activeInputStream.get());
+        ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(this.activeInputStream.get(), this.swerve.getSwerveDrive().getOdometryHeading());
     }
 }

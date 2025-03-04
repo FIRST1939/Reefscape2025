@@ -18,8 +18,12 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.Publisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import swervelib.SwerveDrive;
 import swervelib.SwerveModule;
@@ -91,13 +95,19 @@ public class Swerve extends SubsystemBase {
         //     this::isRedAlliance,
         //     this
         // );
+
+        this.publisher = NetworkTableInstance.getDefault()
+  .getStructTopic("SwervePose", Pose2d.struct).publish();
     }
+
+    private StructPublisher<Pose2d> publisher;
         
 
     @Override
     public void periodic () {
 
         this.swerveDrive.updateOdometry();
+        this.publisher.set(this.swerveDrive.getPose());
 
         // this.vision.updatePoseEstimation(
         //     this.swerveDrive.getYaw().getDegrees(), 

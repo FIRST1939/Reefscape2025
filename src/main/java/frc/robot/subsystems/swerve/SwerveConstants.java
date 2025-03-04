@@ -12,7 +12,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 
 public class SwerveConstants {
     
-    public static final double MAX_SPEED = 1;
+    public static final double MAX_SPEED = 4.34;
 
     // TODO Swerve Module Feedforwards
 

@@ -32,7 +32,7 @@ public class RobotContainer {
                 swerve, 
                 () -> -driver.getLeftY(), 
                 () -> -driver.getLeftX(), 
-                () -> driver.getRightX()
+                () -> -driver.getRightX()
             )
         );
       // SetWheelAngleDeg a = new SetWheelAngleDeg(swerve, 90.0);
