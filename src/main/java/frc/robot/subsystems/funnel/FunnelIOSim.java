@@ -1,4 +1,4 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -20,7 +20,7 @@ public class FunnelIOSim implements FunnelIO {
     private double appliedVolts = 0.0;
 
     @Override
-    public void updateInputs(FunnelIOInputs inputs) {
+    public void updateInputs(FunnelIOInputsAutoLogged inputs) {
 
         FunnelMotorLeader.setInputVoltage(appliedVolts);
         FunnelMotorLeader.update(0.02);
@@ -28,15 +28,15 @@ public class FunnelIOSim implements FunnelIO {
         FunnelMotorFollower.setInputVoltage(-appliedVolts);
         FunnelMotorFollower.update(0.02);
 
-        inputs.funnelPosition = 0.0;
-        inputs.funnelVelocity = 0.0;
-        inputs.funnelVoltage = 0.0;
-        inputs.funnelCurrent = 0.0;
-        inputs.funnelBeambreak = false;
+        // inputs.funnelPosition = 0.0;
+        // inputs.funnelVelocity = 0.0;
+        // inputs.funnelVoltage = 0.0;
+        // inputs.funnelCurrent = 0.0;
+        // inputs.funnelBeambreak = false;
     }
 
     @Override
-    public void setFunnelVoltage(double volts) {
+    public void runVoltage(double volts) {
         
         appliedVolts = volts;
     }

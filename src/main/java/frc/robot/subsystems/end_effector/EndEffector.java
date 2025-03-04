@@ -27,11 +27,6 @@ public class EndEffector extends SubsystemBase {
 
     public boolean getCoralIntakeBeambreak () {
 
-        return inputs.coralIntakeBeambreak;
-    }
-
-    public double getAlgaeIntakeLaserDistance () {
-
-        return inputs.algaeIntakelaserDistance;
+        return inputs.coralBeambreak;
     }
 }

@@ -44,7 +44,7 @@ public class Robot extends LoggedRobot {
 
     Logger.start();
 
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = new RobotContainer(isReal());
   }
 
   @Override
@@ -59,7 +59,10 @@ public class Robot extends LoggedRobot {
   public void disabledPeriodic() {}
 
   @Override
-  public void disabledExit() {}
+  public void disabledExit() {
+
+    this.m_robotContainer.onEnable();
+  }
 
   @Override
   public void autonomousInit() {
