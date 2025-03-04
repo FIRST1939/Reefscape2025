@@ -65,6 +65,15 @@ public class RobotContainer {
         new Trigger(this.funnel::isManual).and(this.driver.leftBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_OUTTAKE_SPEED));
         new Trigger(this.funnel::isManual).and(this.driver.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
         new Trigger(this.funnel::isManual).negate().and(this.driver.rightBumper()).onTrue(new AutomaticFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED, SetPointConstants.FUNNEL_STUCK_SPEED)); // TODO Funnel Intake Deadline
+
+        this.endEffector.setDefaultCommand(
+            new ManualEndEffector(
+                this.endEffector, 
+                () -> this.driver.getLeftX(), 
+                () -> (this.driver.getRightTriggerAxis() - this.driver.getLeftTriggerAxis()) * 3.0, 
+                () -> (this.driver.getRightTriggerAxis() - this.driver.getLeftTriggerAxis()) * 1.0
+            )
+        );
     }
 
     public Command getAutonomousCommand() {

@@ -4,14 +4,10 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-
-import au.grapplerobotics.ConfigurationFailedException;
-import au.grapplerobotics.LaserCan;
-import au.grapplerobotics.interfaces.LaserCanInterface;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
 
@@ -24,8 +20,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     private final SparkFlex algaeWrist = new SparkFlex(EndEffectorConstants.algaeWristCAN, MotorType.kBrushless);
     private final RelativeEncoder algaeWristEncoder = algaeWrist.getEncoder();
 
-    private final DigitalInput coralIntakeBeambreak = new DigitalInput(EndEffectorConstants.coralIntakeBeambreakDIO); 
-    private final LaserCan LaserCanSensor = new LaserCan(EndEffectorConstants.algaeIntakeLaserCAN);
+    private final SparkLimitSwitch coralBeambreak = coralIntake.getForwardLimitSwitch();
 
     public EndEffectorIOVortex () {
 
@@ -58,16 +53,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntake.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntake.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWrist.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        
-        try {
-
-            LaserCanSensor.setRangingMode(LaserCan.RangingMode.SHORT);
-            LaserCanSensor.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
-            LaserCanSensor.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
-        } catch (ConfigurationFailedException error) {
-
-            System.out.println("LaserCAN configuration failed! " + error);
-        }
     }
         
     @Override
@@ -88,17 +73,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeWristVoltage = algaeWrist.getAppliedOutput() * algaeWrist.getBusVoltage();
         inputs.algaeWristCurrent = algaeWrist.getOutputCurrent();
 
-        inputs.coralIntakeBeambreak = coralIntakeBeambreak.get();
-
-        LaserCan.Measurement measurement = LaserCanSensor.getMeasurement();
-
-        if (measurement != null && measurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
-
-            inputs.algaeIntakelaserDistance = measurement.distance_mm;
-        } else {
-
-            inputs.algaeIntakelaserDistance = -1.0;
-        }
+        inputs.coralBeambreak = coralBeambreak.isPressed();
     }
 
 
