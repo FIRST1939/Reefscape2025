@@ -11,9 +11,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "D_BHP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LoadCoral"
           }
         },
         {
@@ -23,15 +35,33 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": null
+            "name": "CoralScore"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "C_BHP"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LoadCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BHP_B"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
           }
         }
       ]
