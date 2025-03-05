@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends LoggedRobot {
     
     //private final SendableChooser<Command> autoSelector;
+    private final RobotContainer robotContainer;
     private Command autoCommand;
 
     public Robot () {
@@ -53,7 +54,7 @@ public class Robot extends LoggedRobot {
 
     Logger.start();
       
-        new RobotContainer();
+        this.robotContainer = new RobotContainer();
 //        this.autoSelector = AutoBuilder.buildAutoChooser();
 
   //      SmartDashboard.putData("Auto Selector", this.autoSelector);
@@ -86,7 +87,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void disabledExit () {
     
-      this.m_robotContainer.onEnable();
+      this.robotContainer.onEnable();
     }
 
     @Override
