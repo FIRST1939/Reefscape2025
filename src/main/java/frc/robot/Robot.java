@@ -54,7 +54,7 @@ public class Robot extends LoggedRobot {
 
     Logger.start();
       
-        this.robotContainer = new RobotContainer();
+        this.robotContainer = new RobotContainer(this.isReal());
 //        this.autoSelector = AutoBuilder.buildAutoChooser();
 
   //      SmartDashboard.putData("Auto Selector", this.autoSelector);
