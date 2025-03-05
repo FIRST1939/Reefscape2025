@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.78,
-        "y": 4.192
+        "x": 5.032154605263157,
+        "y": 5.198848684210526
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.03,
-        "y": 4.192
+        "x": 5.532154605263157,
+        "y": 6.064874087994965
       },
       "isLocked": false,
-      "linkedName": "H"
+      "linkedName": "J"
     },
     {
       "anchor": {
-        "x": 5.77,
-        "y": 4.0
+        "x": 6.416,
+        "y": 4.33302654109589
       },
       "prevControl": {
-        "x": 6.02,
-        "y": 4.0
+        "x": 6.5031557427476585,
+        "y": 5.329221239187634
+      },
+      "nextControl": {
+        "x": 6.328844257252342,
+        "y": 3.336831843004145
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.9750822368421055,
+        "y": 0.5130756578947364
+      },
+      "prevControl": {
+        "x": 5.9750822368421055,
+        "y": -0.4869243421052636
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "GH"
+      "linkedName": "P"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Reef Alignment",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -119.35775354279124
   },
   "useDefaultConstraints": true
 }

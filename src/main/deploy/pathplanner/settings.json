@@ -2,7 +2,13 @@
   "robotWidth": 0.8509,
   "robotLength": 0.8509,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Reef to Net",
+    "Reef Alignment",
+    "Reef to Human Player",
+    "Reef to Proccesor",
+    "Starting Positions"
+  ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
