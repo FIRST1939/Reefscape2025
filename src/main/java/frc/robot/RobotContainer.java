@@ -61,11 +61,9 @@ public class RobotContainer {
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
-        // Funnel: -0.015
-
-        elevatorSetpoints.and(this.driver.a()).onTrue(new SetpointElevator(this.elevator, 0.0));
-        elevatorSetpoints.and(this.driver.b()).onTrue(new SetpointElevator(this.elevator, 0.55));
-        elevatorSetpoints.and(this.driver.x()).onTrue(new SetpointElevator(this.elevator, 0.97));
+        elevatorSetpoints.and(this.driver.x()).onTrue(new SetpointElevator(this.elevator, -0.015));
+        elevatorSetpoints.and(this.driver.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
+        elevatorSetpoints.and(this.driver.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
         elevatorSetpoints.and(this.driver.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
 
         /**
@@ -78,7 +76,7 @@ public class RobotContainer {
             new LoadCoral(funnel, endEffector, 25.0, -5.0)
         );
 
-        this.driver.leftBumper().whileTrue(
+        this.driver.rightTrigger().whileTrue(
             new ManualEndEffector(endEffector, () -> 2.5, () -> 0.0, () -> 0.0)
         );
 
