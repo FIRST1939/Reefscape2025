@@ -12,10 +12,11 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
-    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", true);
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
 
     private final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.leaderCAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.followerCAN, MotorType.kBrushless);
@@ -80,6 +81,8 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void move (double volts) {
+
+        SmartDashboard.putNumber("Ele", volts);
 
         this.leadMotor.setVoltage(volts);
         this.followerMotor.setVoltage(-volts);

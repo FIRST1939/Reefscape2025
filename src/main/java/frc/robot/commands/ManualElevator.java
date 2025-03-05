@@ -1,6 +1,7 @@
 package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.Elevator;
 
@@ -16,12 +17,15 @@ public class ManualElevator extends Command{
         this.voltageInput = voltageInput;
 
         this.addRequirements(this.elevator);
+
+        SmartDashboard.putNumber("Hola", 1.0);
     }
 
     @Override
     public void execute () {
 
         elevator.runVoltage(this.voltageInput.getAsDouble());
+        SmartDashboard.putNumber("Test", voltageInput.getAsDouble());
     }
 
     @Override

@@ -6,6 +6,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -40,6 +41,8 @@ public class Elevator extends SubsystemBase {
 
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
+
+        SmartDashboard.putNumber("Ele Goal", this.controller.getGoal().position);
 
         if (!this.isManual()) {
 
