@@ -4,6 +4,14 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.pathfinding.Pathfinding;
+
+import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -15,15 +23,17 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends LoggedRobot {
-  private Command m_autonomousCommand;
+    
+    //private final SendableChooser<Command> autoSelector;
+    private final RobotContainer robotContainer;
+    private Command autoCommand;
 
-  private final RobotContainer m_robotContainer;
+    public Robot () {
 
-  public Robot() {
-
-    Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+      Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
     Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
@@ -43,63 +53,84 @@ public class Robot extends LoggedRobot {
     }
 
     Logger.start();
+      
+        this.robotContainer = new RobotContainer(this.isReal());
+//        this.autoSelector = AutoBuilder.buildAutoChooser();
 
-    m_robotContainer = new RobotContainer(isReal());
-  }
-
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-  }
-
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void disabledExit() {
-
-    this.m_robotContainer.onEnable();
-  }
-
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+  //      SmartDashboard.putData("Auto Selector", this.autoSelector);
     }
-  }
 
-  @Override
-  public void autonomousPeriodic() {}
+    @Override
+    public void robotInit () {
 
-  @Override
-  public void autonomousExit() {}
+        // TODO Limelight Networking
+        for (int port = 5800; port <= 5809; port++) {
 
-  @Override
-  public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+            PortForwarder.add(port, "limelight-left.local", port);
+            PortForwarder.add(port + 10, "limelight-right.local", port);
+        }
+      //  Pathfinding.setPathfinder(new LocalADStarAK());
     }
-  }
 
-  @Override
-  public void teleopPeriodic() {}
+    @Override
+    public void robotPeriodic() {
 
-  @Override
-  public void teleopExit() {}
+        CommandScheduler.getInstance().run();
+    }
 
-  @Override
-  public void testInit() {
-    CommandScheduler.getInstance().cancelAll();
-  }
+    @Override
+    public void disabledInit () {}
 
-  @Override
-  public void testPeriodic() {}
+    @Override
+    public void disabledPeriodic () {}
 
-  @Override
-  public void testExit() {}
+    @Override
+    public void disabledExit () {
+    
+      this.robotContainer.onEnable();
+    }
+
+    @Override
+    public void autonomousInit () {
+
+        //this.autoCommand = this.autoSelector.getSelected();
+
+        if (this.autoCommand != null) {
+
+            this.autoCommand.schedule();
+        }
+    }
+
+    @Override
+    public void autonomousPeriodic () {}
+
+    @Override
+    public void autonomousExit () {}
+
+    @Override
+    public void teleopInit () {
+
+        if (this.autoCommand != null) {
+
+            this.autoCommand.cancel();
+        }
+    }
+
+    @Override
+    public void teleopPeriodic () {}
+
+    @Override
+    public void teleopExit () {}
+
+    @Override
+    public void testInit () {
+
+        CommandScheduler.getInstance().cancelAll();
+    }
+
+    @Override
+    public void testPeriodic () {}
+
+    @Override
+    public void testExit () {}
 }

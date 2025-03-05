@@ -3,6 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ConfirmAlliance;
+import frc.robot.commands.swerve.Drive;
+import frc.robot.commands.swerve.ZeroGyro;
+import frc.robot.subsystems.swerve.Swerve;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -20,18 +27,20 @@ import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
 
+
 public class RobotContainer {
 
     private final CommandXboxController driver = new CommandXboxController(0);
     private final CommandXboxController operator = new CommandXboxController(1);
 
-    private final Elevator elevator;
+    private final Swerve swerve = new Swerve();
+  private final Elevator elevator;
     private final EndEffector endEffector;
     private final Funnel funnel;
 
     public RobotContainer (boolean isReal) {
-      
-        if (isReal) {
+
+      if (isReal) {
 
             this.endEffector = new EndEffector(new EndEffectorIOVortex());
             this.elevator = new Elevator(new ElevatorIOVortex());
@@ -44,9 +53,21 @@ public class RobotContainer {
         }
 
         this.configureBindings();
+
+        new ConfirmAlliance().andThen(new ZeroGyro(this.swerve)).schedule();
     }
 
-    private void configureBindings() {
+    private void configureBindings () {
+
+        this.swerve.setDefaultCommand(
+            new Drive(
+                swerve, 
+                () -> -driver.getLeftY(), 
+                () -> -driver.getLeftX(), 
+                () -> -driver.getRightX()
+            )
+        );
+
         // this.driverTwo.leftBumper().whileTrue(new CoralScore(endEffector));
         // this.driverTwo.leftTrigger().whileTrue(new AlgaeOuttake(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
         // this.driverTwo.rightTrigger().whileTrue(new AlgaeIntake(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
