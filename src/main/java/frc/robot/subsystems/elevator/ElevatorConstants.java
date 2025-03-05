@@ -14,8 +14,10 @@ public class ElevatorConstants {
     public static final double kV = 1.35;
 
     public static final double kP = 39.0;
-    public static final double kI = 0.0;
     public static final double kD = 1.0;
+
+    public static final double kI = 300.0;
+    public static final double kIZ = 0.025;
 
     public static final double maxVelocity = 1.4;
     public static final double maxAcceleration = 5.0;

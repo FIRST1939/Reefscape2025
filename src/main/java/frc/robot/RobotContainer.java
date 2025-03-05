@@ -56,15 +56,17 @@ public class RobotContainer {
         //this.driverTwo.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
         //this.driverTwo.rightTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
 
-        //new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
+        SmartDashboard.putData(CommandScheduler.getInstance());
+
+        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
-        //this.elevator.setDefaultCommand(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
+        // Funnel: -0.015
 
-        elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L1));
-        elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        elevatorSetpoints.and(this.driver.a()).onTrue(new SetpointElevator(this.elevator, 0.0));
+        elevatorSetpoints.and(this.driver.b()).onTrue(new SetpointElevator(this.elevator, 0.55));
+        elevatorSetpoints.and(this.driver.x()).onTrue(new SetpointElevator(this.elevator, 0.97));
+        elevatorSetpoints.and(this.driver.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
 
         /**
         new Trigger(this.funnel::isManual).and(this.driver.leftBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_OUTTAKE_SPEED));
@@ -77,7 +79,7 @@ public class RobotContainer {
         );
 
         this.driver.leftBumper().whileTrue(
-            new ManualEndEffector(endEffector, () -> 25.0, () -> 0.0, () -> 0.0)
+            new ManualEndEffector(endEffector, () -> 2.5, () -> 0.0, () -> 0.0)
         );
 
         /**

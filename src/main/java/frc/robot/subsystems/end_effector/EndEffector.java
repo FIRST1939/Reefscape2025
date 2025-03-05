@@ -27,8 +27,12 @@ public class EndEffector extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("End Effector", this.inputs);
 
-        double coralIntakeVoltage = this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity) + this.coralIntakeFeedback.calculate(this.inputs.coralIntakeVelocity, this.coralIntakeVelocity);
-        this.runVoltage(coralIntakeVoltage, 0.0, 0.0);
+        //double coralIntakeVoltage = this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity) + this.coralIntakeFeedback.calculate(this.inputs.coralIntakeVelocity, this.coralIntakeVelocity);
+        if (this.coralIntakeVelocity != 0.0) {
+            this.runVoltage(1.25, 0.0, 0.0);
+        } else {
+            this.runVoltage(0.0, 0.0, 0.0);
+        }
     }
 
     public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {

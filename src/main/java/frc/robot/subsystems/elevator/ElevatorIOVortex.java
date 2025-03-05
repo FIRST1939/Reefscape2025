@@ -12,7 +12,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
@@ -81,8 +80,6 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void move (double volts) {
-
-        SmartDashboard.putNumber("Ele", volts);
 
         this.leadMotor.setVoltage(volts);
         this.followerMotor.setVoltage(-volts);

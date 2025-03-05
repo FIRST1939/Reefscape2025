@@ -4,6 +4,7 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +23,7 @@ public class Elevator extends SubsystemBase {
 
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
-        ElevatorConstants.kI, 
+        0.0, 
         ElevatorConstants.kD, 
         new TrapezoidProfile.Constraints(
             ElevatorConstants.maxVelocity, 
@@ -30,10 +31,13 @@ public class Elevator extends SubsystemBase {
         )
     );
 
+    private final PIDController close = new PIDController(0.0, ElevatorConstants.kI, 0.0);
+
     public Elevator (ElevatorIO io) {
 
         this.io = io;
         this.controller.setTolerance(ElevatorConstants.tolerance);
+        this.close.setIZone(ElevatorConstants.kIZ);
     }
 
     @Override
@@ -42,15 +46,16 @@ public class Elevator extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
 
-        SmartDashboard.putNumber("Ele Goal", this.controller.getGoal().position);
-
         if (!this.isManual()) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
             double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
+            double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
 
-            double voltage = MathUtil.clamp(feedback + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
+            double voltage = MathUtil.clamp(feedback + feedforward + close, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
             this.io.move(voltage);
+            
+            SmartDashboard.putNumber("Ele", voltage);
         }
     }
 
