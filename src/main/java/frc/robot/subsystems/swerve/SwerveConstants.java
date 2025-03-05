@@ -14,19 +14,6 @@ public class SwerveConstants {
     
     public static final double MAX_SPEED = 4.34;
 
-    // TODO Swerve Module Feedforwards
-
-
-    public static final Pose3d LEFT_LIMELIGHT_POSITION = new Pose3d(
-        new Translation3d(0.199254, -0.278278, 0.495475), 
-        new Rotation3d(0.0, -27.0, -20.0)
-    );
-
-    public static final Pose3d RIGHT_LIMELIGHT_POSITION = new Pose3d(
-        new Translation3d(0.200349, 0.276550, 0.492158), 
-        new Rotation3d(0.0, -27.0, 20.0)
-    );
-
     // TODO PathPlanner Robot Configuration
 
     // This throws.. 

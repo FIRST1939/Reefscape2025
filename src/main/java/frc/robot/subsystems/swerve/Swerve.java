@@ -34,7 +34,7 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class Swerve extends SubsystemBase {
     
     private final SwerveDrive swerveDrive;
-    //private final Vision vision;
+    private final Vision vision;
 
     public Swerve () {
 
@@ -64,7 +64,7 @@ public class Swerve extends SubsystemBase {
         }
 
 
-       // this.vision = new Vision(this);
+       this.vision = new Vision(this);
 
         // TODO Swerve Angle PID Wrapping
         this.swerveDrive.setHeadingCorrection(false); // TODO Swerve Heading Control
@@ -109,10 +109,10 @@ public class Swerve extends SubsystemBase {
         this.swerveDrive.updateOdometry();
         this.publisher.set(this.swerveDrive.getPose());
 
-        // this.vision.updatePoseEstimation(
-        //     this.swerveDrive.getYaw().getDegrees(), 
-        //     this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
-        // );
+        this.vision.updatePoseEstimation(
+            this.swerveDrive.getYaw().getDegrees(), 
+            this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+        );
     }
 
     public SwerveDrive getSwerveDrive () {

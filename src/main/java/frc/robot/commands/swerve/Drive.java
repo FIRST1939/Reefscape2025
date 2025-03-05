@@ -23,7 +23,7 @@ public class Drive extends Command {
         // TODO Swerve Input Simulation 
         this.driverInputStream = new SwerveInputStream(this.swerve.getSwerveDrive(), vx, vy, omega)
             .deadband(ControllerConstants.SWERVE_DEADBAND)
-            .scaleTranslation(ControllerConstants.SWERVE_TRANSLATION_SCALING)
+            //.scaleTranslation(ControllerConstants.SWERVE_TRANSLATION_SCALING)
             .cubeTranslationControllerAxis(true)
             .allianceRelativeControl(true);
 

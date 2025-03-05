@@ -1,6 +1,10 @@
 package frc.robot.subsystems.swerve;
 
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 
 // TODO Vision Simulation
 // TODO Vision Logging
@@ -12,35 +16,24 @@ public class Vision {
 
         this.swerve = swerve;
       try{
-        LimelightHelpers.setPipelineIndex("left-limelight", 0);
-        LimelightHelpers.setPipelineIndex("right-limelight", 0);
+        LimelightHelpers.setPipelineIndex("limelight-left", 0);
+        LimelightHelpers.setPipelineIndex("limelight-right", 0);
 
-        LimelightHelpers.setCameraPose_RobotSpace(
-            "left-limelight", 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getX(), 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getY(), 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getZ(), 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getRotation().getX(), 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getRotation().getY(), 
-            SwerveConstants.LEFT_LIMELIGHT_POSITION.getRotation().getZ()
-        );
+        LimelightHelpers.setLEDMode_ForceOff("limelight-left");
+        LimelightHelpers.setLEDMode_ForceOff("limelight-right");
 
-        LimelightHelpers.setCameraPose_RobotSpace(
-            "right-limelight", 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getX(), 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getY(), 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getZ(), 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getRotation().getX(), 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getRotation().getY(), 
-            SwerveConstants.RIGHT_LIMELIGHT_POSITION.getRotation().getZ()
-        );
+        this.leftP = NetworkTableInstance.getDefault()
+  .getStructTopic("LeftPose", Pose2d.struct).publish();
 
-        LimelightHelpers.setLEDMode_ForceOff("left-limelight");
-        LimelightHelpers.setLEDMode_ForceOff("right-limelight");
+        this.rightP = NetworkTableInstance.getDefault()
+  .getStructTopic("RightPose", Pose2d.struct).publish();
       }
       catch(Exception e)
       {}
     }
+
+    private StructPublisher<Pose2d> leftP;
+    private StructPublisher<Pose2d> rightP;
     
 
     // TODO Filter Out Erroneous AprilTags
@@ -49,11 +42,14 @@ public class Vision {
             {
         if (yawRate > 720.0) { return; }
 
-        LimelightHelpers.SetRobotOrientation("left-limelight", yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
-        LimelightHelpers.SetRobotOrientation("right-limelight", yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
+        LimelightHelpers.SetRobotOrientation("limelight-left", yaw + 180.0, yawRate, 0.0, 0.0, 0.0, 0.0);
+        LimelightHelpers.SetRobotOrientation("limelight-right", yaw + 180.0, yawRate, 0.0, 0.0, 0.0, 0.0);
 
-        LimelightHelpers.PoseEstimate leftPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("left-limelight");
-        LimelightHelpers.PoseEstimate rightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("right-limelight");
+        LimelightHelpers.PoseEstimate leftPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
+        LimelightHelpers.PoseEstimate rightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
+
+        this.leftP.set(leftPoseEstimate.pose);
+        this.rightP.set(rightPoseEstimate.pose);
 
         // TODO Limelight Standard Deviations
         if (leftPoseEstimate.tagCount != 0) {
