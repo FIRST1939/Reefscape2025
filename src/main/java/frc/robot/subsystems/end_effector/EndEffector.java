@@ -29,7 +29,7 @@ public class EndEffector extends SubsystemBase {
 
         //double coralIntakeVoltage = this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity) + this.coralIntakeFeedback.calculate(this.inputs.coralIntakeVelocity, this.coralIntakeVelocity);
         if (this.coralIntakeVelocity != 0.0) {
-            this.runVoltage(1.25, 0.0, 0.0);
+            this.runVoltage(Math.signum(this.coralIntakeVelocity) * 0.53 + (0.04 * 5.0), 0.0, 0.0);
         } else {
             this.runVoltage(0.0, 0.0, 0.0);
         }

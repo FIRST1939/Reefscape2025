@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
@@ -79,27 +78,28 @@ public class RobotContainer {
 
         SmartDashboard.putData(CommandScheduler.getInstance());
 
-        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.driver.getRightY() * 3.0));
+        new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
-        elevatorSetpoints.and(this.driver.x()).onTrue(new SetpointElevator(this.elevator, -0.015));
-        elevatorSetpoints.and(this.driver.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
-        elevatorSetpoints.and(this.driver.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
-        elevatorSetpoints.and(this.driver.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
+        elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, -0.015));
+        elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
+        elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
+        elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Barge Height
+        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
+        elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef High Height
+        elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef Low Height
+        this.operator.rightBumper().onTrue(new LoadCoral(funnel, endEffector, 5.0, -5.0)); //TODO Configure in and outspeeds (call from setpoint constants?)
+        this.operator.leftBumper().onTrue(new AlgaeIntake(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+        this.operator.rightTrigger().onTrue((new CoralScore(endEffector)));
+        this.operator.leftTrigger().onTrue((new AlgaeScore(endEffector)));
+
 
         /**
         new Trigger(this.funnel::isManual).and(this.driver.leftBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_OUTTAKE_SPEED));
         new Trigger(this.funnel::isManual).and(this.driver.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
         new Trigger(this.funnel::isManual).negate().and(this.driver.rightBumper()).onTrue(new AutomaticFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED, SetPointConstants.FUNNEL_STUCK_SPEED)); // TODO Funnel Intake Deadline
         */
-
-        this.driver.rightBumper().whileTrue(
-            new LoadCoral(funnel, endEffector, 25.0, -5.0)
-        );
-
-        this.driver.rightTrigger().whileTrue(
-            new ManualEndEffector(endEffector, () -> 2.5, () -> 0.0, () -> 0.0)
-        );
 
         /**
         this.endEffector.setDefaultCommand(
