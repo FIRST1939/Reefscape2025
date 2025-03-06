@@ -23,15 +23,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "LoadCoral"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "THP_L"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LoadCoral"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "THP_L"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -47,9 +67,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "LoadCoral"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LoadCoral"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "THP_L"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
