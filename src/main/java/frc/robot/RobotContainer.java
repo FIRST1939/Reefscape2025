@@ -63,7 +63,9 @@ public class RobotContainer {
                 swerve, 
                 () -> -driver.getLeftY(), 
                 () -> -driver.getLeftX(), 
-                () -> -driver.getRightX()
+                () -> -driver.getRightX(),
+                this.driver.rightBumper(),
+                this.driver.leftBumper()
             )
         );
 

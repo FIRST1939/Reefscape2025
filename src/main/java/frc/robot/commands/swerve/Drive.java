@@ -4,6 +4,8 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ControllerConstants;
 import frc.robot.subsystems.swerve.Swerve;
 import swervelib.SwerveInputStream;
@@ -13,8 +15,9 @@ public class Drive extends Command {
     private final Swerve swerve;
     private SwerveInputStream activeInputStream;
     private SwerveInputStream driverInputStream;
+    private SwerveInputStream precisionInputStream;
 
-    public Drive (Swerve swerve, DoubleSupplier vx, DoubleSupplier vy, DoubleSupplier omega) {
+    public Drive (Swerve swerve, DoubleSupplier vx, DoubleSupplier vy, DoubleSupplier omega, Trigger drive, Trigger precision) {
 
         this.swerve = swerve;
 
@@ -25,6 +28,15 @@ public class Drive extends Command {
             //.scaleTranslation(ControllerConstants.SWERVE_TRANSLATION_SCALING)
             .cubeTranslationControllerAxis(true)
             .allianceRelativeControl(true);
+
+        this.precisionInputStream = new SwerveInputStream(this.swerve.getSwerveDrive(), vx, vy, omega)
+            .deadband(ControllerConstants.SWERVE_DEADBAND)
+            .scaleTranslation(0.4)
+            .cubeTranslationControllerAxis(true)
+            .allianceRelativeControl(true);
+
+        drive.onTrue(Commands.runOnce(() -> this.activeInputStream = driverInputStream));
+        precision.onTrue(Commands.runOnce(() -> this.activeInputStream = precisionInputStream));
 
         this.activeInputStream = driverInputStream;
 
