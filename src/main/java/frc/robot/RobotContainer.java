@@ -89,12 +89,11 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
         elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef High Height
         elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef Low Height
-        this.operator.rightBumper().onTrue(new LoadCoral(funnel, endEffector, 5.0, -5.0)); //TODO Configure in and outspeeds (call from setpoint constants?)
-        this.operator.leftBumper().onTrue(new AlgaeIntake(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
-        this.operator.rightTrigger().onTrue((new CoralScore(endEffector)));
-        this.operator.leftTrigger().onTrue((new AlgaeScore(endEffector)));
-
-
+        this.operator.rightBumper().onTrue(new LoadCoral(funnel, endEffector, 5.0, -10.0));
+        this.operator.leftBumper().onTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+        this.operator.rightTrigger().whileTrue(new CoralMove(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
+        this.operator.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
+    
         /**
         new Trigger(this.funnel::isManual).and(this.driver.leftBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_OUTTAKE_SPEED));
         new Trigger(this.funnel::isManual).and(this.driver.rightBumper()).whileTrue(new ManualFunnel(this.funnel, SetPointConstants.FUNNEL_INTAKE_SPEED));
