@@ -7,6 +7,7 @@ public class AutomaticEndEffectorBack extends Command {
     
     private final EndEffector endEffector;
     private final double backVoltage;
+    private double coralIntakePosition;
 
     public AutomaticEndEffectorBack (EndEffector endEffector, double inVoltage) {
 
@@ -19,13 +20,14 @@ public class AutomaticEndEffectorBack extends Command {
     @Override
     public void initialize () {
 
+        this.coralIntakePosition = this.endEffector.getCoralIntakePosition();
         this.endEffector.setCoralIntakeVelocity(backVoltage);
     }
 
     @Override
     public boolean isFinished () {
 
-        return !this.endEffector.getCoralIntakeBeambreak();
+        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > 0.5;
     }
 
     @Override

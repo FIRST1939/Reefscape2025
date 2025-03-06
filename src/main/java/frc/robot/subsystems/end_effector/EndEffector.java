@@ -39,6 +39,11 @@ public class EndEffector extends SubsystemBase {
         this.coralIntakeVelocity = velocity;
     }
 
+    public double getCoralIntakePosition () {
+
+        return this.inputs.coralIntakePosition;
+    }
+
     public boolean getCoralIntakeBeambreak () {
 
         return inputs.coralBeambreak;
