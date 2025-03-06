@@ -90,8 +90,8 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef High Height
         elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef Low Height
         this.operator.rightBumper().onTrue(new LoadCoral(funnel, endEffector, 5.0, -10.0));
-        this.operator.leftBumper().onTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
-        this.operator.rightTrigger().whileTrue(new CoralMove(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
+        this.operator.leftBumper().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
+        this.operator.rightTrigger().onTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
         this.operator.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
     
         /**

@@ -1,6 +1,5 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.SetPointConstants;
 import frc.robot.subsystems.end_effector.EndEffector;
 
 public class AlgaeScore extends SequentialCommandGroup{
