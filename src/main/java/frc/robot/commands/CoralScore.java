@@ -1,10 +1,8 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.SetPointConstants;
 import frc.robot.subsystems.end_effector.EndEffector;
 
-public class CoralScore extends Command{
+public class CoralScore extends Command {
 
     private EndEffector endEffector;
     
@@ -21,8 +19,14 @@ public class CoralScore extends Command{
         //);
     }
     @Override
-    public void execute () {
+    public void initialize () {
 
-        endEffector.runVoltage(coralscorespeed, 0, 0);
+        endEffector.setCoralIntakeVelocity(coralscorespeed);
     }   
+
+    @Override
+    public void end (boolean interrupted) {
+
+        endEffector.setCoralIntakeVelocity(0.0);
+    }
 }
