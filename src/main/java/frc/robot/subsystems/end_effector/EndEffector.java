@@ -2,7 +2,6 @@ package frc.robot.subsystems.end_effector;
 
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -12,9 +11,7 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
     private double coralIntakeVelocity;
-
-    private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.34, 0.017);
-    private final PIDController coralIntakeFeedback = new PIDController(0.015, 0, 0);
+    private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.53, 0.025);
 
     public EndEffector (EndEffectorIO io) {
 
@@ -27,12 +24,7 @@ public class EndEffector extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("End Effector", this.inputs);
 
-        //double coralIntakeVoltage = this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity) + this.coralIntakeFeedback.calculate(this.inputs.coralIntakeVelocity, this.coralIntakeVelocity);
-        if (this.coralIntakeVelocity != 0.0) {
-            this.runVoltage(Math.signum(this.coralIntakeVelocity) * 0.53 + (0.04 * 5.0), 0.0, 0.0);
-        } else {
-            this.runVoltage(0.0, 0.0, 0.0);
-        }
+        this.runVoltage(this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity), 0.0, 0.0);
     }
 
     public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {
