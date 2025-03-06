@@ -10,7 +10,6 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
-    private double coralIntakeVelocity;
     private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.53, 0.025);
 
     public EndEffector (EndEffectorIO io) {
@@ -22,21 +21,26 @@ public class EndEffector extends SubsystemBase {
     public void periodic() {
         
         io.updateInputs(inputs);
-        Logger.processInputs("End Effector", this.inputs);
+        Logger.processInputs("End Effector", this.inputs);    }
 
-        this.runVoltage(this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity), 0.0, 0.0);
-    }
+    public boolean isManual () {
 
-    public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {
-
-        io.setCoralIntakeVoltage(coralIntakeVolts);
-        io.setAlgaeIntakeVoltage(algaeIntakeVolts);
-        io.setAlgaeWristVoltage(algaeWristVolts);
+        return this.inputs.manual;
     }
 
     public void setCoralIntakeVelocity (double velocity) {
 
-        this.coralIntakeVelocity = velocity;
+        this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
+    }
+
+    public void setAlgaeIntakeVoltage (double voltage) {
+
+        this.io.setAlgaeIntakeVoltage(voltage);
+    }
+
+    public void setAlgaeWristVoltage (double voltage) {
+
+        this.io.setAlgaeWristVoltage(voltage);
     }
 
     public double getCoralIntakePosition () {

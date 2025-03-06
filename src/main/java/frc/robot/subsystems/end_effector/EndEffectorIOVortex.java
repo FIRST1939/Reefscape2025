@@ -1,5 +1,7 @@
 package frc.robot.subsystems.end_effector;
 
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -10,6 +12,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
+
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual End Effector", false);
 
     private final SparkFlex coralIntake = new SparkFlex(EndEffectorConstants.coralIntakeCAN, MotorType.kBrushless);
     private final RelativeEncoder coralIntakeEncoder = coralIntake.getEncoder();
@@ -59,6 +63,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         
     @Override
     public void updateInputs (EndEffectorIOInputs inputs) {
+
+        inputs.manual = this.manual.get();
 
         inputs.coralIntakePosition = coralIntakeEncoder.getPosition();
         inputs.coralIntakeVelocity = coralIntakeEncoder.getVelocity();
