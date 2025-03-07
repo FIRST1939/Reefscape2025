@@ -27,10 +27,4 @@ public class IntakeAlgae extends Command {
 
         return this.endEffector.getAlgaeIntakeCurrent() > 40.0 && this.endEffector.getAlgaeIntakeVelocity() < 1.0;
     }
-
-    @Override
-    public void end (boolean interrupted) {
-
-        this.endEffector.setAlgaeIntakeVoltage(0.0);
-    }
 }

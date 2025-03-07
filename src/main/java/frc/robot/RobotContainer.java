@@ -17,6 +17,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.elevator.SetpointElevator;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.LoadAlgae;
+import frc.robot.commands.end_effector.PivotWrist;
 import frc.robot.commands.end_effector.ScoreAlgae;
 import frc.robot.commands.elevator.ManualElevator;
 import frc.robot.subsystems.elevator.Elevator;
@@ -88,10 +89,12 @@ public class RobotContainer {
         this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0));
         this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
 
-        this.operator.leftBumper().toggleOnTrue(new LoadAlgae(endEffector, 150.0, 2.0));
+        this.operator.leftBumper().whileTrue(new LoadAlgae(endEffector, 150.0, 2.0));
+        this.operator.leftBumper().onFalse(new PivotWrist(this.endEffector, 0.0));
+        
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
-        this.operator.start().toggleOnTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
+        this.operator.start().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.back().whileTrue(new Purge(this.endEffector, this.funnel));
     
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));

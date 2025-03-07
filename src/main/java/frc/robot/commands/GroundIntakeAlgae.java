@@ -14,7 +14,8 @@ public class GroundIntakeAlgae extends SequentialCommandGroup {
         this.addCommands(
             new SetpointElevator(elevator, -0.15),
             new PivotWrist(endEffector, 175.0),
-            new IntakeAlgae(endEffector, 2.0)
+            new IntakeAlgae(endEffector, 2.0),
+            new PivotWrist(endEffector, 0.0)
         );
     }
 }

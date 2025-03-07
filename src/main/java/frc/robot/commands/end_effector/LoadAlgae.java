@@ -9,8 +9,7 @@ public class LoadAlgae extends SequentialCommandGroup {
 
         this.addCommands(
             new PivotWrist(endEffector, position),
-            new IntakeAlgae(endEffector, algaeIntakeVoltage),
-            new PivotWrist(endEffector, 0.0)
+            new IntakeAlgae(endEffector, algaeIntakeVoltage)
         );
     }
 }
