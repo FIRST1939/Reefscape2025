@@ -9,11 +9,13 @@ import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
+import frc.robot.commands.auto.TaxiBlue;
+import frc.robot.commands.auto.TaxiRed;
 import frc.robot.commands.elevator.SetpointElevator;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.LoadAlgae;
@@ -113,7 +115,15 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return Commands.print("No autonomous command configured");
+
+        var alliance = DriverStation.getAlliance();
+        if (alliance.get() == DriverStation.Alliance.Red) {
+
+          return new TaxiRed(this.swerve);
+        } else {
+
+            return new TaxiBlue(this.swerve);
+        }
     }
 
     public void onEnable () {
