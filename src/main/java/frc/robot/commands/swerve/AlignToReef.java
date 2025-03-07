@@ -1,10 +1,7 @@
 package frc.robot.commands.swerve;
 
-import java.util.function.DoubleSupplier;
-
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,7 +17,7 @@ public class AlignToReef extends Command {
 
     private Translation2d reefTarget;
 
-    public AlignToReef (Swerve swerve, DoubleSupplier omega) {
+    public AlignToReef (Swerve swerve) {
 
         this.swerve = swerve;
 
@@ -44,7 +41,7 @@ public class AlignToReef extends Command {
 
         Logger.recordOutput("Target", new Pose2d(this.reefTarget, new Rotation2d()));
 
-        this.headingFeedback.setSetpoint(60);
+        this.headingFeedback.setSetpoint(0);
     }
 
     @Override
@@ -54,9 +51,20 @@ public class AlignToReef extends Command {
         Translation2d targetVector = this.reefTarget.minus(currentTranslation);
 
         Rotation2d currentHeading = this.swerve.getPose().getRotation();
-        Rotation2d targetHeading = Rotation2d.fromDegrees(60);
         double rotation = this.headingFeedback.calculate(currentHeading.getDegrees());
 
         this.swerve.driveToPose(targetVector.times(2.0), rotation);
+    }
+
+    @Override
+    public boolean isFinished () {
+
+        Translation2d currentTranslation = this.swerve.getPose().getTranslation();
+        Translation2d targetVector = this.reefTarget.minus(currentTranslation);
+
+        double translationError = targetVector.getNorm();
+        double headingError = this.headingFeedback.getError();
+
+        return (translationError < 0.025 && headingError < 1.5);
     }
 }

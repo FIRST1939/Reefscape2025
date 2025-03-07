@@ -1,7 +1,5 @@
 package frc.robot.commands.swerve;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -16,7 +14,7 @@ public class AlignToAlgae extends Command {
 
     private Translation2d reefTarget;
 
-    public AlignToAlgae (Swerve swerve, DoubleSupplier omega) {
+    public AlignToAlgae (Swerve swerve) {
 
         this.swerve = swerve;
 
@@ -48,7 +46,6 @@ public class AlignToAlgae extends Command {
         Translation2d targetVector = this.reefTarget.minus(currentTranslation);
 
         Rotation2d currentHeading = this.swerve.getPose().getRotation();
-        Rotation2d targetHeading = Rotation2d.fromDegrees(60);
         double rotation = this.headingFeedback.calculate(currentHeading.getDegrees());
 
         this.swerve.driveToPose(targetVector.times(2.0), rotation);

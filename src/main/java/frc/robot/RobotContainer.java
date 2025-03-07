@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.auto.TaxiBlue;
@@ -78,8 +79,8 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
-        this.driver.rightTrigger().whileTrue(new AlignToAlgae(this.swerve, () -> -this.driver.getRightX()));
+        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve));
+        this.driver.rightTrigger().whileTrue(new AlignToAlgae(this.swerve));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
@@ -123,10 +124,14 @@ public class RobotContainer {
         var alliance = DriverStation.getAlliance();
         if (alliance.get() == DriverStation.Alliance.Red) {
 
-          return new TaxiRed(this.swerve);
+            return Commands.sequence(
+                new AlignToReef(this.swerve).withTimeout(7.0),
+                new SetpointElevator(this.elevator, 1.60),
+                new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED)
+            );
         } else {
 
-            return new TaxiBlue(this.swerve);
+            return new AlignToReef(this.swerve);
         }
     }
 
