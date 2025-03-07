@@ -110,7 +110,7 @@ public class Swerve extends SubsystemBase {
         this.publisher.set(this.swerveDrive.getPose());
 
         this.vision.updatePoseEstimation(
-            this.swerveDrive.getYaw().getDegrees(), 
+            this.swerveDrive.getOdometryHeading().getDegrees(), 
             this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
         );
     }

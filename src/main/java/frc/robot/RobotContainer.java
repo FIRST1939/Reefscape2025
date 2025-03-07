@@ -10,8 +10,9 @@ import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.auto.TaxiBlue;
@@ -64,6 +65,8 @@ public class RobotContainer {
 
     private void configureBindings () {
 
+        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+
         this.swerve.setDefaultCommand(
             new Drive(
                 swerve, 
@@ -88,7 +91,7 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.76));
         elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.37));
 
-        this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0));
+        this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0, this.operator));
         this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
 
         this.operator.leftBumper().whileTrue(new LoadAlgae(endEffector, 150.0, 2.0));
