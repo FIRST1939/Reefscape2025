@@ -5,15 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.elevator.SetpointElevator;
@@ -67,11 +65,11 @@ public class RobotContainer {
                 swerve, 
                 () -> -driver.getLeftY(), 
                 () -> -driver.getLeftX(), 
-                () -> -driver.getRightX(),
-                this.driver.leftBumper(),
-                this.driver.rightBumper()
+                () -> -driver.getRightX()
             )
         );
+
+        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
