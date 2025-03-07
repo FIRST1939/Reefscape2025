@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.elevator.SetpointElevator;
 import frc.robot.commands.end_effector.ScoreCoral;
-import frc.robot.commands.end_effector.PivotWrist;
+import frc.robot.commands.end_effector.LoadAlgae;
+import frc.robot.commands.end_effector.ScoreAlgae;
 import frc.robot.commands.elevator.ManualElevator;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -78,16 +79,17 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
         elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
         elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.64)); //TODO Calculate Barge Height
+
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.64));
         elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
-        elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.76)); //TODO Calculate Reef High Height
-        elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.37)); //TODO Calculate Reef Low Height
+        elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.76));
+        elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.37));
 
         this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0));
         this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
 
-        this.operator.leftBumper().whileTrue(new PivotWrist(this.endEffector, 150.0));
-        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
+        this.operator.leftBumper().toggleOnTrue(new LoadAlgae(endEffector, 150.0, 2.0));
+        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
         this.operator.start().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
     

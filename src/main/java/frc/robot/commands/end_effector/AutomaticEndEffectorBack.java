@@ -5,13 +5,14 @@ import frc.robot.subsystems.end_effector.EndEffector;
 public class AutomaticEndEffectorBack extends Command {
     
     private final EndEffector endEffector;
-    private final double backVoltage;
+
+    private final double backVelocity;
     private double coralIntakePosition;
 
-    public AutomaticEndEffectorBack (EndEffector endEffector, double inVoltage) {
+    public AutomaticEndEffectorBack (EndEffector endEffector, double backVelocity) {
 
         this.endEffector = endEffector;
-        this.backVoltage = inVoltage;
+        this.backVelocity = backVelocity;
 
         this.addRequirements(this.endEffector);
     }
@@ -20,7 +21,7 @@ public class AutomaticEndEffectorBack extends Command {
     public void initialize () {
 
         this.coralIntakePosition = this.endEffector.getCoralIntakePosition();
-        this.endEffector.setCoralIntakeVelocity(backVoltage);
+        this.endEffector.setCoralIntakeVelocity(backVelocity);
         
     }
 

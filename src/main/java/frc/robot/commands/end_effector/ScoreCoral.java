@@ -10,6 +10,7 @@ public class ScoreCoral extends Command {
     private double coralPosition;
     
     public ScoreCoral(EndEffector endEffector, double coralScoreSpeed) {
+        
         this.endEffector = endEffector;
         this.coralScoreSpeed = coralScoreSpeed;
 
