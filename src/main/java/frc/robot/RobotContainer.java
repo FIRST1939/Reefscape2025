@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.swerve.AlignToAlgae;
 import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
@@ -77,7 +78,8 @@ public class RobotContainer {
             )
         );
 
-        this.driver.leftBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
+        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
+        this.driver.rightTrigger().whileTrue(new AlignToAlgae(this.swerve, () -> -this.driver.getRightX()));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();

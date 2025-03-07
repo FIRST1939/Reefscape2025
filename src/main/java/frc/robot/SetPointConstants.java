@@ -31,7 +31,7 @@ public class SetPointConstants {
         new Translation2d(3.987, 5.203),
         new Translation2d(3.702, 5.039),
         new Translation2d(14.321, 3.868),
-        new Translation2d(14.321,  4.197),
+        new Translation2d(14.321, 4.197),
         new Translation2d(13.835, 5.039),
         new Translation2d(13.550, 5.203),
         new Translation2d(12.578, 5.203),
@@ -42,5 +42,21 @@ public class SetPointConstants {
         new Translation2d(12.578, 2.861),
         new Translation2d(13.550, 2.861),
         new Translation2d(13.835, 3.026)
+    };
+
+    public static final Translation2d[] REEF_ALGAE_POSITIONS = {
+        new Translation2d(3.215, 4.010),
+        new Translation2d(3.844, 2.922),
+        new Translation2d(5.101, 2.922),
+        new Translation2d(5.729, 4.010),
+        new Translation2d(5.101, 5.099),
+        new Translation2d(3.844, 5.099),
+        new Translation2d(14.321, 4.032),
+        new Translation2d(13.693, 5.121),
+        new Translation2d(12.435, 5.121),
+        new Translation2d(11.807, 4.032),
+        new Translation2d(12.435, 2.943),
+        new Translation2d(13.692, 2.943
+        )
     };
 }
