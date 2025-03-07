@@ -96,8 +96,8 @@ public class RobotContainer {
 
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
-        this.operator.start().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
-        this.operator.back().whileTrue(new Purge(this.endEffector, this.funnel));
+        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
+        this.operator.start().whileTrue(new Purge(this.endEffector, this.funnel));
     
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
 

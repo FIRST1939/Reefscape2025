@@ -41,6 +41,6 @@ public class SetPointConstants {
         new Translation2d(12.293, 3.026),
         new Translation2d(12.578, 2.861),
         new Translation2d(13.550, 2.861),
-        new Translation2d(13.835, 3.026),
+        new Translation2d(13.835, 3.026)
     };
 }

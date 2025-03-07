@@ -2,7 +2,10 @@ package frc.robot.commands.swerve;
 
 import java.util.function.DoubleSupplier;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.SetPointConstants;
@@ -34,8 +37,11 @@ public class AlignToReef extends Command {
             if (currentTranslation.getDistance(coralPosition) < minDistance) {
 
                 this.reefTarget = coralPosition;
+                minDistance = currentTranslation.getDistance(coralPosition);
             }
         }
+
+        Logger.recordOutput("Target", new Pose2d(this.reefTarget, new Rotation2d()));
     }
 
     @Override
