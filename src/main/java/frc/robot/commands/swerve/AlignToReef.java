@@ -15,11 +15,12 @@ public class AlignToReef extends Command {
     private final Swerve swerve;
     private final PIDController headingFeedback = new PIDController(0.1, 0, 0);
 
-    private Translation2d reefTarget;
+    private Pose2d reefTarget;
 
     public AlignToReef (Swerve swerve) {
 
         this.swerve = swerve;
+        this.headingFeedback.enableContinuousInput(-180, 180);
 
         this.addRequirements(this.swerve);
     }
@@ -30,41 +31,27 @@ public class AlignToReef extends Command {
         Translation2d currentTranslation = this.swerve.getPose().getTranslation();
         double minDistance = Double.MAX_VALUE;
 
-        for (Translation2d coralPosition : SetPointConstants.REEF_CORAL_POSITIONS) {
+        for (Pose2d coralPosition : SetPointConstants.REEF_CORAL_POSITIONS) {
 
-            if (currentTranslation.getDistance(coralPosition) < minDistance) {
+            if (currentTranslation.getDistance(coralPosition.getTranslation()) < minDistance) {
 
                 this.reefTarget = coralPosition;
-                minDistance = currentTranslation.getDistance(coralPosition);
+                minDistance = currentTranslation.getDistance(coralPosition.getTranslation());
             }
         }
 
-        Logger.recordOutput("Target", new Pose2d(this.reefTarget, new Rotation2d()));
-
-        this.headingFeedback.setSetpoint(0);
+        this.headingFeedback.setSetpoint(this.reefTarget.getRotation().getDegrees());
     }
 
     @Override
     public void execute () {
 
         Translation2d currentTranslation = this.swerve.getPose().getTranslation();
-        Translation2d targetVector = this.reefTarget.minus(currentTranslation);
+        Translation2d targetVector = this.reefTarget.getTranslation().minus(currentTranslation);
 
         Rotation2d currentHeading = this.swerve.getPose().getRotation();
         double rotation = this.headingFeedback.calculate(currentHeading.getDegrees());
 
         this.swerve.driveToPose(targetVector.times(2.0), rotation);
-    }
-
-    @Override
-    public boolean isFinished () {
-
-        Translation2d currentTranslation = this.swerve.getPose().getTranslation();
-        Translation2d targetVector = this.reefTarget.minus(currentTranslation);
-
-        double translationError = targetVector.getNorm();
-        double headingError = this.headingFeedback.getError();
-
-        return (translationError < 0.025 && headingError < 1.5);
     }
 }

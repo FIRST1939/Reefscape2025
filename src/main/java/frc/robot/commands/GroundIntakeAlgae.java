@@ -11,12 +11,12 @@ import frc.robot.subsystems.end_effector.EndEffector;
 
 public class GroundIntakeAlgae extends SequentialCommandGroup {
     
-    public GroundIntakeAlgae (Elevator elevator, EndEffector endEffector, CommandXboxController controller) {
+    public GroundIntakeAlgae (Elevator elevator, EndEffector endEffector) {
 
         this.addCommands(
             Commands.parallel(
                 new SetpointElevator(elevator, -0.15),
-                new PivotLoadAlgae(endEffector, 175.0, 2.0, controller)
+                new PivotLoadAlgae(endEffector, 175.0, 2.0)
             ),
             new PivotWrist(endEffector, 0.0)
         );

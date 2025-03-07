@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.commands.auto.TaxiBlue;
@@ -90,7 +91,7 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
         elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
 
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.64));
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.68));
         elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
         elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.76));
         elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.37));
@@ -98,10 +99,10 @@ public class RobotContainer {
         this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0, this.operator));
         this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
 
-        this.operator.leftBumper().whileTrue(new PivotLoadAlgae(this.endEffector, 150.0, 2.0, this.operator));
+        this.operator.leftBumper().whileTrue(new PivotLoadAlgae(this.endEffector, 150.0, 2.0));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
-        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector, this.operator));
+        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.start().whileTrue(new Purge(this.endEffector, this.funnel));
     
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
@@ -125,13 +126,21 @@ public class RobotContainer {
         if (alliance.get() == DriverStation.Alliance.Red) {
 
             return Commands.sequence(
-                new AlignToReef(this.swerve).withTimeout(7.0),
+                new AlignToReef(this.swerve).withTimeout(5.0),
                 new SetpointElevator(this.elevator, 1.60),
-                new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED)
+                new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
+                new WaitCommand(1.0),
+                new SetpointElevator(this.elevator, -0.015)
             );
         } else {
 
-            return new AlignToReef(this.swerve);
+            return Commands.sequence(
+                new AlignToReef(this.swerve).withTimeout(5.0),
+                new SetpointElevator(this.elevator, 1.60),
+                new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
+                new WaitCommand(1.0),
+                new SetpointElevator(this.elevator, -0.015)
+            );
         }
     }
 
