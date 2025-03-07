@@ -1,5 +1,7 @@
 package frc.robot.commands.swerve;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -9,23 +11,27 @@ import frc.robot.subsystems.swerve.Swerve;
 public class AlignToReef extends Command {
     
     private final Swerve swerve;
-    private Pose2d reefTarget;
+    private final DoubleSupplier omega;
 
-    public AlignToReef (Swerve swerve) {
+    private Translation2d reefTarget;
+
+    public AlignToReef (Swerve swerve, DoubleSupplier omega) {
 
         this.swerve = swerve;
+        this.omega = omega;
+
         this.addRequirements(this.swerve);
     }
 
     @Override
     public void initialize () {
 
-        Pose2d currentPose = this.swerve.getPose();
+        Translation2d currentTranslation = this.swerve.getPose().getTranslation();
         double minDistance = Double.MAX_VALUE;
 
-        for (Pose2d coralPosition : SetPointConstants.REEF_CORAL_POSITIONS) {
+        for (Translation2d coralPosition : SetPointConstants.REEF_CORAL_POSITIONS) {
 
-            if (currentPose.getTranslation().getDistance(coralPosition.getTranslation()) < minDistance) {
+            if (currentTranslation.getDistance(coralPosition) < minDistance) {
 
                 this.reefTarget = coralPosition;
             }
@@ -36,7 +42,7 @@ public class AlignToReef extends Command {
     public void execute () {
 
         Translation2d currentTranslation = this.swerve.getPose().getTranslation();
-        Translation2d targetVector = this.reefTarget.getTranslation().minus(currentTranslation);
-        this.swerve.driveToPose(targetVector.times(2.0));
+        Translation2d targetVector = this.reefTarget.minus(currentTranslation);
+        this.swerve.driveToPose(targetVector.times(2.0), this.omega.getAsDouble());
     }
 }

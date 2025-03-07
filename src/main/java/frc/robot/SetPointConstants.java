@@ -1,6 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class SetPointConstants {
     public static final double CORAL_INTAKE_HEIGHT = 0.0;
@@ -17,5 +17,5 @@ public class SetPointConstants {
     public static final double FUNNEL_STUCK_SPEED = -1.65;
     public static final double CORAL_OUTTAKE_SPEED = 20.0;
 
-    public static final Pose2d[] REEF_CORAL_POSITIONS = {};
+    public static final Translation2d[] REEF_CORAL_POSITIONS = {};
 }

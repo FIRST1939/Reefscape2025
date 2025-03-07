@@ -69,7 +69,7 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve));
+        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
