@@ -4,6 +4,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.SetPointConstants;
+import frc.robot.commands.end_effector.AutomaticEndEffectorBack;
+import frc.robot.commands.end_effector.AutomaticEndEffectorIn;
+import frc.robot.commands.funnel.AutomaticFunnel;
 import frc.robot.subsystems.end_effector.EndEffector;
 import frc.robot.subsystems.funnel.Funnel;
 

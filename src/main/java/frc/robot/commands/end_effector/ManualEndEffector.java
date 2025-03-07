@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.end_effector;
 
 import java.util.function.DoubleSupplier;
 
