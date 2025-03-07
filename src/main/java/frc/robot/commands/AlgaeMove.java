@@ -12,23 +12,18 @@ public class AlgaeMove extends Command{
 
         this.endEffector=endEffector;
         this.algaeouttakespeed = algaeouttakespeed;
+
         this.addRequirements(this.endEffector);
     }
 
     @Override
-    //Start
-    public void execute () {
-        endEffector.runVoltage(0, algaeouttakespeed,0);
+    public void initialize () {
+
+        this.endEffector.setAlgaeIntakeVoltage(algaeouttakespeed);
     }
     @Override
-    public void end (boolean interrupted) 
-    {
-        endEffector.runVoltage(0, 0,0);
+    public void end (boolean interrupted) {
+        
+        this.endEffector.setAlgaeIntakeVoltage(0.0);
     }
-
 }
-
-
-
-    
-

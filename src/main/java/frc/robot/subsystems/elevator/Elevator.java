@@ -8,7 +8,9 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Elevator extends SubsystemBase {
     
@@ -30,6 +32,8 @@ public class Elevator extends SubsystemBase {
             ElevatorConstants.maxAcceleration
         )
     );
+
+    private double offset = 0.0;
 
     private final PIDController close = new PIDController(0.0, ElevatorConstants.kI, 0.0);
 
@@ -66,7 +70,7 @@ public class Elevator extends SubsystemBase {
 
     public void setGoal (double goal) {
 
-        this.controller.setGoal(goal);
+        this.controller.setGoal(goal + this.offset);
     }
 
     public boolean atGoal () {

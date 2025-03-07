@@ -8,6 +8,8 @@ public interface EndEffectorIO {
     @AutoLog
     public static class EndEffectorIOInputs {
 
+        public boolean manual = false;
+
         public double coralIntakePosition = 0.0;
         public double coralIntakeVelocity = 0.0;
         public double coralIntakeVoltage = 0.0;

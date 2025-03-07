@@ -148,7 +148,7 @@ public class Swerve extends SubsystemBase {
 
     public void zeroGyro () {
 
-        if (this.isRedAlliance()) {
+        if (!this.isRedAlliance()) {
 
             this.swerveDrive.zeroGyro();
             this.resetOdometry(new Pose2d(this.getPose().getTranslation(), Rotation2d.fromDegrees(180)));
@@ -161,5 +161,10 @@ public class Swerve extends SubsystemBase {
     public void driveFieldOriented (ChassisSpeeds chassisSpeeds) {
 
         this.swerveDrive.driveFieldOriented(chassisSpeeds);
+    }
+
+    public void driveToPose (Translation2d translation) {
+
+        this.swerveDrive.drive(translation, 0.0, true, false);
     }
 }

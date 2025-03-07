@@ -1,5 +1,4 @@
 package frc.robot.commands;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.end_effector.EndEffector;
 
@@ -7,6 +6,7 @@ public class AutomaticEndEffectorBack extends Command {
     
     private final EndEffector endEffector;
     private final double backVoltage;
+    private double coralIntakePosition;
 
     public AutomaticEndEffectorBack (EndEffector endEffector, double inVoltage) {
 
@@ -19,13 +19,15 @@ public class AutomaticEndEffectorBack extends Command {
     @Override
     public void initialize () {
 
+        this.coralIntakePosition = this.endEffector.getCoralIntakePosition();
         this.endEffector.setCoralIntakeVelocity(backVoltage);
+        
     }
 
     @Override
     public boolean isFinished () {
-
-        return !this.endEffector.getCoralIntakeBeambreak();
+        
+        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > 4.0;
     }
 
     @Override

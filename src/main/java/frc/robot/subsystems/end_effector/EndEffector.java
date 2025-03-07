@@ -2,6 +2,7 @@ package frc.robot.subsystems.end_effector;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,10 +12,8 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
-    private double coralIntakeVelocity;
-
-    private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.34, 0.017);
-    private final PIDController coralIntakeFeedback = new PIDController(0.015, 0, 0);
+    private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.53, 0.025);
+    private final PIDController algaeWristFeedback = new PIDController(0.06, 0.0, 0.0);
 
     public EndEffector (EndEffectorIO io) {
 
@@ -27,24 +26,37 @@ public class EndEffector extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("End Effector", this.inputs);
 
-        //double coralIntakeVoltage = this.coralIntakeFeedforward.calculate(this.coralIntakeVelocity) + this.coralIntakeFeedback.calculate(this.inputs.coralIntakeVelocity, this.coralIntakeVelocity);
-        if (this.coralIntakeVelocity != 0.0) {
-            this.runVoltage(1.25, 0.0, 0.0);
-        } else {
-            this.runVoltage(0.0, 0.0, 0.0);
-        }
+        this.io.setAlgaeWristVoltage(MathUtil.clamp(this.algaeWristFeedback.calculate(this.inputs.algaeWristPosition), -3.5, 3.5));
     }
 
-    public void runVoltage (double coralIntakeVolts, double algaeIntakeVolts, double algaeWristVolts) {
+    public boolean isManual () {
 
-        io.setCoralIntakeVoltage(coralIntakeVolts);
-        io.setAlgaeIntakeVoltage(algaeIntakeVolts);
-        io.setAlgaeWristVoltage(algaeWristVolts);
+        return this.inputs.manual;
     }
 
     public void setCoralIntakeVelocity (double velocity) {
 
-        this.coralIntakeVelocity = velocity;
+        this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
+    }
+
+    public void setAlgaeIntakeVoltage (double voltage) {
+
+        this.io.setAlgaeIntakeVoltage(voltage);
+    }
+
+    public void setAlgaeWristVoltage (double voltage) {
+
+        //this.io.setAlgaeWristVoltage(voltage);
+    }
+
+    public void setAlgaeWristPosition (double position) {
+
+        this.algaeWristFeedback.setSetpoint(position);
+    }
+
+    public double getCoralIntakePosition () {
+
+        return this.inputs.coralIntakePosition;
     }
 
     public boolean getCoralIntakeBeambreak () {
