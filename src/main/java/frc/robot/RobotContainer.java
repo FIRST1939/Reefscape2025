@@ -71,7 +71,7 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
+        this.driver.leftBumper().whileTrue(new AlignToReef(this.swerve, () -> -this.driver.getRightX()));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
@@ -91,7 +91,7 @@ public class RobotContainer {
 
         this.operator.leftBumper().whileTrue(new LoadAlgae(endEffector, 150.0, 2.0));
         this.operator.leftBumper().onFalse(new PivotWrist(this.endEffector, 0.0));
-        
+
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
         this.operator.start().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
