@@ -11,15 +11,53 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "D_BHP"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "BHP_C"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LoadCoral"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "BHP_C"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
           }
         },
         {
@@ -29,9 +67,41 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "BHP_B"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "LoadCoral"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "BHP_B"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
           }
         }
       ]

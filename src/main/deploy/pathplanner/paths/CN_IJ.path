@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.042580242959474,
-        "y": 5.975787515966643
+        "x": 7.769,
+        "y": 4.461
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.042580242959474,
-        "y": 5.975787515966643
+        "x": 6.769,
+        "y": 4.461
       },
       "isLocked": false,
       "linkedName": "Cn"
     },
     {
       "anchor": {
-        "x": 5.177897257498469,
-        "y": 5.130142419119324
+        "x": 5.10178679657,
+        "y": 5.09978679657
       },
       "prevControl": {
-        "x": 5.677897257498469,
-        "y": 5.996167822903763
+        "x": 5.523612774164616,
+        "y": 5.830410821716286
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "IJ"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -50,7 +45,7 @@
     "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef to Net",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.032154605263157,
-        "y": 5.198848684210526
+        "x": 5.123,
+        "y": 5.121
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.532154605263157,
-        "y": 6.064874087994965
+        "x": 5.623,
+        "y": 5.987025403784439
       },
       "isLocked": false,
       "linkedName": "J"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 5.9750822368421055,
-        "y": 0.5130756578947364
+        "x": 5.98678679657,
+        "y": 0.40178679657
       },
       "prevControl": {
-        "x": 5.9750822368421055,
-        "y": -0.4869243421052636
+        "x": 5.98678679657,
+        "y": -0.59821320343
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef to Proccesor",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.35775354279124
