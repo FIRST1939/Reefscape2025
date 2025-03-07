@@ -64,8 +64,8 @@ public class RobotContainer {
                 () -> -driver.getLeftY(), 
                 () -> -driver.getLeftX(), 
                 () -> -driver.getRightX(),
-                this.driver.rightBumper(),
-                this.driver.leftBumper()
+                this.driver.leftBumper(),
+                this.driver.rightBumper()
             )
         );
 
@@ -76,15 +76,18 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
         elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
         elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Barge Height
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.64)); //TODO Calculate Barge Height
         elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
-        elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef High Height
-        elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Reef Low Height
+        elevatorSetpoints.and(this.operator.povRight()).onTrue(new SetpointElevator(this.elevator, 0.76)); //TODO Calculate Reef High Height
+        elevatorSetpoints.and(this.operator.povDown()).onTrue(new SetpointElevator(this.elevator, 0.37)); //TODO Calculate Reef Low Height
 
-        this.operator.rightBumper().onTrue(new LoadCoral(funnel, endEffector, 5.0, -10.0));
-        this.operator.leftBumper().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_INTAKE_SPEED));
-        this.operator.rightTrigger().onTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
-        this.operator.leftTrigger().whileTrue(new AlgaeMove(endEffector, SetPointConstants.ALGAE_OUTTAKE_SPEED));
+        this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0));
+        this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
+
+        this.operator.leftBumper().whileTrue(new PivotWrist(this.endEffector, 150.0));
+        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
+
+        this.operator.start().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
     
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
 
@@ -97,18 +100,6 @@ public class RobotContainer {
         /**
         this.endEffector.setDefaultCommand(
             new ManualEndEffector(endEffector, () -> (0.34 + (0.017 * 50.0)), () -> 0.0, () -> 0.0)
-        );
-        */
-
-        /**
-        this.endEffector.setDefaultCommand(
-            new ManualEndEffector(
-                this.endEffector, 
-                () -> this.driver.getLeftX() * 3.0, 
-                //() -> (this.driver.getRightTriggerAxis() - this.driver.getLeftTriggerAxis()) * 3.0, 
-                () -> 0.0,
-                () -> (this.driver.getRightTriggerAxis() - this.driver.getLeftTriggerAxis()) * 4.0
-            )
         );
         */
     }

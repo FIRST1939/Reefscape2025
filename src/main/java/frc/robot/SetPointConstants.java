@@ -13,5 +13,5 @@ public class SetPointConstants {
     public static final double FUNNEL_INTAKE_SPEED = 1.5;
     public static final double FUNNEL_OUTTAKE_SPEED = -1.5;
     public static final double FUNNEL_STUCK_SPEED = -1.65;
-    public static final double CORAL_OUTTAKE_SPEED = -5.0;
+    public static final double CORAL_OUTTAKE_SPEED = 20.0;
 }

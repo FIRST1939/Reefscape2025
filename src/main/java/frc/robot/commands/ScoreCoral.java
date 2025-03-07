@@ -26,7 +26,7 @@ public class ScoreCoral extends Command {
     @Override
     public boolean isFinished () {
 
-        return (this.endEffector.getCoralIntakePosition() - this.coralPosition) > 50.0;
+        return (this.endEffector.getCoralIntakePosition() - this.coralPosition) > 25.0;
     }
 
     @Override

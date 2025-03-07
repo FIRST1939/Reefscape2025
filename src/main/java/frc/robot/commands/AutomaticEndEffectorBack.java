@@ -27,7 +27,7 @@ public class AutomaticEndEffectorBack extends Command {
     @Override
     public boolean isFinished () {
         
-        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > 5.5;
+        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > 4.0;
     }
 
     @Override

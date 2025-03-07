@@ -162,4 +162,9 @@ public class Swerve extends SubsystemBase {
 
         this.swerveDrive.driveFieldOriented(chassisSpeeds);
     }
+
+    public void driveToPose (Translation2d translation) {
+
+        this.swerveDrive.drive(translation, 0.0, true, false);
+    }
 }

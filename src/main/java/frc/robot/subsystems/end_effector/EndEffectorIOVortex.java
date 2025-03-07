@@ -34,7 +34,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
 
         coralIntakeconfig.idleMode(IdleMode.kBrake).inverted(EndEffectorConstants.coralIntakeInverted).smartCurrentLimit(EndEffectorConstants.coralIntakeCurrentLimit).voltageCompensation(12.0);
         algaeIntakeconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeIntakeCurrentLimit).voltageCompensation(12.0);
-        algaeWristconfig.idleMode(IdleMode.kBrake).smartCurrentLimit(EndEffectorConstants.algaeWristCurrentLimit).voltageCompensation(12.0);
+        algaeWristconfig.idleMode(IdleMode.kBrake).inverted(true).smartCurrentLimit(EndEffectorConstants.algaeWristCurrentLimit).voltageCompensation(12.0);
 
         coralIntakeconfig.limitSwitch.forwardLimitSwitchEnabled(false);
 
