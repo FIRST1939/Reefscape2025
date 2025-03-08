@@ -5,11 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.AlignToAlgae;
-import frc.robot.commands.swerve.AlignToReef;
+import frc.robot.commands.swerve.AlignToClosest;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -80,8 +82,8 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToReef(this.swerve));
-        this.driver.rightTrigger().whileTrue(new AlignToAlgae(this.swerve));
+        this.driver.rightBumper().whileTrue(new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS));
+        this.driver.rightTrigger().whileTrue(new AlignToClosest(this.swerve, SetPointConstants.REEF_ALGAE_POSITIONS));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * 3.0));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
@@ -104,7 +106,27 @@ public class RobotContainer {
 
         this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.start().whileTrue(new Purge(this.endEffector, this.funnel));
-    
+
+        this.driver.a().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Far Barge
+             new Pose2d(new Translation2d(7.547, 5.439), Rotation2d.fromDegrees(0)),
+             new Pose2d(new Translation2d(9.989, 2.461), Rotation2d.fromDegrees(180))
+        }));
+
+        this.driver.b().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Close Barge
+            new Pose2d(new Translation2d(7.747, 5.439), Rotation2d.fromDegrees(180)),
+            new Pose2d(new Translation2d(9.789, 2.461), Rotation2d.fromDegrees(180))
+        }));
+
+        this.driver.x().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Far Barge
+            new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
+            new Pose2d(new Translation2d(9.989, 1.461), Rotation2d.fromDegrees(180))
+        }));
+       
+        this.driver.y().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Close Barge
+            new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
+            new Pose2d(new Translation2d(9.789, 1.461), Rotation2d.fromDegrees(180))
+        }));
+       
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
 
         /**
@@ -126,7 +148,7 @@ public class RobotContainer {
         if (alliance.get() == DriverStation.Alliance.Red) {
 
             return Commands.sequence(
-                new AlignToReef(this.swerve).withTimeout(5.0),
+                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
                 new SetpointElevator(this.elevator, 1.60),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
                 new WaitCommand(1.0),
@@ -135,7 +157,7 @@ public class RobotContainer {
         } else {
 
             return Commands.sequence(
-                new AlignToReef(this.swerve).withTimeout(5.0),
+                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
                 new SetpointElevator(this.elevator, 1.60),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
                 new WaitCommand(1.0),

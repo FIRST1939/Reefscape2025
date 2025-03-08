@@ -31,7 +31,7 @@ public class SetPointConstants {
         new Pose2d(new Translation2d(5.244, 5.012), Rotation2d.fromDegrees(-120)),
         new Pose2d(new Translation2d(4.959, 5.203), Rotation2d.fromDegrees(-120)),
         new Pose2d(new Translation2d(3.987, 5.203), Rotation2d.fromDegrees(-60)),
-        new Pose2d(new Translation2d(3.702, 5.039), Rotation2d.fromDegrees(-60)),
+        new Pose2d(new Translation2d(3.702, 5.050), Rotation2d.fromDegrees(-60)),
         new Pose2d(new Translation2d(14.321, 3.868), Rotation2d.fromDegrees(180)),
         new Pose2d(new Translation2d(14.321, 4.197), Rotation2d.fromDegrees(180)),
         new Pose2d(new Translation2d(13.835, 5.039), Rotation2d.fromDegrees(-120)),
@@ -60,5 +60,23 @@ public class SetPointConstants {
         new Pose2d(new Translation2d(12.435, 2.943), Rotation2d.fromDegrees(60)),
         new Pose2d(new Translation2d(13.692, 2.943), Rotation2d.fromDegrees(120))
         
+    };
+
+    public static final Pose2d[] BARGE_POSITIONS = {
+        new Pose2d(new Translation2d(7.747, 5.439), Rotation2d.fromDegrees(0)),
+        new Pose2d(new Translation2d(7.547, 5.439), Rotation2d.fromDegrees(0)),
+        new Pose2d(new Translation2d(9.789, 2.461), Rotation2d.fromDegrees(180)),
+        new Pose2d(new Translation2d(9.989, 2.461), Rotation2d.fromDegrees(180)),
+        new Pose2d(new Translation2d(7.747, 6.439), Rotation2d.fromDegrees(0)),
+        new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
+        new Pose2d(new Translation2d(9.789, 1.461), Rotation2d.fromDegrees(180)),
+        new Pose2d(new Translation2d(9.989, 1.461), Rotation2d.fromDegrees(180))
+    };
+    
+    public static final Pose2d[] HP_POSITIONS = {
+        new Pose2d(new Translation2d(1.405, 7.286), Rotation2d.fromDegrees(125.989)),
+        new Pose2d(new Translation2d(1.569, 0.615), Rotation2d.fromDegrees(-125.989)),
+        new Pose2d(new Translation2d(16.296, 7.189), Rotation2d.fromDegrees(54.011)),
+        new Pose2d(new Translation2d(16.789, 1.234), Rotation2d.fromDegrees(-54.011))
     };
 }
