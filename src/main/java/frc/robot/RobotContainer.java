@@ -150,6 +150,7 @@ public class RobotContainer {
             return Commands.sequence(
                 new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
                 new SetpointElevator(this.elevator, 1.60),
+                new WaitCommand(1.0),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
                 new WaitCommand(1.0),
                 new SetpointElevator(this.elevator, -0.015)
@@ -159,6 +160,7 @@ public class RobotContainer {
             return Commands.sequence(
                 new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
                 new SetpointElevator(this.elevator, 1.60),
+                new WaitCommand(1.0),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
                 new WaitCommand(1.0),
                 new SetpointElevator(this.elevator, -0.015)
