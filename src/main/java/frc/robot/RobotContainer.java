@@ -126,7 +126,15 @@ public class RobotContainer {
             new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
             new Pose2d(new Translation2d(9.789, 1.461), Rotation2d.fromDegrees(180))
         }));
-       
+
+        
+        this.driver.leftTrigger().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //HP Station Alignment
+            new Pose2d(new Translation2d(1.405, 7.286), Rotation2d.fromDegrees(125.989)),
+            new Pose2d(new Translation2d(1.569, 0.615), Rotation2d.fromDegrees(-125.989)),
+            new Pose2d(new Translation2d(16.296, 7.189), Rotation2d.fromDegrees(54.011)),
+            new Pose2d(new Translation2d(16.789, 1.234), Rotation2d.fromDegrees(-54.011))
+        }));
+
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
 
         /**
