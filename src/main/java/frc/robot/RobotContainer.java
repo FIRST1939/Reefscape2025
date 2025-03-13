@@ -91,7 +91,7 @@ public class RobotContainer {
         elevatorSetpoints.and(this.operator.x()).onTrue(new SetpointElevator(this.elevator, -0.015));
         elevatorSetpoints.and(this.operator.a()).onTrue(new SetpointElevator(this.elevator, 0.55));
         elevatorSetpoints.and(this.operator.b()).onTrue(new SetpointElevator(this.elevator, 0.97));
-        elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.60));
+        elevatorSetpoints.and(this.operator.y()).onTrue(new SetpointElevator(this.elevator, 1.59));
 
         elevatorSetpoints.and(this.operator.povUp()).onTrue(new SetpointElevator(this.elevator, 1.68));
         elevatorSetpoints.and(this.operator.povLeft()).onTrue(new SetpointElevator(this.elevator, 0.0)); //TODO Calculate Processer Height
@@ -101,31 +101,43 @@ public class RobotContainer {
         this.operator.rightBumper().toggleOnTrue(new LoadCoral(funnel, endEffector, 10.0, -15.0, this.operator));
         this.operator.rightTrigger().toggleOnTrue(new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED));
 
-        this.operator.leftBumper().whileTrue(new PivotLoadAlgae(this.endEffector, 150.0, 2.0));
+        this.operator.leftBumper().whileTrue(new PivotLoadAlgae(this.endEffector, 150.0, 4.0));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, -3.0));
 
         this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.start().whileTrue(new Purge(this.endEffector, this.funnel));
 
-        this.driver.a().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Far Barge
-             new Pose2d(new Translation2d(7.547, 5.439), Rotation2d.fromDegrees(0)),
-             new Pose2d(new Translation2d(9.989, 2.461), Rotation2d.fromDegrees(180))
-        }));
+        this.driver.x().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Far Barge
+             //new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
+             new Pose2d(new Translation2d(9.989, 1.461), Rotation2d.fromDegrees(180))
+                }
+            )
+        );
 
-        this.driver.b().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Close Barge
-            new Pose2d(new Translation2d(7.747, 5.439), Rotation2d.fromDegrees(180)),
-            new Pose2d(new Translation2d(9.789, 2.461), Rotation2d.fromDegrees(180))
-        }));
+        /**
+        this.driver.y().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Left Close Barge
+            new Pose2d(new Translation2d(7.800, 6.439), Rotation2d.fromDegrees(0)),
+            new Pose2d(new Translation2d(9.756, 1.461), Rotation2d.fromDegrees(180))
+                }
+            )
+        );
+        */
 
-        this.driver.x().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Far Barge
-            new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
-            new Pose2d(new Translation2d(9.989, 1.461), Rotation2d.fromDegrees(180))
-        }));
+        this.driver.a().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Far Barge
+            //new Pose2d(new Translation2d(7.547, 5.439), Rotation2d.fromDegrees(0)),
+            new Pose2d(new Translation2d(9.989, 2.461), Rotation2d.fromDegrees(180))
+                }  
+            )
+        );
        
-        this.driver.y().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Close Barge
-            new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
-            new Pose2d(new Translation2d(9.789, 1.461), Rotation2d.fromDegrees(180))
-        }));
+        /**
+        this.driver.b().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //Right Close Barge
+            new Pose2d(new Translation2d(7.800, 5.439), Rotation2d.fromDegrees(0)),
+            new Pose2d(new Translation2d(9.756, 2.461), Rotation2d.fromDegrees(180))
+                }
+            )
+        );
+        */
 
         
         this.driver.leftTrigger().whileTrue(new AlignToClosest(this.swerve, new Pose2d[] { //HP Station Alignment
@@ -133,7 +145,9 @@ public class RobotContainer {
             new Pose2d(new Translation2d(1.569, 0.615), Rotation2d.fromDegrees(-125.989)),
             new Pose2d(new Translation2d(16.296, 7.189), Rotation2d.fromDegrees(54.011)),
             new Pose2d(new Translation2d(16.789, 1.234), Rotation2d.fromDegrees(-54.011))
-        }));
+                }
+            )
+        );
 
         //new Trigger(this.endEffector::isManual).whileTrue(new ManualEndEffector(this.endEffector, () -> this.operator.getRightX() * 3.0, ));
 
@@ -155,22 +169,28 @@ public class RobotContainer {
         var alliance = DriverStation.getAlliance();
         if (alliance.get() == DriverStation.Alliance.Red) {
 
+            //return new TaxiRed(this.swerve);
+
             return Commands.sequence(
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
-                new SetpointElevator(this.elevator, 1.60),
+                new WaitCommand(5.0),
+                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(4.0),
+                new SetpointElevator(this.elevator, 1.59),
                 new WaitCommand(1.0),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
-                new WaitCommand(1.0),
+                new WaitCommand(0.5),
                 new SetpointElevator(this.elevator, -0.015)
             );
         } else {
 
+            //return new TaxiBlue(this.swerve);
+
             return Commands.sequence(
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(5.0),
-                new SetpointElevator(this.elevator, 1.60),
+                new WaitCommand(5.0),
+                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSITIONS).withTimeout(4.0),
+                new SetpointElevator(this.elevator, 1.59),
                 new WaitCommand(1.0),
                 new ScoreCoral(endEffector, SetPointConstants.CORAL_OUTTAKE_SPEED),
-                new WaitCommand(1.0),
+                new WaitCommand(0.5),
                 new SetpointElevator(this.elevator, -0.015)
             );
         }

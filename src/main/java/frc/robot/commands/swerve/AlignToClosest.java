@@ -42,6 +42,8 @@ public class AlignToClosest extends Command {
                 minDistance = distance;
             }
         }
+
+        this.headingFeedback.setSetpoint(this.targetPose.getRotation().getDegrees());
     }
 
     @Override
