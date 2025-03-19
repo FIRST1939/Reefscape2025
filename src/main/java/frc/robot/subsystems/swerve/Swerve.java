@@ -110,7 +110,7 @@ public class Swerve extends SubsystemBase {
         this.publisher.set(this.swerveDrive.getPose());
 
         this.vision.updatePoseEstimation(
-            this.swerveDrive.getYaw().getDegrees(), 
+            this.swerveDrive.getOdometryHeading().getDegrees(), 
             this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
         );
     }
@@ -163,8 +163,8 @@ public class Swerve extends SubsystemBase {
         this.swerveDrive.driveFieldOriented(chassisSpeeds);
     }
 
-    public void driveToPose (Translation2d translation) {
+    public void driveToPose (Translation2d translation, double omega) {
 
-        this.swerveDrive.drive(translation, 0.0, true, false);
+        this.swerveDrive.drive(translation, omega, true, false);
     }
 }

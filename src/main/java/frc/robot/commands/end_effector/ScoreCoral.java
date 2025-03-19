@@ -1,4 +1,5 @@
-package frc.robot.commands;
+package frc.robot.commands.end_effector;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.end_effector.EndEffector;
 
@@ -10,6 +11,7 @@ public class ScoreCoral extends Command {
     private double coralPosition;
     
     public ScoreCoral(EndEffector endEffector, double coralScoreSpeed) {
+        
         this.endEffector = endEffector;
         this.coralScoreSpeed = coralScoreSpeed;
 

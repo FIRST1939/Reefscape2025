@@ -1,30 +1,30 @@
-package frc.robot.commands;
+package frc.robot.commands.end_effector;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.end_effector.EndEffector;
 
 public class ScoreAlgae extends Command {
-
+    
     private final EndEffector endEffector;
+    private final double algaeScoreVoltage;
 
-    public ScoreAlgae(EndEffector endEffector) {
-        
+    public ScoreAlgae (EndEffector endEffector, double algaeScoreVoltage) {
+
         this.endEffector = endEffector;
+        this.algaeScoreVoltage = algaeScoreVoltage;
+
         this.addRequirements(this.endEffector);
     }
 
     @Override
     public void initialize () {
 
-        this.endEffector.setAlgaeWristPosition(0.0);
-        this.endEffector.setAlgaeIntakeVoltage(-3.0);
+        this.endEffector.setAlgaeIntakeVoltage(this.algaeScoreVoltage);
     }
 
     @Override
     public void end (boolean interrupted) {
 
-        this.endEffector.setAlgaeWristPosition(0.0);
         this.endEffector.setAlgaeIntakeVoltage(0.0);
     }
 }

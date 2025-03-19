@@ -32,6 +32,8 @@ public class Vision {
       }
       catch(Exception e)
       {}
+
+      SmartDashboard.putNumber("Limelight_Offset", 0);
     }
 
     private StructPublisher<Pose2d> leftP;
@@ -44,8 +46,8 @@ public class Vision {
             {
         if (yawRate > 720.0) { return; }
 
-        LimelightHelpers.SetRobotOrientation("limelight-left", yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
-        LimelightHelpers.SetRobotOrientation("limelight-right", yaw, yawRate, 0.0, 0.0, 0.0, 0.0);
+        LimelightHelpers.SetRobotOrientation("limelight-left", yaw + SmartDashboard.getNumber("Limelight_Offset", 0.0), yawRate, 0.0, 0.0, 0.0, 0.0);
+        LimelightHelpers.SetRobotOrientation("limelight-right", yaw + SmartDashboard.getNumber("Limelight_Offset", 0.0), yawRate, 0.0, 0.0, 0.0, 0.0);
 
         LimelightHelpers.PoseEstimate leftPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
         LimelightHelpers.PoseEstimate rightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");

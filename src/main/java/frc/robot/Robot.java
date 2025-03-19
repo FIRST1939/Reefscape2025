@@ -19,6 +19,7 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -96,6 +97,7 @@ public class Robot extends LoggedRobot {
     public void autonomousInit () {
 
         //this.autoCommand = this.autoSelector.getSelected();
+        this.autoCommand = this.robotContainer.getAutonomousCommand();
 
         if (this.autoCommand != null) {
 

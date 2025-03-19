@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.end_effector;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.end_effector.EndEffector;
@@ -9,9 +9,10 @@ public class PivotWrist extends Command {
     private final double position;
 
     public PivotWrist (EndEffector endEffector, double position) {
-
+    
         this.endEffector = endEffector;
         this.position = position;
+    
         this.addRequirements(this.endEffector);
     }
 
@@ -19,12 +20,11 @@ public class PivotWrist extends Command {
     public void initialize () {
 
         this.endEffector.setAlgaeWristPosition(position);
-        this.endEffector.setAlgaeIntakeVoltage(2.0);
     }
 
     @Override
-    public void end (boolean interrupted) {
+    public boolean isFinished () {
 
-        this.endEffector.setAlgaeWristPosition(0.0);
+        return Math.abs(this.position - this.endEffector.getAlgaeWristPosition()) < 15.0;
     }
 }

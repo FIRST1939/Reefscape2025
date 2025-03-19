@@ -59,6 +59,21 @@ public class EndEffector extends SubsystemBase {
         return this.inputs.coralIntakePosition;
     }
 
+    public double getAlgaeIntakeVelocity () {
+
+        return this.inputs.algaeIntakeVelocity;
+    }
+
+    public double getAlgaeIntakeCurrent () {
+
+        return this.inputs.algaeIntakeCurrent;
+    }
+
+    public double getAlgaeWristPosition () {
+
+        return this.inputs.algaeWristPosition;
+    }
+
     public boolean getCoralIntakeBeambreak () {
 
         return inputs.coralBeambreak;

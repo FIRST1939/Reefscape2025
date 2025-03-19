@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.end_effector;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -8,14 +8,14 @@ import frc.robot.subsystems.end_effector.EndEffector;
 public class AutomaticEndEffectorIn extends Command {
     
     private final EndEffector endEffector;
-    private final double inVoltage;
+    private final double inVelocity;
 
     private boolean isFinished;
 
-    public AutomaticEndEffectorIn (EndEffector endEffector, double inVoltage) {
+    public AutomaticEndEffectorIn (EndEffector endEffector, double inVelocity) {
 
         this.endEffector = endEffector;
-        this.inVoltage = inVoltage;
+        this.inVelocity = inVelocity;
 
         new Trigger(this.endEffector::getCoralIntakeBeambreak).onTrue(Commands.runOnce(() -> this.isFinished = true));
         this.addRequirements(this.endEffector);
@@ -25,7 +25,7 @@ public class AutomaticEndEffectorIn extends Command {
     public void initialize () {
 
         this.isFinished = false;
-        this.endEffector.setCoralIntakeVelocity(inVoltage);
+        this.endEffector.setCoralIntakeVelocity(inVelocity);
     }
 
     @Override
