@@ -1,8 +1,6 @@
 package main.java.frc.robot.subsystems;
 import java.util.Map;
 
-;
-
 public class LEDs extends SubsystemBase {
     
     private final AddressableLED ledStrip;
