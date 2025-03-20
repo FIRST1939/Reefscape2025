@@ -1,12 +1,19 @@
 package main.java.frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.addressableLED.AddressableLED;
+import edu.wpi.first.wpilibj.addressableLED.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.util.Color;
 import java.util.Map;
 
 public class LEDs extends SubsystemBase {
     
     private final AddressableLED ledStrip;
     private final AddressableLEDBuffer ledBuffer;
+    private final Elevator m_elevator;  // Assuming you have an Elevator class
 
-    public LEDs(int port, int leds) {
+    public LEDs(Elevator elevator, int port, int leds) {
+        this.m_elevator = elevator;
         this.ledStrip = new AddressableLED(port);
         this.ledBuffer = new AddressableLEDBuffer(leds);
 
@@ -32,7 +39,7 @@ public class LEDs extends SubsystemBase {
 
     public void setSolidPatternC2() {
         LEDPattern purple = LEDPattern.solid(Color.kPurple);
-        purple.applyTo(ledBuffer); // Fixed to use purple instead of red
+        purple.applyTo(ledBuffer);
         ledStrip.setData(ledBuffer);
     }
 
@@ -44,12 +51,14 @@ public class LEDs extends SubsystemBase {
 
     public void setSolidPatternA2() {
         LEDPattern purple = LEDPattern.solid(Color.kPurple);
-        purple.applyTo(ledBuffer); // Fixed to use purple instead of red
+        purple.applyTo(ledBuffer);
         ledStrip.setData(ledBuffer);
     }
 
     public void setRainbowPattern() {
-        // Add functionality for rainbow pattern here
+        LEDPattern rainbow = LEDPattern.rainbow(255, 128); // Example
+        rainbow.applyTo(ledBuffer);
+        ledStrip.setData(ledBuffer);
     }
 
     public void setYellowProgressMask() {
