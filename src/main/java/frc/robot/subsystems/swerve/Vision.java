@@ -1,12 +1,7 @@
 package frc.robot.subsystems.swerve;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.swerve.LimelightHelpers.RawFiducial;
-import edu.wpi.first.networktables.StructPublisher;
 
 // TODO Vision Simulation
 // TODO Vision Logging
@@ -17,33 +12,18 @@ public class Vision {
     public Vision (Swerve swerve) {
 
         this.swerve = swerve;
-      try{
+
         LimelightHelpers.setPipelineIndex("limelight-left", 0);
         LimelightHelpers.setPipelineIndex("limelight-right", 0);
 
         LimelightHelpers.setLEDMode_ForceOff("limelight-left");
         LimelightHelpers.setLEDMode_ForceOff("limelight-right");
-
-        this.leftP = NetworkTableInstance.getDefault()
-  .getStructTopic("LeftPose", Pose2d.struct).publish();
-
-        this.rightP = NetworkTableInstance.getDefault()
-  .getStructTopic("RightPose", Pose2d.struct).publish();
-      }
-      catch(Exception e)
-      {}
-
-      SmartDashboard.putNumber("Limelight_Offset", 0);
     }
-
-    private StructPublisher<Pose2d> leftP;
-    private StructPublisher<Pose2d> rightP;
     
 
     // TODO Filter Out Erroneous AprilTags
     public void updatePoseEstimation (double yaw, double yawRate) {
-            try
-            {
+
         if (yawRate > 720.0) { return; }
 
         LimelightHelpers.SetRobotOrientation("limelight-left", yaw + SmartDashboard.getNumber("Limelight_Offset", 0.0), yawRate, 0.0, 0.0, 0.0, 0.0);
@@ -51,9 +31,6 @@ public class Vision {
 
         LimelightHelpers.PoseEstimate leftPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
         LimelightHelpers.PoseEstimate rightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
-
-        this.leftP.set(leftPoseEstimate.pose);
-        this.rightP.set(rightPoseEstimate.pose);
 
         // TODO Limelight Standard Deviations
         if (leftPoseEstimate.tagCount != 0) {
@@ -74,9 +51,4 @@ public class Vision {
             );
         }
     }
-    catch(Exception e)
-    {
-
-    }
-}
 }
