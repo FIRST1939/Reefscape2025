@@ -3,12 +3,12 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.elevator.Elevator;
 
-public class SetpointElevator extends Command {
+public class ElevatorToHeight extends Command {
 
     private final Elevator elevator;
     private final double setpoint;
 
-    public SetpointElevator (Elevator elevator, double setpoint) {
+    public ElevatorToHeight (Elevator elevator, double setpoint) {
 
         this.elevator = elevator;
         this.setpoint = setpoint;

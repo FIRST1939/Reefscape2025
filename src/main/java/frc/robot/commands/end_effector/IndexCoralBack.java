@@ -1,19 +1,16 @@
 package frc.robot.commands.end_effector;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.SetPointConstants;
 import frc.robot.subsystems.end_effector.EndEffector;
 
-public class AutomaticEndEffectorBack extends Command {
+public class IndexCoralBack extends Command {
     
     private final EndEffector endEffector;
-
-    private final double backVelocity;
     private double coralIntakePosition;
 
-    public AutomaticEndEffectorBack (EndEffector endEffector, double backVelocity) {
+    public IndexCoralBack (EndEffector endEffector) {
 
         this.endEffector = endEffector;
-        this.backVelocity = backVelocity;
-
         this.addRequirements(this.endEffector);
     }
 
@@ -21,14 +18,13 @@ public class AutomaticEndEffectorBack extends Command {
     public void initialize () {
 
         this.coralIntakePosition = this.endEffector.getCoralIntakePosition();
-        this.endEffector.setCoralIntakeVelocity(backVelocity);
-        
+        this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_BACK_SPEED);
     }
 
     @Override
     public boolean isFinished () {
         
-        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > 4.0;
+        return (this.coralIntakePosition - this.endEffector.getCoralIntakePosition()) > SetPointConstants.CORAL_BACK_DISTANCE;
     }
 
     @Override

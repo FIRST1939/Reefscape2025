@@ -1,24 +1,19 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.elevator.SetpointElevator;
-import frc.robot.commands.end_effector.PivotLoadAlgae;
-import frc.robot.commands.end_effector.PivotWrist;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.SetPointConstants;
+import frc.robot.commands.elevator.ElevatorToHeight;
+import frc.robot.commands.end_effector.IntakeAlgae;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.end_effector.EndEffector;
 
-public class GroundIntakeAlgae extends SequentialCommandGroup {
+public class GroundIntakeAlgae extends ParallelCommandGroup {
     
     public GroundIntakeAlgae (Elevator elevator, EndEffector endEffector) {
 
         this.addCommands(
-            Commands.parallel(
-                new SetpointElevator(elevator, -0.15),
-                new PivotLoadAlgae(endEffector, 215.0, 2.0)
-            ),
-            new PivotWrist(endEffector, 0.0)
+            new ElevatorToHeight(elevator, SetPointConstants.ALGAE_INTAKE_GROUND_HEIGHT),
+            new IntakeAlgae(endEffector, SetPointConstants.ALGAE_INTAKE_GROUND_WRIST_POSITION)
         );
     }
 }

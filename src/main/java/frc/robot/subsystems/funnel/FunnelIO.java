@@ -13,9 +13,6 @@ public interface FunnelIO {
         public double funnelVelocity = 0.0;
         public double funnelVoltage = 0.0;
         public double funnelCurrent = 0.0;
-
-        public boolean coralStuck = false;
-        public boolean funnelBeambreak = false;
     }
 
     public default void updateInputs (FunnelIOInputsAutoLogged inputs) {}

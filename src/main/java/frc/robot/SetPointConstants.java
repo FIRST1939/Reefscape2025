@@ -5,21 +5,39 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
 public class SetPointConstants {
-    public static final double CORAL_INTAKE_HEIGHT = 0.0;
-    public static final double CORAL_OUTTAKE_HEIGHT_L1 = 0.15;
-    public static final double CORAL_OUTTAKE_HEIGHT_L2 = 0.75;
-    public static final double CORAL_OUTTAKE_HEIGHT_L3 = 1.25;
-    public static final double CORAL_OUTTAKE_HEIGHT_L4 = 1.5;
-    public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 0.0;
-    public static final double ALGAE_INTAKE_SPEED = 2.0;
-    public static final double ALGAE_OUTTAKE_SPEED = -2.0;
-    public static final double CORAL_INTAKE_SPEED = 0.0;
-    public static final double FUNNEL_INTAKE_SPEED = 1.5;
-    public static final double FUNNEL_OUTTAKE_SPEED = -1.5;
-    public static final double FUNNEL_STUCK_SPEED = -1.65;
-    public static final double CORAL_OUTTAKE_SPEED = 25.0;
 
-    public static final Pose2d[] REEF_CORAL_POSITIONS = {
+    public static final double CORAL_INTAKE_HEIGHT = -0.015;
+    public static final double CORAL_OUTTAKE_HEIGHT_L2 = 0.55;
+    public static final double CORAL_OUTTAKE_HEIGHT_L3 = 0.97;
+    public static final double CORAL_OUTTAKE_HEIGHT_L4 = 1.59;
+
+    public static final double ALGAE_INTAKE_GROUND_HEIGHT = -0.15;
+    public static final double ALGAE_INTAKE_LOW_HEIGHT = 0.37;
+    public static final double ALGAE_INTAKE_HIGH_HEIGHT = 0.76;
+    public static final double ALGAE_OUTTAKE_PROCESSOR_HEIGHT = 0.0;
+    public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.68;
+
+    public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 3.0;
+
+    public static final double CORAL_IN_SPEED = 10.0;
+    public static final double CORAL_BACK_SPEED = -15.0; 
+    public static final double CORAL_BACK_DISTANCE = 4.0;
+
+    public static final double CORAL_SCORE_SPEED = 25.0;
+    public static final double CORAL_SCORE_DISTANCE = 25.0;
+
+    public static final double CORAL_FUNNEL_IN_VOLTAGE = 1.5;
+    public static final double CORAL_FUNNEL_OUT_VOLTAGE = -1.5;
+    public static final double CORAL_FUNNEL_IN_TIMEOUT = 3.0;
+    public static final double CORAL_FUNNEL_OUT_TIMEOUT = 3.0;
+
+    public static final double ALGAE_INTAKE_REEF_WRIST_POSITION = 150.0;
+    public static final double ALGAE_INTAKE_GROUND_WRIST_POSITION = 215.0;
+
+    public static final double ALGAE_INTAKE_VOLTAGE = 4.0;
+    public static final double ALGAE_SCORE_VOLTAGE = -3.0;
+
+    public static final Pose2d[] REEF_CORAL_POSES = {
         new Pose2d(new Translation2d(3.216, 4.186), Rotation2d.fromDegrees(0)),
         new Pose2d(new Translation2d(3.216, 3.857), Rotation2d.fromDegrees(0)),
         new Pose2d(new Translation2d(3.702, 3.004), Rotation2d.fromDegrees(60)),
@@ -46,7 +64,7 @@ public class SetPointConstants {
         new Pose2d(new Translation2d(13.835, 3.026), Rotation2d.fromDegrees(120))
     };
 
-    public static final Pose2d[] REEF_ALGAE_POSITIONS = {
+    public static final Pose2d[] REEF_ALGAE_POSES = {
         new Pose2d(new Translation2d(3.215, 4.010), Rotation2d.fromDegrees(0)),
         new Pose2d(new Translation2d(3.844, 2.922), Rotation2d.fromDegrees(60)),
         new Pose2d(new Translation2d(5.101, 2.922), Rotation2d.fromDegrees(120)),
@@ -58,25 +76,6 @@ public class SetPointConstants {
         new Pose2d(new Translation2d(12.435, 5.121), Rotation2d.fromDegrees(-60)),
         new Pose2d(new Translation2d(11.807, 4.032), Rotation2d.fromDegrees(0)),
         new Pose2d(new Translation2d(12.435, 2.943), Rotation2d.fromDegrees(60)),
-        new Pose2d(new Translation2d(13.692, 2.943), Rotation2d.fromDegrees(120))
-        
-    };
-
-    public static final Pose2d[] BARGE_POSITIONS = {
-        new Pose2d(new Translation2d(7.747, 5.439), Rotation2d.fromDegrees(0)),
-        new Pose2d(new Translation2d(7.547, 5.439), Rotation2d.fromDegrees(0)),
-        new Pose2d(new Translation2d(9.789, 2.461), Rotation2d.fromDegrees(180)),
-        new Pose2d(new Translation2d(9.989, 2.461), Rotation2d.fromDegrees(180)),
-        new Pose2d(new Translation2d(7.747, 6.439), Rotation2d.fromDegrees(0)),
-        new Pose2d(new Translation2d(7.547, 6.439), Rotation2d.fromDegrees(0)),
-        new Pose2d(new Translation2d(9.789, 1.461), Rotation2d.fromDegrees(180)),
-        new Pose2d(new Translation2d(9.989, 1.461), Rotation2d.fromDegrees(180))
-    };
-    
-    public static final Pose2d[] HP_POSITIONS = {
-        new Pose2d(new Translation2d(1.405, 7.286), Rotation2d.fromDegrees(125.989)),
-        new Pose2d(new Translation2d(1.569, 0.615), Rotation2d.fromDegrees(-125.989)),
-        new Pose2d(new Translation2d(16.296, 7.189), Rotation2d.fromDegrees(54.011)),
-        new Pose2d(new Translation2d(16.789, 1.234), Rotation2d.fromDegrees(-54.011))
+        new Pose2d(new Translation2d(13.692, 2.943), Rotation2d.fromDegrees(120))  
     };
 }

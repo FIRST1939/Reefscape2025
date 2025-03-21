@@ -1,25 +1,23 @@
 package frc.robot.commands.funnel;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.SetPointConstants;
 import frc.robot.subsystems.funnel.Funnel;
 
-public class ManualFunnel extends Command{
+public class FunnelCoralIn extends Command {
     
     private final Funnel funnel;
-    private final double voltage;
-      
-    public ManualFunnel (Funnel funnel, double voltage) {
-        
-        this.funnel = funnel;
-        this.voltage = voltage;
 
+    public FunnelCoralIn (Funnel funnel) {
+
+        this.funnel = funnel;
         this.addRequirements(this.funnel);
     }
-        
+
     @Override
     public void initialize () {
 
-        this.funnel.runVoltage(this.voltage);  
+        this.funnel.runVoltage(SetPointConstants.CORAL_FUNNEL_IN_VOLTAGE);
     }
 
     @Override
