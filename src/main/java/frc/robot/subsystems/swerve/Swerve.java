@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.Matrix;
@@ -70,7 +69,6 @@ public class Swerve extends SubsystemBase {
 
         this.swerveDrive.stopOdometryThread();
 
-        // TODO PathPlanner Holonomic Controller
         AutoBuilder.configure(
             this::getPose,
             this::resetOdometry,
@@ -83,8 +81,8 @@ public class Swerve extends SubsystemBase {
                 );
             },
             new PPHolonomicDriveController(
-                new PIDConstants(5.0, 0.0, 0.0),
-                new PIDConstants(5.0, 0.0, 0.0)
+                SwerveConstants.PP_DRIVE_PID,
+                SwerveConstants.PP_TURN_PID
             ),
             SwerveConstants.ROBOT_CONFIG,
             this::isRedAlliance,
