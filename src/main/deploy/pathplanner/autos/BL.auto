@@ -61,9 +61,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "C_BHP"
+            "name": "ElevatorToL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralScore"
           }
         },
         {

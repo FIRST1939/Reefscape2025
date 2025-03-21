@@ -4,99 +4,128 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.LogFileUtil;
+import edu.wpi.first.net.PortForwarder;
+
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends LoggedRobot {
-  private Command m_autonomousCommand;
+    
+    private final LoggedDashboardChooser<Command> autoSelector;
+    private final RobotContainer robotContainer;
+    private Command autoCommand;
 
-  private final RobotContainer m_robotContainer;
+    public Robot () {
 
-  public Robot() {
+        Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+        Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+        Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+        Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+        Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
 
-    Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-    Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+        if (isReal()) {
 
-    if (isReal()) {
+            Logger.addDataReceiver(new WPILOGWriter());
+            Logger.addDataReceiver(new NT4Publisher());
+            new PowerDistribution(1, ModuleType.kRev);
+        } else {
 
-      Logger.addDataReceiver(new WPILOGWriter());
-      Logger.addDataReceiver(new NT4Publisher());
-      new PowerDistribution(1, ModuleType.kRev);
-    } else {
+            // TODO Replay
+            setUseTiming(false);
+            Logger.addDataReceiver(new NT4Publisher());
+            //Logger.setReplaySource(new WPILOGReader(logPath));
+            //Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        }
 
-      setUseTiming(false);
-      String logPath = LogFileUtil.findReplayLog();
-      Logger.setReplaySource(new WPILOGReader(logPath));
-      Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        Logger.start();
+      
+        this.robotContainer = new RobotContainer(isReal());
+        this.autoSelector = new LoggedDashboardChooser<>("Auto Selector", AutoBuilder.buildAutoChooser());
     }
 
-    Logger.start();
+    @Override
+    public void robotInit () {
 
-    m_robotContainer = new RobotContainer();
-  }
+        for (int port = 5800; port <= 5809; port++) {
 
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-  }
-
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void disabledExit() {}
-
-  @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+            PortForwarder.add(port, "limelight-left.local", port);
+            PortForwarder.add(port + 10, "limelight-right.local", port);
+        }
+    
+        Pathfinding.setPathfinder(new LocalADStarAK());
     }
-  }
 
-  @Override
-  public void autonomousPeriodic() {}
+    @Override
+    public void robotPeriodic() {
 
-  @Override
-  public void autonomousExit() {}
-
-  @Override
-  public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+        CommandScheduler.getInstance().run();
     }
-  }
 
-  @Override
-  public void teleopPeriodic() {}
+    @Override
+    public void disabledInit () {}
 
-  @Override
-  public void teleopExit() {}
+    @Override
+    public void disabledPeriodic () {}
 
-  @Override
-  public void testInit() {
-    CommandScheduler.getInstance().cancelAll();
-  }
+    @Override
+    public void disabledExit () {
+    
+      this.robotContainer.onEnable();
+    }
 
-  @Override
-  public void testPeriodic() {}
+    @Override
+    public void autonomousInit () {
 
-  @Override
-  public void testExit() {}
+        this.autoCommand = this.autoSelector.get();
+
+        if (this.autoCommand != null) {
+
+            this.autoCommand.schedule();
+        }
+    }
+
+    @Override
+    public void autonomousPeriodic () {}
+
+    @Override
+    public void autonomousExit () {}
+
+    @Override
+    public void teleopInit () {
+
+        if (this.autoCommand != null) {
+
+            this.autoCommand.cancel();
+        }
+    }
+
+    @Override
+    public void teleopPeriodic () {}
+
+    @Override
+    public void teleopExit () {}
+
+    @Override
+    public void testInit () {
+
+        CommandScheduler.getInstance().cancelAll();
+    }
+
+    @Override
+    public void testPeriodic () {}
+
+    @Override
+    public void testExit () {}
 }

@@ -1,11 +1,14 @@
 package frc.robot.subsystems.end_effector;
 
+
 import org.littletonrobotics.junction.AutoLog;
 
 public interface EndEffectorIO {
     
     @AutoLog
     public static class EndEffectorIOInputs {
+
+        public boolean manual = false;
 
         public double coralIntakePosition = 0.0;
         public double coralIntakeVelocity = 0.0;
@@ -22,8 +25,7 @@ public interface EndEffectorIO {
         public double algaeWristVoltage = 0.0;
         public double algaeWristCurrent = 0.0;
 
-        public boolean coralIntakeBeambreak = true;
-        public double algaeIntakelaserDistance = 0.0;
+        public boolean coralBeambreak = true;
     }
 
     public default void updateInputs (EndEffectorIOInputs inputs) {}

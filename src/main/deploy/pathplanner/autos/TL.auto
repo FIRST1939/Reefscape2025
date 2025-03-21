@@ -101,7 +101,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "THP_A"
+            "name": "CoralScore"
           }
         },
         {

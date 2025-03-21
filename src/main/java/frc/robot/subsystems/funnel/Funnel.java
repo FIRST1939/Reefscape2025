@@ -1,4 +1,4 @@
-package frc.robot.funnel;
+package frc.robot.subsystems.funnel;
 
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,12 +16,17 @@ public class Funnel extends SubsystemBase {
     @Override
     public void periodic () {
 
-        io.updateInputs(inputs);
-        Logger.processInputs("Funnel", inputs);
+        this.io.updateInputs(this.inputs);
+        Logger.processInputs("Funnel", this.inputs);
+    }
+
+    public boolean isManual () {
+
+        return this.inputs.manual;
     }
 
     public void runVoltage (double volts) {
 
-        io.setFunnelVoltage(volts);
+        io.runVoltage(volts);
     }
 }
