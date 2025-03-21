@@ -34,9 +34,19 @@ public class EndEffector extends SubsystemBase {
         return this.inputs.manual;
     }
 
+    public double getCoralIntakePosition () {
+
+        return this.inputs.coralIntakePosition;
+    }
+
     public void setCoralIntakeVelocity (double velocity) {
 
         this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
+    }
+
+    public boolean getCoralIntakeBeambreak () {
+
+        return inputs.coralBeambreak;
     }
 
     public void setAlgaeIntakeVoltage (double voltage) {
@@ -44,38 +54,13 @@ public class EndEffector extends SubsystemBase {
         this.io.setAlgaeIntakeVoltage(voltage);
     }
 
-    public void setAlgaeWristVoltage (double voltage) {
-
-        //this.io.setAlgaeWristVoltage(voltage);
-    }
-
-    public void setAlgaeWristPosition (double position) {
-
-        this.algaeWristFeedback.setSetpoint(position);
-    }
-
-    public double getCoralIntakePosition () {
-
-        return this.inputs.coralIntakePosition;
-    }
-
-    public double getAlgaeIntakeVelocity () {
-
-        return this.inputs.algaeIntakeVelocity;
-    }
-
-    public double getAlgaeIntakeCurrent () {
-
-        return this.inputs.algaeIntakeCurrent;
-    }
-
     public double getAlgaeWristPosition () {
 
         return this.inputs.algaeWristPosition;
     }
 
-    public boolean getCoralIntakeBeambreak () {
+    public void setAlgaeWristPosition (double position) {
 
-        return inputs.coralBeambreak;
+        this.algaeWristFeedback.setSetpoint(position);
     }
 }
