@@ -13,12 +13,6 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "CoralScore"
           }
         },
@@ -63,6 +57,12 @@
         {
           "type": "named",
           "data": {
+            "name": "CoralScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "ElevatorToL4"
           }
         },
@@ -70,12 +70,6 @@
           "type": "named",
           "data": {
             "name": "CoralScore"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "c_bHP"
           }
         },
         {
@@ -101,19 +95,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "BHP_b"
+                        "pathName": "BHP_B"
                       }
                     }
                   ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToL4"
           }
         },
         {
