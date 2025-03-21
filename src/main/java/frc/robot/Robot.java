@@ -8,18 +8,22 @@ import edu.wpi.first.net.PortForwarder;
 
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import frc.robot.subsystems.swerve.LocalADStarAK;
+import frc.robot.subsystems.swerve.LocalADStarAK;
 
 public class Robot extends LoggedRobot {
     
-    //private final SendableChooser<Command> autoSelector;
+    private final LoggedDashboardChooser<Command> autoSelector;
     private final RobotContainer robotContainer;
     private Command autoCommand;
 
@@ -48,8 +52,7 @@ public class Robot extends LoggedRobot {
         Logger.start();
       
         this.robotContainer = new RobotContainer(isReal());
-        //this.autoSelector = AutoBuilder.buildAutoChooser();
-        //SmartDashboard.putData("Auto Selector", this.autoSelector);
+        this.autoSelector = new LoggedDashboardChooser<>("Auto Selector", AutoBuilder.buildAutoChooser());
     }
 
     @Override
@@ -60,7 +63,8 @@ public class Robot extends LoggedRobot {
             PortForwarder.add(port, "limelight-left.local", port);
             PortForwarder.add(port + 10, "limelight-right.local", port);
         }
-      //  Pathfinding.setPathfinder(new LocalADStarAK());
+    
+        Pathfinding.setPathfinder(new LocalADStarAK());
     }
 
     @Override
@@ -84,8 +88,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void autonomousInit () {
 
-        //this.autoCommand = this.autoSelector.getSelected();
-        this.autoCommand = this.robotContainer.getAutonomousCommand();
+        this.autoCommand = this.autoSelector.get();
 
         if (this.autoCommand != null) {
 

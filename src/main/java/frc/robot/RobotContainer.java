@@ -9,20 +9,14 @@ import frc.robot.commands.swerve.AlignToClosest;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.RumbleController;
-import frc.robot.commands.auto.TaxiBlue;
-import frc.robot.commands.auto.TaxiRed;
 import frc.robot.commands.elevator.ElevatorToHeight;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.IntakeAlgae;
@@ -111,38 +105,6 @@ public class RobotContainer {
         this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
-    }
-
-    public Command getAutonomousCommand() {
-
-        var alliance = DriverStation.getAlliance();
-        if (alliance.get() == DriverStation.Alliance.Red) {
-
-            //return new TaxiRed(this.swerve);
-
-            return Commands.sequence(
-                new WaitCommand(5.0),
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
-                new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
-                new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
-            );
-        } else {
-
-            //return new TaxiBlue(this.swerve);
-
-            return Commands.sequence(
-                new WaitCommand(5.0),
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
-                new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
-                new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
-            );
-        }
     }
 
     public void onEnable () {
