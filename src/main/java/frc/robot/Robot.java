@@ -4,22 +4,13 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.pathfinding.Pathfinding;
-
 import edu.wpi.first.net.PortForwarder;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,39 +25,36 @@ public class Robot extends LoggedRobot {
 
     public Robot () {
 
-      Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-    Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-    Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
+        Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+        Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+        Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+        Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+        Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
 
-    if (isReal()) {
+        if (isReal()) {
 
-      Logger.addDataReceiver(new WPILOGWriter());
-      Logger.addDataReceiver(new NT4Publisher());
-      new PowerDistribution(1, ModuleType.kRev);
-    } else {
+            Logger.addDataReceiver(new WPILOGWriter());
+            Logger.addDataReceiver(new NT4Publisher());
+            new PowerDistribution(1, ModuleType.kRev);
+        } else {
 
-      setUseTiming(false);
-      String logPath = LogFileUtil.findReplayLog();
-      Logger.addDataReceiver(new NT4Publisher());
-      System.out.println("test");
-      //Logger.setReplaySource(new WPILOGReader(logPath));
-      //Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
-    }
+            // TODO Replay
+            setUseTiming(false);
+            Logger.addDataReceiver(new NT4Publisher());
+            //Logger.setReplaySource(new WPILOGReader(logPath));
+            //Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+        }
 
-    Logger.start();
+        Logger.start();
       
-        this.robotContainer = new RobotContainer(this.isReal());
-//        this.autoSelector = AutoBuilder.buildAutoChooser();
-
-  //      SmartDashboard.putData("Auto Selector", this.autoSelector);
+        this.robotContainer = new RobotContainer(isReal());
+        //this.autoSelector = AutoBuilder.buildAutoChooser();
+        //SmartDashboard.putData("Auto Selector", this.autoSelector);
     }
 
     @Override
     public void robotInit () {
 
-        // TODO Limelight Networking
         for (int port = 5800; port <= 5809; port++) {
 
             PortForwarder.add(port, "limelight-left.local", port);
