@@ -23,9 +23,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "D_BHP"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "D_BHP"
+                }
+              }
+            ]
           }
         },
         {
@@ -73,9 +86,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "C_BHP"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C_BHP"
+                }
+              }
+            ]
           }
         },
         {
