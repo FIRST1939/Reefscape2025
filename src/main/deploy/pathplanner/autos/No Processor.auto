@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CF_RF"
+            "pathName": "CF_H"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RF_AHG"
+            "pathName": "BN_AHG"
           }
         },
         {
@@ -43,13 +43,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AEF_RF"
+            "pathName": "AEF_BN"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Scoring Autos",
   "choreoAuto": false
 }

@@ -13,6 +13,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ElevatorToL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "CoralScore"
           }
         },
@@ -57,12 +63,6 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralScore"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "ElevatorToL4"
           }
         },
@@ -70,6 +70,12 @@
           "type": "named",
           "data": {
             "name": "CoralScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C_BHP"
           }
         },
         {
@@ -107,6 +113,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ElevatorToL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "CoralScore"
           }
         }
@@ -114,6 +126,6 @@
     }
   },
   "resetOdom": false,
-  "folder": null,
+  "folder": "Scoring Autos",
   "choreoAuto": false
 }

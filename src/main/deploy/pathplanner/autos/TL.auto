@@ -13,6 +13,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ElevatorToL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "CoralScore"
           }
         },
@@ -57,6 +63,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ElevatorToL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "CoralScore"
           }
         },
@@ -89,7 +101,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "THP_L"
+                        "pathName": "THP_A"
                       }
                     }
                   ]
@@ -99,9 +111,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "name": "CoralScore"
+            "name": "ElevatorToL4"
           }
         },
         {
@@ -114,6 +126,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Scoring Autos",
   "choreoAuto": false
 }
