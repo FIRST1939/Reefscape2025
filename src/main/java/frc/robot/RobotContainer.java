@@ -37,6 +37,7 @@ import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
+import frc.robot.subsystems.leds.LEDs;
 
 
 public class RobotContainer {
@@ -45,6 +46,8 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
 
     private final Swerve swerve = new Swerve();
+    private final LEDs leds = new LEDs();
+
     private final Elevator elevator;
     private final EndEffector endEffector;
     private final Funnel funnel;
@@ -86,31 +89,31 @@ public class RobotContainer {
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
-        elevatorSetpoints.and(this.operator.x()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        elevatorSetpoints.and(this.operator.a()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        elevatorSetpoints.and(this.operator.b()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        elevatorSetpoints.and(this.operator.y()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        elevatorSetpoints.and(this.operator.x()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        elevatorSetpoints.and(this.operator.a()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        elevatorSetpoints.and(this.operator.b()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        elevatorSetpoints.and(this.operator.y()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
 
-        elevatorSetpoints.and(this.operator.povDown()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_INTAKE_LOW_HEIGHT));
-        elevatorSetpoints.and(this.operator.povRight()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_INTAKE_HIGH_HEIGHT));
-        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_OUTTAKE_PROCESSOR_HEIGHT));
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_OUTTAKE_NET_HEIGHT));
+        elevatorSetpoints.and(this.operator.povDown()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_LOW_HEIGHT));
+        elevatorSetpoints.and(this.operator.povRight()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_HIGH_HEIGHT));
+        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_PROCESSOR_HEIGHT));
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_NET_HEIGHT));
 
         this.operator.rightBumper().toggleOnTrue(
-            new IntakeCoral(this.endEffector, this.funnel).andThen(
+            new IntakeCoral(this.endEffector, this.funnel, this.leds).andThen(
                 new RumbleController(this.operator, RumbleType.kRightRumble).withTimeout(0.5)
             )
         );
 
         this.operator.rightTrigger().toggleOnTrue(
-            new ScoreCoral(this.endEffector).andThen(
+            new ScoreCoral(this.endEffector,leds).andThen(
                 new RumbleController(this.driver, RumbleType.kBothRumble).withTimeout(0.5)
             )
         );
 
-        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
-        this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
-        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
+        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector, this.leds));
+        this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
+        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
     }
 
     public Command getAutonomousCommand() {
@@ -123,11 +126,11 @@ public class RobotContainer {
             return Commands.sequence(
                 new WaitCommand(5.0),
                 new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
+                new ElevatorToHeight(this.elevator, this.leds, 1.59),
                 new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
+                new ScoreCoral(endEffector, leds),
                 new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
+                new ElevatorToHeight(this.elevator, this.leds, -0.015)
             );
         } else {
 
@@ -136,11 +139,11 @@ public class RobotContainer {
             return Commands.sequence(
                 new WaitCommand(5.0),
                 new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
+                new ElevatorToHeight(this.elevator, this.leds, 1.59),
                 new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
+                new ScoreCoral(endEffector,leds),
                 new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
+                new ElevatorToHeight(this.elevator, this.leds, -0.015)
             );
         }
     }

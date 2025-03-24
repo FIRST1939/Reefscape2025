@@ -3,16 +3,19 @@ package frc.robot.commands.end_effector;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.SetPointConstants;
 import frc.robot.subsystems.end_effector.EndEffector;
+import frc.robot.subsystems.leds.LEDs;
 
 public class ScoreCoral extends Command {
 
     private final EndEffector endEffector;
+    private final LEDs leds;
     private double coralPosition;
     
-    public ScoreCoral(EndEffector endEffector) {
+    public ScoreCoral(EndEffector endEffector, LEDs leds) {
         
         this.endEffector = endEffector;
-        this.addRequirements(this.endEffector);
+        this.leds = leds;
+        this.addRequirements(this.endEffector, this.leds);
     }
 
     @Override
@@ -20,6 +23,7 @@ public class ScoreCoral extends Command {
 
         this.coralPosition = this.endEffector.getCoralIntakePosition();
         this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_SCORE_SPEED);
+        this.leds.setCoralProcessing();
     }
 
     @Override

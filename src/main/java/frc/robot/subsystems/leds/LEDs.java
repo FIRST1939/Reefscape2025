@@ -1,10 +1,13 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.leds;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.util.Color;
+
+import static edu.wpi.first.units.Units.Seconds;
+
 import java.util.function.DoubleSupplier;
 
 public class LEDs extends SubsystemBase {
@@ -13,12 +16,12 @@ public class LEDs extends SubsystemBase {
     private final AddressableLEDBuffer ledBuffer;
     private LEDPattern pattern; 
 
-    public LEDs(int port, int leds) {
+    public LEDs() {
 
-        this.ledStrip = new AddressableLED(port);
-        this.ledBuffer = new AddressableLEDBuffer(leds);
+        this.ledStrip = new AddressableLED(LEDConstants.port);
+        this.ledBuffer = new AddressableLEDBuffer(LEDConstants.leds);
 
-        this.ledStrip.setLength(leds);
+        this.ledStrip.setLength(LEDConstants.leds);
         this.ledStrip.start();
 
         setRainbowPattern();
@@ -31,29 +34,28 @@ public class LEDs extends SubsystemBase {
         ledStrip.setData(ledBuffer);
     }
 
-    public void setSolidPatternCoralReadyToScore() {
+    public void setCoralProcessing () {
 
-        pattern = LEDPattern.solid(Color.kGreen);
+        LEDPattern base = LEDPattern.solid(Color.kYellow);
+        pattern = base.blink(Seconds.of(0.5));
     }
 
-    public void setSolidPatternReefOuttaking() {
+    public void setAlgaeProcessing () {
        
-        pattern = LEDPattern.solid(Color.kPurple);
-     
+        LEDPattern base = LEDPattern.solid(Color.kSeaGreen);
+        pattern = base.blink(Seconds.of(0.5));
     }
 
-    public void setSolidPatternAlgaeReadyToScore() {
-        
-        pattern = LEDPattern.solid(Color.kTeal);
+    public void setCoralHolding(){
+
+        pattern = LEDPattern.solid(Color.kYellow);
+    }
+
+    public void setAlgaeHolding(){
+   
+        pattern = LEDPattern.solid(Color.kSeaGreen);
+    }
     
-    }
-
-    public void setSolidPatternAlgaeReefOuttaking() {
-     
-        pattern = LEDPattern.solid(Color.kPurple);
-      
-    }
-
     public void setRainbowPattern() {
 
         pattern = LEDPattern.rainbow(255, 128);

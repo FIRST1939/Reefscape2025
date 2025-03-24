@@ -73,6 +73,11 @@ public class Elevator extends SubsystemBase {
         return this.controller.atGoal();
     }
 
+    public double getHeight () {
+
+        return this.inputs.elevatorPosition;
+    }
+
     public void runVoltage (double volts) {
 
         io.move(volts);
