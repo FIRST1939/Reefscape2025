@@ -11,7 +11,7 @@ public class LEDs extends SubsystemBase {
     private final AddressableLED ledStrip;
     private final AddressableLEDBuffer ledBuffer;
     private final Elevator m_elevator;  // Assuming you have an Elevator class
-
+    private LEDPattern pattern = new setRainbowPattern(); 
     public LEDs(Elevator elevator, int port, int leds) {
         this.m_elevator = elevator;
         this.ledStrip = new AddressableLED(port);
@@ -24,8 +24,8 @@ public class LEDs extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        LEDPattern pattern = LEDPattern.progressMaskLayer(() -> m_elevator.getHeight() / m_elevator.getMaxHeight());
-        pattern.applyTo(ledBuffer);
+       // LEDPattern pattern = LEDPattern.progressMaskLayer(() -> m_elevator.getHeight() / m_elevator.getMaxHeight());
+       // pattern.applyTo(ledBuffer);
 
         // Set the LEDs
         ledStrip.setData(ledBuffer);
