@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.74778679657,
-        "y": 4.43978679657
+        "x": 7.745476973684211,
+        "y": 5.910855263157895
       },
       "prevControl": {
-        "x": 6.74778679657,
-        "y": 4.43978679657
+        "x": 6.745476973684211,
+        "y": 5.910855263157895
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.47745377730954935
   },
   "reversed": false,
   "folder": "Reef to Net",
