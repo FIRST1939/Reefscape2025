@@ -1,8 +1,9 @@
-package main.java.frc.robot.subsystems;
+package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.addressableLED.AddressableLED;
-import edu.wpi.first.wpilibj.addressableLED.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.LEDPattern;
 import edu.wpi.first.wpilibj.util.Color;
 import java.util.Map;
 
@@ -10,15 +11,17 @@ public class LEDs extends SubsystemBase {
     
     private final AddressableLED ledStrip;
     private final AddressableLEDBuffer ledBuffer;
-    private final Elevator m_elevator;  // Assuming you have an Elevator class
-    private LEDPattern pattern = new setRainbowPattern(); 
-    public LEDs(Elevator elevator, int port, int leds) {
-        this.m_elevator = elevator;
+    private LEDPattern pattern; 
+
+    public LEDs(int port, int leds) {
+
         this.ledStrip = new AddressableLED(port);
         this.ledBuffer = new AddressableLEDBuffer(leds);
 
         this.ledStrip.setLength(leds);
         this.ledStrip.start();
+
+        setRainbowPattern();
     }
 
     @Override
