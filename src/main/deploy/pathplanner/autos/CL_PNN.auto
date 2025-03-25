@@ -11,21 +11,116 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "F_EF"
+            "name": "ElevatorToL4"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "EF_P"
+            "name": "CoralScore"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "P_GH"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "F_EF"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToHighAlgae"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "EF_P"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToProcessor"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreAlgae"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "P_GH"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToLowAlgae"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
@@ -35,15 +130,71 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "CN_IJ"
+            "name": "ElevatorToBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreAlgae"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToHighAlgae"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CN_IJ"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "IJ_TN"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorToBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreAlgae"
           }
         }
       ]
