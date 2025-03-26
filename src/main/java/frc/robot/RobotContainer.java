@@ -5,13 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.swerve.AlignToPose;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
+import frc.robot.util.RobotGoals;
 import frc.robot.util.SetPointConstants;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
@@ -73,6 +76,16 @@ public class RobotContainer {
                 () -> -driver.getRightX()
             )
         );
+
+        this.driver.rightBumper().whileTrue(Commands.sequence(
+            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose())),
+            new AlignToPose(this.swerve, () -> RobotGoals.getTargetCoralPose())
+        ));
+
+        this.driver.leftBumper().whileTrue(Commands.sequence(
+            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose())),
+            new AlignToPose(this.swerve, () -> RobotGoals.getTargetAlgaePose())
+        ));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
