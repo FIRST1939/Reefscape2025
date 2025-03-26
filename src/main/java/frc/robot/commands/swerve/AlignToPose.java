@@ -1,5 +1,7 @@
 package frc.robot.commands.swerve;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -10,7 +12,8 @@ import frc.robot.subsystems.swerve.Swerve;
 public class AlignToPose extends Command {
     
     private final Swerve swerve;
-    private final Pose2d pose;
+    private final Supplier<Pose2d> poseSupplier;
+    private Pose2d pose;
 
     private final TrapezoidProfile xController = new TrapezoidProfile(
         new TrapezoidProfile.Constraints(
@@ -36,16 +39,18 @@ public class AlignToPose extends Command {
     private final Timer timer = new Timer();
     private double lastTimestamp;
 
-    public AlignToPose (Swerve swerve, Pose2d pose) {
+    public AlignToPose (Swerve swerve, Supplier<Pose2d> poseSupplier) {
 
         this.swerve = swerve;
-        this.pose = pose;
+        this.poseSupplier = poseSupplier;
 
         this.addRequirements(this.swerve);
     }
 
     @Override
     public void initialize () {
+
+        this.pose = this.poseSupplier.get();
 
         this.timer.restart();
         this.lastTimestamp = 0.0;
