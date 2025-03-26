@@ -36,5 +36,6 @@ public class ScoreCoral extends Command {
     public void end (boolean interrupted) {
 
         this.endEffector.setCoralIntakeVelocity(0.0);
+        this.leds.setAlliance();
     }
 }

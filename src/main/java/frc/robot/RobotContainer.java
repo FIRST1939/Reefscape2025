@@ -114,6 +114,8 @@ public class RobotContainer {
         this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector, this.leds));
         this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
+
+        new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliance(), this.leds));
     }
 
     public Command getAutonomousCommand() {

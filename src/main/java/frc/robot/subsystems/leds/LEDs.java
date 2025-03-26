@@ -3,7 +3,9 @@ package frc.robot.subsystems.leds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 
 import static edu.wpi.first.units.Units.Seconds;
@@ -24,7 +26,7 @@ public class LEDs extends SubsystemBase {
         this.ledStrip.setLength(LEDConstants.leds);
         this.ledStrip.start();
 
-        setRainbowPattern();
+        this.setRainbowPattern();
     }
 
     @Override
@@ -32,6 +34,23 @@ public class LEDs extends SubsystemBase {
         
         pattern.applyTo(ledBuffer);
         ledStrip.setData(ledBuffer);
+    }
+
+    public void setAlliance () {
+
+        Color allianceColor;
+        var alliance = DriverStation.getAlliance();
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+
+            allianceColor = Color.kRed;
+        } else {
+
+            allianceColor = Color.kBlue;
+        }
+
+        LEDPattern base = LEDPattern.solid(allianceColor);
+        pattern = base.blink(Seconds.of(1.0));
     }
 
     public void setCoralProcessing () {
