@@ -13,10 +13,10 @@ import static edu.wpi.first.units.Units.Seconds;
 import java.util.function.DoubleSupplier;
 
 public class LEDs extends SubsystemBase {
-    
+
     private final AddressableLED ledStrip;
     private final AddressableLEDBuffer ledBuffer;
-    private LEDPattern pattern; 
+    private LEDPattern pattern;
 
     public LEDs() {
 
@@ -31,7 +31,7 @@ public class LEDs extends SubsystemBase {
 
     @Override
     public void periodic () {
-        
+
         pattern.applyTo(ledBuffer);
         ledStrip.setData(ledBuffer);
     }
@@ -40,47 +40,50 @@ public class LEDs extends SubsystemBase {
 
         Color allianceColor;
         var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Red) {
 
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                allianceColor = Color.kRed;
+            } else {
 
-            allianceColor = Color.kRed;
-        } else {
-
-            allianceColor = Color.kBlue;
+                allianceColor = Color.kBlue;
+            }
+        } else { //No alliance.. Flash white
+            allianceColor = Color.kWhite;
         }
 
         LEDPattern base = LEDPattern.solid(allianceColor);
         pattern = base.blink(Seconds.of(1.0));
     }
 
-    public void setCoralProcessing () {
+    public void setCoralProcessing() {
 
         LEDPattern base = LEDPattern.solid(Color.kYellow);
         pattern = base.blink(Seconds.of(0.5));
     }
 
-    public void setAlgaeProcessing () {
-       
+    public void setAlgaeProcessing() {
+
         LEDPattern base = LEDPattern.solid(Color.kSeaGreen);
         pattern = base.blink(Seconds.of(0.5));
     }
 
-    public void setCoralHolding(){
+    public void setCoralHolding() {
 
         pattern = LEDPattern.solid(Color.kYellow);
     }
 
-    public void setAlgaeHolding(){
-   
+    public void setAlgaeHolding() {
+
         pattern = LEDPattern.solid(Color.kSeaGreen);
     }
-    
+
     public void setRainbowPattern() {
 
         pattern = LEDPattern.rainbow(255, 128);
     }
 
-    public void setElevatorProgress (DoubleSupplier elevatorHeight, double targetHeight) {
+    public void setElevatorProgress(DoubleSupplier elevatorHeight, double targetHeight) {
 
         LEDPattern base = LEDPattern.solid(Color.kPink);
         pattern = base.mask(LEDPattern.progressMaskLayer(() -> elevatorHeight.getAsDouble() / targetHeight));
