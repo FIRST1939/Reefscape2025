@@ -78,13 +78,25 @@ public class RobotContainer {
         );
 
         this.driver.rightBumper().whileTrue(Commands.sequence(
-            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose())),
-            new AlignToPose(this.swerve, () -> RobotGoals.getTargetCoralPose())
+            Commands.runOnce(() -> {
+                if (!RobotGoals.isModified()) { 
+                    
+                    RobotGoals.calculateTargetPoses(this.swerve.getPose()); 
+                }
+            }),
+            new AlignToPose(this.swerve, () -> RobotGoals.getTargetCoralPose()),
+            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose()))
         ));
 
         this.driver.leftBumper().whileTrue(Commands.sequence(
-            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose())),
-            new AlignToPose(this.swerve, () -> RobotGoals.getTargetAlgaePose())
+            Commands.runOnce(() -> {
+                if (!RobotGoals.isModified()) { 
+                    
+                    RobotGoals.calculateTargetPoses(this.swerve.getPose()); 
+                }
+            }),
+            new AlignToPose(this.swerve, () -> RobotGoals.getTargetAlgaePose()),
+            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose()))
         ));
 
         this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
