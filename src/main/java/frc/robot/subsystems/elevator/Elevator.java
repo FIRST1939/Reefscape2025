@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.RobotGoals;
 
 public class Elevator extends SubsystemBase {
     
@@ -56,6 +57,8 @@ public class Elevator extends SubsystemBase {
             double voltage = MathUtil.clamp(feedback + feedforward + close, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
             this.io.move(voltage);
         }
+
+        RobotGoals.calculateMaxAcceleration(this.inputs.elevatorPosition);
     }
 
     public boolean isManual () {
