@@ -9,15 +9,15 @@ import edu.wpi.first.math.system.plant.DCMotor;
 
 public class SwerveConstants {
     
-    public static final double MAX_SPEED = 4.34;
+    public static final double MAX_SPEED = 4.43;
 
     // TODO PathPlanner Robot Configuration
     public static final RobotConfig ROBOT_CONFIG = new RobotConfig(
-        0.0,
-        4.0, 
+        59.0,
+        4.94, 
         new ModuleConfig(
-            0.1016,
-            4.64, 
+            0.051,
+            4.43, 
             1.542, 
             new DCMotor(
                 12.0,
