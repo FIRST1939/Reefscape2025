@@ -8,6 +8,7 @@ public class RobotGoals {
     
     private static Pose2d targetCoralPose;
     private static Pose2d targetAlgaePose;
+    private static boolean modified = false;
 
     public static void calculateTargetPoses (Pose2d currentPose) {
 
@@ -56,6 +57,7 @@ public class RobotGoals {
 
         targetCoralPose = closestCoralPose;
         targetAlgaePose = closestAlgaePose;
+        modified = false;
     }
 
     public static void transformTargetCW () {
@@ -112,6 +114,7 @@ public class RobotGoals {
 
         targetCoralPose = reefCoralPoses[coralTargetIndex];
         targetAlgaePose = reefAlgaePoses[algaeTargetIndex];
+        modified = true;
     }
 
     public static void transformTargetCCW () {
@@ -168,6 +171,7 @@ public class RobotGoals {
 
         targetCoralPose = reefCoralPoses[coralTargetIndex];
         targetAlgaePose = reefAlgaePoses[algaeTargetIndex];
+        modified = true;
     }
 
     public static Pose2d getTargetCoralPose () {
@@ -178,5 +182,10 @@ public class RobotGoals {
     public static Pose2d getTargetAlgaePose () {
 
         return targetAlgaePose;
+    }
+
+    public static boolean isModified () {
+
+        return modified;
     }
 }
