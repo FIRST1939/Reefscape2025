@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.Elastic;
+import frc.robot.util.RobotGoals;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
 import swervelib.SwerveDrive;
@@ -101,6 +102,13 @@ public class Swerve extends SubsystemBase {
         this.vision.updatePoseEstimation(
             this.swerveDrive.getOdometryHeading().getDegrees(), 
             this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+        );
+
+        ChassisSpeeds currentVelocity = this.getRobotVelocity();
+
+        this.swerveDrive.setMaximumAllowableSpeeds(
+            Math.hypot(currentVelocity.vxMetersPerSecond, currentVelocity.vyMetersPerSecond) + (RobotGoals.getMaxAcceleration() * 0.02),
+            Math.PI * 2
         );
     }
 

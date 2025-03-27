@@ -188,4 +188,16 @@ public class RobotGoals {
 
         return modified;
     }
+
+    private static double maxAcceleration;
+
+    public static void calculateMaxAcceleration (double elevatorHeight) {
+
+        maxAcceleration = 1.0;
+    }
+
+    public static double getMaxAcceleration () {
+
+        return maxAcceleration;
+    }
 }
