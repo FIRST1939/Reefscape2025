@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 1.40578679657,
-        "y": 7.28678679657
+        "y": 7.287
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.9934167179181046,
-        "y": 6.477656970437988
+        "y": 6.477870173867988
       },
       "isLocked": false,
       "linkedName": "THP"
@@ -31,7 +31,14 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ElevatorToL4",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.0,

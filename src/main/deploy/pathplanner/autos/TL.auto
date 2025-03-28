@@ -13,12 +13,6 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "CoralScore"
           }
         },
