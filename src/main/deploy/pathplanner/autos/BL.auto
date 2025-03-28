@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C_BHP"
+                  "pathName": "c_bHP"
                 }
               }
             ]
@@ -127,7 +127,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "BHP_B"
+                        "pathName": "BHP_b"
                       }
                     }
                   ]
