@@ -7,22 +7,36 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.SetPointConstants;
 
 public class Elevator extends SubsystemBase {
     
     private final ElevatorIO io;
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
-    private final ElevatorFeedforward feedforward = new ElevatorFeedforward(
+    private final ElevatorFeedforward firstFeedforward = new ElevatorFeedforward(
         ElevatorConstants.kS,
-        ElevatorConstants.kG,
-        ElevatorConstants.kV
+        ElevatorConstants.kG_1,
+        ElevatorConstants.kV_1
+    );
+
+    private final ElevatorFeedforward secondFeedforward = new ElevatorFeedforward(
+        ElevatorConstants.kS,
+        ElevatorConstants.kG_2,
+        ElevatorConstants.kV_2
+    );
+
+    private final ElevatorFeedforward thirdFeedforward = new ElevatorFeedforward(
+        ElevatorConstants.kS,
+        ElevatorConstants.kG_3,
+        ElevatorConstants.kV_3
     );
 
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
-        0.0, 
+        ElevatorConstants.kI, 
         ElevatorConstants.kD, 
         new TrapezoidProfile.Constraints(
             ElevatorConstants.maxVelocity, 
@@ -32,13 +46,11 @@ public class Elevator extends SubsystemBase {
 
     private double offset = 0.0;
 
-    private final PIDController close = new PIDController(0.0, ElevatorConstants.kI, 0.0);
-
     public Elevator (ElevatorIO io) {
 
         this.io = io;
         this.controller.setTolerance(ElevatorConstants.tolerance);
-        this.close.setIZone(ElevatorConstants.kIZ);
+        this.controller.setIZone(ElevatorConstants.kIZ);
     }
 
     @Override
@@ -47,13 +59,23 @@ public class Elevator extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
 
-        if (!this.isManual()) {
+        if (DriverStation.isEnabled() && !this.isManual()) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
-            double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
-            double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
+            double feedforward;
+            
+            if (this.inputs.elevatorPosition < ElevatorConstants.FIRST_ELEVATOR_TRANSITION) {
 
-            double voltage = MathUtil.clamp(feedback + feedforward + close, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
+                feedforward = this.firstFeedforward.calculate(this.controller.getSetpoint().velocity);
+            } else if (this.inputs.elevatorPosition < ElevatorConstants.SECOND_ELEVATOR_TRANSITION) {
+
+                feedforward = this.secondFeedforward.calculate(this.controller.getSetpoint().velocity);
+            } else {
+
+                feedforward = this.thirdFeedforward.calculate(this.controller.getSetpoint().velocity);
+            }
+
+            double voltage = MathUtil.clamp(feedback + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
             this.io.move(voltage);
         }
     }
