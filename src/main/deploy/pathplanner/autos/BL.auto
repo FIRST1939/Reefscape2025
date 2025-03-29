@@ -98,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": null
+                  "pathName": "C_BHP"
                 }
               }
             ]
@@ -127,7 +127,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": null
+                        "pathName": "BHP_B"
                       }
                     }
                   ]
@@ -151,7 +151,7 @@
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": "Scoring Autos",
   "choreoAuto": false
 }
