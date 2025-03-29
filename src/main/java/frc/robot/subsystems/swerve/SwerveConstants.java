@@ -13,7 +13,7 @@ public class SwerveConstants {
 
     // TODO PathPlanner Robot Configuration
     public static final RobotConfig ROBOT_CONFIG = new RobotConfig(
-        59.0,
+        61.1,
         4.94, 
         new ModuleConfig(
             0.051,

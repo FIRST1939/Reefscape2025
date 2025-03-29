@@ -7,49 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CL_G"
+            "pathName": "BL_D"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "G_GH"
+            "pathName": "D_BHP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GH_P"
+            "pathName": "BHP_C"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P_EF"
+            "pathName": "c_bHP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "EF_P"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "P_IJ"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "IJ_P"
+            "pathName": "BHP_b"
           }
         }
       ]
     }
   },
-  "resetOdom": true,
-  "folder": "Scoring Autos",
+  "resetOdom": false,
+  "folder": "Testing Autos",
   "choreoAuto": false
 }
