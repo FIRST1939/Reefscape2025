@@ -56,6 +56,5 @@ public class AlignToClosest extends Command {
 
         this.swerve.driveToPose(translationVector, rotation);
         SmartDashboard.putNumber("Alignmnent_Error", translationVector.div(2.0).getNorm());
-
     }
 }
