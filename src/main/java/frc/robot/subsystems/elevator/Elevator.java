@@ -50,6 +50,8 @@ public class Elevator extends SubsystemBase {
         this.io = io;
         this.controller.setTolerance(ElevatorConstants.tolerance);
         this.controller.setIZone(ElevatorConstants.kIZ);
+
+        SmartDashboard.putString("Elevator_Voltage", "0.0");
     }
 
     @Override
@@ -58,7 +60,7 @@ public class Elevator extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
 
-        if (DriverStation.isEnabled() && !this.isManual()) {
+        if (DriverStation.isEnabled()) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
             double feedforward;
@@ -75,7 +77,7 @@ public class Elevator extends SubsystemBase {
             }
 
             double voltage = MathUtil.clamp(feedback + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
-            this.io.move(SmartDashboard.getNumber("Elevator_Voltage", 0.0));
+            this.io.move(Double.valueOf(SmartDashboard.getString("Elevator_Voltage", "0.0")));
         }
     }
 
