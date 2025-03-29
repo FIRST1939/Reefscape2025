@@ -81,7 +81,7 @@ public class ElevatorIOVortex implements ElevatorIO {
     @Override
     public void move (double volts) {
 
-        this.leadMotor.setVoltage(volts);
-        this.followerMotor.setVoltage(-volts);
+      //  this.leadMotor.setVoltage(volts);
+       // this.followerMotor.setVoltage(-volts);
     }
 }

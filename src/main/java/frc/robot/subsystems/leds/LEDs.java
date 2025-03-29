@@ -27,8 +27,11 @@ public class LEDs extends SubsystemBase {
     private AddressableLEDBufferView m_bunny_2;
     private AddressableLEDBufferView m_bunny_3;
     private AddressableLEDBufferView m_bunny_4;
+    private AddressableLEDBufferView m_bunny_5;
     private LEDPattern pattern;
-   
+    
+    private AddressableLEDBufferView leftHalf;
+    private AddressableLEDBufferView rightHalf;
     private Timer bhTimer = new Timer();
     public LEDs() {
         bhTimer.start();
@@ -38,11 +41,17 @@ public class LEDs extends SubsystemBase {
         this.ledStrip.setLength(LEDConstants.leds);
         this.ledStrip.start();
         m_bunny_full = ledBuffer.createView(0, 40);
-         m_bunny_1 = ledBuffer.createView(0, 10);
-         m_bunny_2 = ledBuffer.createView(11, 20);
-         m_bunny_3 = ledBuffer.createView(21, 30);
-         m_bunny_4 = ledBuffer.createView(31, 40);
+         m_bunny_1 = ledBuffer.createView(0, 6);
+         m_bunny_2 = ledBuffer.createView(7, 12);
+         m_bunny_3 = ledBuffer.createView(13, 18);
+         m_bunny_4 = ledBuffer.createView(19, 24);
+
+         m_bunny_5 = ledBuffer.createView(25, 29);
+         
+         leftHalf =  ledBuffer.createView(0, 90);
+         rightHalf =  ledBuffer.createView(91, 179).reversed();
          this.setRainbowPattern();
+
          this.BunnyHop();
     }
 
@@ -50,30 +59,36 @@ public class LEDs extends SubsystemBase {
     public void periodic () {
 
         if (pattern!=null){
-        pattern.applyTo(ledBuffer);
+        pattern.applyTo(leftHalf);
+       // pattern.applyTo(rightHalf);
         }
 
         double timerMod = (bhTimer.get()*300)%1000;
         LEDPattern green = LEDPattern.solid(Color.kGreen);
         LEDPattern black = LEDPattern.solid(Color.kBlack);
         black.applyTo(m_bunny_full);
-        if (timerMod> 0 && timerMod < 250)
+        if (timerMod> 0 && timerMod < 200)
         {
 
             green.applyTo(m_bunny_1);
         }
-        if (timerMod> 250 && timerMod < 500)
+        if (timerMod> 200 && timerMod < 400)
         {
             green.applyTo(m_bunny_2);
         }
-        if (timerMod> 500 && timerMod < 750)
+        if (timerMod> 400 && timerMod < 600)
         {
             green.applyTo(m_bunny_3);
         }
        
-        if (timerMod> 750 && timerMod < 1000)
+        if (timerMod> 600 && timerMod < 800)
         {
             green.applyTo(m_bunny_4);
+        }
+
+        if (timerMod> 800 && timerMod < 1000)
+        {
+            green.applyTo(m_bunny_5);
         }
         ledStrip.setData(ledBuffer);
     }

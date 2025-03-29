@@ -54,7 +54,7 @@ public class Elevator extends SubsystemBase {
             double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
 
             double voltage = MathUtil.clamp(feedback + feedforward + close, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
-            this.io.move(voltage);
+         //   this.io.move(voltage);
         }
     }
 
