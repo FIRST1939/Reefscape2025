@@ -11,33 +11,24 @@ import com.pathplanner.lib.path.Waypoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.swerve.Swerve;
 
-public class AlignToPose extends Command {
+public class AlignToReef extends Command {
     
-    private final Swerve swerve;
-    private final Supplier<Pose2d> poseSupplier;
-
+    private final Supplier<Pose2d[]> pathSupplier;
     private Command pathfindingCommand;
 
-    public AlignToPose (Swerve swerve, Supplier<Pose2d> poseSupplier) {
+    public AlignToReef (Supplier<Pose2d[]> pathSupplier) {
 
-        this.swerve = swerve;
-        this.poseSupplier = poseSupplier;
+        this.pathSupplier = pathSupplier;
     }
 
     @Override
     public void initialize () {
 
-        Pose2d currentPose = this.swerve.getPose();
-        Pose2d targetPose = this.poseSupplier.get();
+        Pose2d[] targetPath = this.pathSupplier.get();
+        List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(targetPath);
 
-        List<Waypoint> waypoints = PathPlannerPath.waypointsFromPoses(
-            new Pose2d(currentPose.getTranslation(), targetPose.minus(currentPose).getTranslation().getAngle()),
-            targetPose
-        );
-
-        PathConstraints constraints = new PathConstraints(
+        PathConstraints alignmentConstraints = new PathConstraints(
             3.0,
             2.0,
             Math.PI * 2,
@@ -47,14 +38,22 @@ public class AlignToPose extends Command {
 
         PathPlannerPath path = new PathPlannerPath(
             waypoints,
-            constraints,
+            alignmentConstraints,
             null,
-            new GoalEndState(0.0, targetPose.getRotation())
+            new GoalEndState(0.0, targetPath[1].getRotation())
         );
 
         path.preventFlipping = true;
 
-        this.pathfindingCommand = AutoBuilder.followPath(path);
+        PathConstraints pathfindingConstraints = new PathConstraints(
+            3.0,
+            2.0,
+            Math.PI * 2,
+            Math.PI * 2,
+            12.0
+        );
+
+        this.pathfindingCommand = AutoBuilder.pathfindThenFollowPath(path, pathfindingConstraints);
         this.pathfindingCommand.schedule();
     }
 

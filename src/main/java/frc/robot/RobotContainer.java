@@ -5,7 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.AlignToPose;
+import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
@@ -77,27 +77,8 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(Commands.sequence(
-            Commands.runOnce(() -> {
-                if (!RobotGoals.isModified()) { 
-                    
-                    RobotGoals.calculateTargetPoses(this.swerve.getPose()); 
-                }
-            }),
-            new AlignToPose(this.swerve, () -> RobotGoals.getTargetCoralPose()),
-            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose()))
-        ));
-
-        this.driver.leftBumper().whileTrue(Commands.sequence(
-            Commands.runOnce(() -> {
-                if (!RobotGoals.isModified()) { 
-                    
-                    RobotGoals.calculateTargetPoses(this.swerve.getPose()); 
-                }
-            }),
-            new AlignToPose(this.swerve, () -> RobotGoals.getTargetAlgaePose()),
-            Commands.runOnce(() -> RobotGoals.calculateTargetPoses(this.swerve.getPose()))
-        ));
+        this.driver.rightBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetCoralPath()));
+        this.driver.leftBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetAlgaePath()));
 
         this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
         this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));

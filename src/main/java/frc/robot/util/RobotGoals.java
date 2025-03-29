@@ -6,186 +6,100 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class RobotGoals {
     
-    private static Pose2d targetCoralPose;
-    private static Pose2d targetAlgaePose;
-    private static boolean modified = false;
-
-    public static void calculateTargetPoses (Pose2d currentPose) {
-
-        Pose2d[] reefCoralPoses;
-        Pose2d[] reefAlgaePoses;
-
-        var alliance = DriverStation.getAlliance();
-
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-
-            reefCoralPoses = SetPointConstants.RED_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.RED_REEF_ALGAE_POSES;
-        } else {
-
-            reefCoralPoses = SetPointConstants.BLUE_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.BLUE_REEF_ALGAE_POSES;
-        }
-
-        Pose2d closestCoralPose = new Pose2d();
-        double minCoralDistance = Double.MAX_VALUE;
-
-        for (Pose2d coralPose : reefCoralPoses) {
-
-            double distance = currentPose.getTranslation().getDistance(coralPose.getTranslation());
-
-            if (distance < minCoralDistance) {
-
-                minCoralDistance = distance;
-                closestCoralPose = coralPose;
-            }
-        }
-
-        Pose2d closestAlgaePose = new Pose2d();
-        double minAlgaeDistance = Double.MAX_VALUE;
-
-        for (Pose2d algaePose : reefAlgaePoses) {
-
-            double distance = currentPose.getTranslation().getDistance(algaePose.getTranslation());
-
-            if (distance < minAlgaeDistance) {
-
-                minAlgaeDistance = distance;
-                closestAlgaePose = algaePose;
-            }
-        }
-
-        targetCoralPose = closestCoralPose;
-        targetAlgaePose = closestAlgaePose;
-        modified = false;
-    }
+    private static Pose2d[] targetCoralPath;
+    private static Pose2d[] targetAlgaePath;
 
     public static void transformTargetCW () {
 
-        Pose2d[] reefCoralPoses;
-        Pose2d[] reefAlgaePoses;
+        Pose2d[][] reefCoralPaths;
+        Pose2d[][] reefAlgaePaths;
 
         var alliance = DriverStation.getAlliance();
 
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
 
-            reefCoralPoses = SetPointConstants.RED_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.RED_REEF_ALGAE_POSES;
+            reefCoralPaths = SetPointConstants.RED_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.RED_REEF_ALGAE_POSES;
         } else {
 
-            reefCoralPoses = SetPointConstants.BLUE_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.BLUE_REEF_ALGAE_POSES;
+            reefCoralPaths = SetPointConstants.BLUE_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.BLUE_REEF_ALGAE_POSES;
         }
 
         int coralTargetIndex = 0;
+        int algaeTargetIndex = 0;
         
-        for (int i = 0; i < reefCoralPoses.length; i++) {
+        for (int i = 0; i < reefCoralPaths.length; i++) {
 
-            if (reefCoralPoses[i].equals(targetCoralPose)) {
+            if (reefCoralPaths[i].equals(reefCoralPaths)) {
 
                 coralTargetIndex = i;
-                break;
-            }
-        }
-
-        int algaeTargetIndex = 0;
-
-        for (int i = 0; i < reefAlgaePoses.length; i++) {
-
-            if (reefAlgaePoses[i].equals(targetAlgaePose)) {
-
-                algaeTargetIndex = i;
                 break;
             }
         }
 
         coralTargetIndex++;
-        algaeTargetIndex++;
 
-        if (coralTargetIndex >= reefCoralPoses.length) {
+        if (coralTargetIndex >= reefCoralPaths.length) {
 
             coralTargetIndex = 0;
         }
 
-        if (algaeTargetIndex >= reefAlgaePoses.length) {
+        algaeTargetIndex = coralTargetIndex / 2;
 
-            algaeTargetIndex = 0;
-        }
-
-        targetCoralPose = reefCoralPoses[coralTargetIndex];
-        targetAlgaePose = reefAlgaePoses[algaeTargetIndex];
-        modified = true;
+        targetCoralPath = reefCoralPaths[coralTargetIndex];
+        targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
     }
 
     public static void transformTargetCCW () {
 
-        Pose2d[] reefCoralPoses;
-        Pose2d[] reefAlgaePoses;
+        Pose2d[][] reefCoralPaths;
+        Pose2d[][] reefAlgaePaths;
 
         var alliance = DriverStation.getAlliance();
 
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
 
-            reefCoralPoses = SetPointConstants.RED_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.RED_REEF_ALGAE_POSES;
+            reefCoralPaths = SetPointConstants.RED_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.RED_REEF_ALGAE_POSES;
         } else {
 
-            reefCoralPoses = SetPointConstants.BLUE_REEF_CORAL_POSES;
-            reefAlgaePoses = SetPointConstants.BLUE_REEF_ALGAE_POSES;
+            reefCoralPaths = SetPointConstants.BLUE_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.BLUE_REEF_ALGAE_POSES;
         }
 
         int coralTargetIndex = 0;
+        int algaeTargetIndex = 0;
         
-        for (int i = 0; i < reefCoralPoses.length; i++) {
+        for (int i = 0; i < reefCoralPaths.length; i++) {
 
-            if (reefCoralPoses[i].equals(targetCoralPose)) {
+            if (reefCoralPaths[i].equals(reefCoralPaths)) {
 
                 coralTargetIndex = i;
                 break;
             }
         }
 
-        int algaeTargetIndex = 0;
-
-        for (int i = 0; i < reefAlgaePoses.length; i++) {
-
-            if (reefAlgaePoses[i].equals(targetAlgaePose)) {
-
-                algaeTargetIndex = i;
-                break;
-            }
-        }
-
         coralTargetIndex--;
-        algaeTargetIndex--;
 
-        if (coralTargetIndex < 0) {
+        if (coralTargetIndex >= reefCoralPaths.length) {
 
-            coralTargetIndex = reefCoralPoses.length - 1;
+            coralTargetIndex = 0;
         }
 
-        if (algaeTargetIndex < 0) {
+        algaeTargetIndex = coralTargetIndex / 2;
 
-            algaeTargetIndex = reefAlgaePoses.length - 1;
-        }
-
-        targetCoralPose = reefCoralPoses[coralTargetIndex];
-        targetAlgaePose = reefAlgaePoses[algaeTargetIndex];
-        modified = true;
+        targetCoralPath = reefCoralPaths[coralTargetIndex];
+        targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
     }
 
-    public static Pose2d getTargetCoralPose () {
+    public static Pose2d[] getTargetCoralPath () {
 
-        return targetCoralPose;
+        return targetCoralPath;
     }
 
-    public static Pose2d getTargetAlgaePose () {
+    public static Pose2d[] getTargetAlgaePath () {
 
-        return targetAlgaePose;
-    }
-
-    public static boolean isModified () {
-
-        return modified;
+        return targetAlgaePath;
     }
 }
