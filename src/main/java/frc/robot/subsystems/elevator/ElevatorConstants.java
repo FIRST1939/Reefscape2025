@@ -7,7 +7,7 @@ public class ElevatorConstants {
     public static final int currentLimit = 100;
     public static final boolean leaderReversed = true;
     public static final boolean followerReversed = true;
-    public static final int laserCAN = 5; //TODO Elevator LaserCAN CAN ID
+    public static final int laserCAN = 33;
 
     public static final double kS = 0.475;
     public static final double kG_1 = 0.755;
