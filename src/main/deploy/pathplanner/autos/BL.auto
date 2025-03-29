@@ -52,9 +52,22 @@
                 }
               },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "BHP_C"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "BHP_C"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -85,7 +98,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "C_BHP"
+                  "pathName": null
                 }
               }
             ]
@@ -102,9 +115,22 @@
                 }
               },
               {
-                "type": "path",
+                "type": "sequential",
                 "data": {
-                  "pathName": "BHP_B"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": null
+                      }
+                    }
+                  ]
                 }
               }
             ]
