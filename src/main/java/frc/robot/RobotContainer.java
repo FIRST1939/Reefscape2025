@@ -46,7 +46,7 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
 
     private final Swerve swerve = new Swerve();
-    private final LEDs leds = new LEDs();
+    public final LEDs leds = new LEDs();
 
     private final Elevator elevator;
     private final EndEffector endEffector;

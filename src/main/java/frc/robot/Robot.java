@@ -60,6 +60,7 @@ public class Robot extends LoggedRobot {
             PortForwarder.add(port, "limelight-left.local", port);
             PortForwarder.add(port + 10, "limelight-right.local", port);
         }
+    
       //  Pathfinding.setPathfinder(new LocalADStarAK());
     }
 
@@ -106,6 +107,7 @@ public class Robot extends LoggedRobot {
 
             this.autoCommand.cancel();
         }
+        this.robotContainer.leds.BunnyHop();
     }
 
     @Override
