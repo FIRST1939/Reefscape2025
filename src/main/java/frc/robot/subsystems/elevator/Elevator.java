@@ -16,19 +16,19 @@ public class Elevator extends SubsystemBase {
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private final ElevatorFeedforward firstFeedforward = new ElevatorFeedforward(
-        ElevatorConstants.kS,
+        ElevatorConstants.kS_1,
         ElevatorConstants.kG_1,
         ElevatorConstants.kV_1
     );
 
     private final ElevatorFeedforward secondFeedforward = new ElevatorFeedforward(
-        ElevatorConstants.kS,
+        ElevatorConstants.kS_2,
         ElevatorConstants.kG_2,
         ElevatorConstants.kV_2
     );
 
     private final ElevatorFeedforward thirdFeedforward = new ElevatorFeedforward(
-        ElevatorConstants.kS,
+        ElevatorConstants.kS_3,
         ElevatorConstants.kG_3,
         ElevatorConstants.kV_3
     );
