@@ -54,11 +54,12 @@ public class Robot extends LoggedRobot {
     
             Logger.start();
           
+            
             this.robotContainer = new RobotContainer(isReal());
             this.autoSelector = new LoggedDashboardChooser<>("Auto Selector", AutoBuilder.buildAutoChooser());
 
             SendableChooser<Integer> postChooser = new SendableChooser<>();
-            postChooser.addOption("A", 0);
+            postChooser.setDefaultOption("A", 0);
             postChooser.addOption("B", 1);
             postChooser.addOption("C", 2);
             postChooser.addOption("D", 3);
@@ -130,7 +131,6 @@ public class Robot extends LoggedRobot {
             }
 
             RobotGoals.setManualIndex(this.postSelector.get());
-
     }
 
     @Override
