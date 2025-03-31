@@ -48,7 +48,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LoadCoral"
+                  "name": "IntakeCoral"
                 }
               },
               {
@@ -111,7 +111,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LoadCoral"
+                  "name": "IntakeCoral"
                 }
               },
               {
