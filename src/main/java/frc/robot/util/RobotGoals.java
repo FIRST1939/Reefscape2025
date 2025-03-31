@@ -1,5 +1,7 @@
 package frc.robot.util;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -91,6 +93,30 @@ public class RobotGoals {
 
         targetCoralPath = reefCoralPaths[coralTargetIndex];
         targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
+    }
+
+    public static void setManualIndex (int postSelector) {
+        var alliance = DriverStation.getAlliance();
+
+        Pose2d[][] reefCoralPaths;
+        Pose2d[][] reefAlgaePaths;
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+
+            reefCoralPaths = SetPointConstants.RED_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.RED_REEF_ALGAE_POSES;
+        } else {
+
+            reefCoralPaths = SetPointConstants.BLUE_REEF_CORAL_POSES;
+            reefAlgaePaths = SetPointConstants.BLUE_REEF_ALGAE_POSES;
+        }
+        
+        int algaeTargetIndex = postSelector / 2;
+
+
+        targetCoralPath = reefCoralPaths[postSelector];
+        targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
+        
     }
 
     public static Pose2d[] getTargetCoralPath () {
