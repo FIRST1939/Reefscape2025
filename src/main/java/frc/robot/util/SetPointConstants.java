@@ -53,18 +53,18 @@ public class SetPointConstants {
     };
 
     public static final Pose2d[][] BLUE_REEF_CORAL_POSES = {
-        {new Pose2d(new Translation2d(3.216, 3.857), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.216, 3.857), Rotation2d.fromDegrees(0))},
-        {new Pose2d(new Translation2d(3.216, 4.186), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.216, 4.186), Rotation2d.fromDegrees(0))},
-        {new Pose2d(new Translation2d(3.702, 5.050), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.702, 5.050), Rotation2d.fromDegrees(-60))},
-        {new Pose2d(new Translation2d(3.987, 5.203), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.987, 5.203), Rotation2d.fromDegrees(-60))},
-        {new Pose2d(new Translation2d(4.959, 5.203), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(4.959, 5.203), Rotation2d.fromDegrees(-120))},
-        {new Pose2d(new Translation2d(5.244, 5.012), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(5.244, 5.012), Rotation2d.fromDegrees(-120))},
-        {new Pose2d(new Translation2d(5.772, 4.186), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.772, 4.186), Rotation2d.fromDegrees(180))},
-        {new Pose2d(new Translation2d(5.772, 3.857), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.772, 3.857), Rotation2d.fromDegrees(180))},
-        {new Pose2d(new Translation2d(5.299, 2.957), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(5.299, 2.957), Rotation2d.fromDegrees(120))},
-        {new Pose2d(new Translation2d(4.959, 2.840), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(4.959, 2.840), Rotation2d.fromDegrees(120))},
-        {new Pose2d(new Translation2d(3.987, 2.840), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.987, 2.840), Rotation2d.fromDegrees(60))},
-        {new Pose2d(new Translation2d(3.702, 3.004), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.702, 3.004), Rotation2d.fromDegrees(60))}
+        {new Pose2d(new Translation2d(2.516, 3.857), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.216, 3.857), Rotation2d.fromDegrees(0))},
+        {new Pose2d(new Translation2d(2.516, 4.186), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.216, 4.186), Rotation2d.fromDegrees(0))},
+        {new Pose2d(new Translation2d(3.202, 5.905), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.702, 5.050), Rotation2d.fromDegrees(-60))},
+        {new Pose2d(new Translation2d(3.487, 6.069), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.987, 5.203), Rotation2d.fromDegrees(-60))},
+        {new Pose2d(new Translation2d(5.459, 6.069), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(4.959, 5.203), Rotation2d.fromDegrees(-120))},
+        {new Pose2d(new Translation2d(5.744, 5.878), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(5.244, 5.012), Rotation2d.fromDegrees(-120))},
+        {new Pose2d(new Translation2d(6.572, 4.186), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.772, 4.186), Rotation2d.fromDegrees(180))},
+        {new Pose2d(new Translation2d(6.572, 3.857), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.772, 3.857), Rotation2d.fromDegrees(180))},
+        {new Pose2d(new Translation2d(5.799, 2.091), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(5.299, 2.957), Rotation2d.fromDegrees(120))},
+        {new Pose2d(new Translation2d(5.459, 1.974), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(4.959, 2.840), Rotation2d.fromDegrees(120))},
+        {new Pose2d(new Translation2d(3.487, 1.974), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.987, 2.840), Rotation2d.fromDegrees(60))},
+        {new Pose2d(new Translation2d(3.202, 2.138), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.702, 3.004), Rotation2d.fromDegrees(60))}
     };
 
     public static final Pose2d[][] RED_REEF_ALGAE_POSES = {
@@ -77,11 +77,11 @@ public class SetPointConstants {
     };
 
     public static final Pose2d[][] BLUE_REEF_ALGAE_POSES = {
-        {new Pose2d(new Translation2d(3.215, 4.010), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.215, 4.010), Rotation2d.fromDegrees(0))},
-        {new Pose2d(new Translation2d(3.844, 5.099), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.844, 5.099), Rotation2d.fromDegrees(-60))},
-        {new Pose2d(new Translation2d(5.101, 5.099), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(5.101, 5.099), Rotation2d.fromDegrees(-120))},
-        {new Pose2d(new Translation2d(5.729, 4.010), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.729, 4.010), Rotation2d.fromDegrees(180))},
-        {new Pose2d(new Translation2d(5.101, 2.922), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(5.101, 2.922), Rotation2d.fromDegrees(120))},
-        {new Pose2d(new Translation2d(3.844, 2.922), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.844, 2.922), Rotation2d.fromDegrees(60))}
+        {new Pose2d(new Translation2d(3.515, 4.010), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(3.215, 4.010), Rotation2d.fromDegrees(0))},
+        {new Pose2d(new Translation2d(3.344, 5.965), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(3.844, 5.099), Rotation2d.fromDegrees(-60))},
+        {new Pose2d(new Translation2d(5.601, 5.965), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(5.101, 5.099), Rotation2d.fromDegrees(-120))},
+        {new Pose2d(new Translation2d(6.529, 4.010), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(5.729, 4.010), Rotation2d.fromDegrees(180))},
+        {new Pose2d(new Translation2d(5.601, 2.056), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(5.101, 2.922), Rotation2d.fromDegrees(120))},
+        {new Pose2d(new Translation2d(3.344, 2.056), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(3.844, 2.922), Rotation2d.fromDegrees(60))}
     };
 }
