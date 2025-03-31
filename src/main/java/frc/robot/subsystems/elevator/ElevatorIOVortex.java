@@ -71,8 +71,9 @@ public class ElevatorIOVortex implements ElevatorIO {
     public void updateInputs (ElevatorIOInputs inputs) {
 
         Measurement laserCANMeasurement = this.laserCAN.getMeasurement();
+        double encoderMeasurement = ((this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0) + positionOffset;
         
-        if (laserCANMeasurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT) {
+        if (laserCANMeasurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT && encoderMeasurement < 0.35) {
 
             this.positionOffset = (laserCANMeasurement.distance_mm / 1000.0) - ((this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0);
         }

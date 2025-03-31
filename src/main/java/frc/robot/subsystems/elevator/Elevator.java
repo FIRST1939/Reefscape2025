@@ -4,11 +4,13 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.SetPointConstants;
 
 public class Elevator extends SubsystemBase {
     
@@ -35,7 +37,7 @@ public class Elevator extends SubsystemBase {
 
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
-        ElevatorConstants.kI, 
+        0.0,
         ElevatorConstants.kD, 
         new TrapezoidProfile.Constraints(
             ElevatorConstants.maxVelocity, 
@@ -43,15 +45,13 @@ public class Elevator extends SubsystemBase {
         )
     );
 
-    private double offset = 0.0;
+    private final PIDController close = new PIDController(0.0, ElevatorConstants.kI, 0.0);
 
     public Elevator (ElevatorIO io) {
 
         this.io = io;
         this.controller.setTolerance(ElevatorConstants.tolerance);
-        this.controller.setIZone(ElevatorConstants.kIZ);
-
-        SmartDashboard.putString("Elevator_Voltage", "0.0");
+        this.close.setIZone(ElevatorConstants.kIZ);
     }
 
     @Override
@@ -63,6 +63,9 @@ public class Elevator extends SubsystemBase {
         if (DriverStation.isEnabled()) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
+            if (this.inputs.elevatorPosition < SetPointConstants.CORAL_INTAKE_HEIGHT && feedback < 0) { return; }
+
+            double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
             double feedforward;
             
             if (this.inputs.elevatorPosition < ElevatorConstants.FIRST_ELEVATOR_TRANSITION) {
@@ -76,8 +79,11 @@ public class Elevator extends SubsystemBase {
                 feedforward = this.thirdFeedforward.calculate(this.controller.getSetpoint().velocity);
             }
 
-            double voltage = MathUtil.clamp(feedback + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
-            this.io.move(Double.valueOf(SmartDashboard.getString("Elevator_Voltage", "0.0")));
+            SmartDashboard.putNumber("DesiredV", this.controller.getSetpoint().velocity);
+            SmartDashboard.putNumber("DesiredP", this.controller.getSetpoint().position);
+
+            double voltage = MathUtil.clamp(feedback + close + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
+            this.io.move(voltage);
         }
     }
 
@@ -86,9 +92,14 @@ public class Elevator extends SubsystemBase {
         return this.inputs.manual;
     }
 
+    public double getHeight () {
+
+        return this.inputs.elevatorPosition;
+    }
+
     public void setGoal (double goal) {
 
-        this.controller.setGoal(goal + this.offset);
+        this.controller.setGoal(goal);
     }
 
     public boolean atGoal () {

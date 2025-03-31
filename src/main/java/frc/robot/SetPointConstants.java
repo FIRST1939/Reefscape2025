@@ -6,16 +6,16 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 public class SetPointConstants {
 
-    public static final double CORAL_INTAKE_HEIGHT = -0.015;
+    public static final double CORAL_INTAKE_HEIGHT = 0.14;
     public static final double CORAL_OUTTAKE_HEIGHT_L2 = 0.55;
-    public static final double CORAL_OUTTAKE_HEIGHT_L3 = 0.97;
-    public static final double CORAL_OUTTAKE_HEIGHT_L4 = 1.59;
+    public static final double CORAL_OUTTAKE_HEIGHT_L3 = 0.885;
+    public static final double CORAL_OUTTAKE_HEIGHT_L4 = 1.35;
 
-    public static final double ALGAE_INTAKE_GROUND_HEIGHT = -0.15;
-    public static final double ALGAE_INTAKE_LOW_HEIGHT = 0.37;
-    public static final double ALGAE_INTAKE_HIGH_HEIGHT = 0.76;
-    public static final double ALGAE_OUTTAKE_PROCESSOR_HEIGHT = 0.0;
-    public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.68;
+    public static final double ALGAE_INTAKE_GROUND_HEIGHT = 0.13;
+    public static final double ALGAE_INTAKE_LOW_HEIGHT = 0.65;
+    public static final double ALGAE_INTAKE_HIGH_HEIGHT = 1.04;
+    public static final double ALGAE_OUTTAKE_PROCESSOR_HEIGHT = 0.3;
+    public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.96;
 
     public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 3.0;
 
