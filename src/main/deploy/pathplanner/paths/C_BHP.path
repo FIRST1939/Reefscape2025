@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.40578679657,
-        "y": 7.28678679657
+        "x": 3.7226225298557405,
+        "y": 2.9990321453959243
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9934167179181035,
-        "y": 6.477656970437987
+        "x": 3.2226225298557414,
+        "y": 2.1330067416114855
       },
       "isLocked": false,
-      "linkedName": "THP"
+      "linkedName": "bhp_c"
     },
     {
       "anchor": {
-        "x": 3.70178679657,
-        "y": 5.03878679657
+        "x": 1.56978679657,
+        "y": 0.61578679657
       },
       "prevControl": {
-        "x": 3.20178679657,
-        "y": 5.9048122003544385
+        "x": 2.0697867965699994,
+        "y": 1.481812200354439
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "L"
+      "linkedName": "BHP"
     }
   ],
   "rotationTargets": [],
@@ -35,8 +35,8 @@
       "minWaypointRelativePos": 0.75,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 1.0,
+        "maxVelocity": 3.0,
+        "maxAcceleration": 2.0,
         "maxAngularVelocity": 360.0,
         "maxAngularAcceleration": 360.0,
         "nominalVoltage": 12.0,
@@ -47,8 +47,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "ElevatorToL4",
-      "waypointRelativePos": 0.75,
+      "name": "ElevatorToFunnel",
+      "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -63,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": 54.011
   },
   "reversed": false,
   "folder": "Reef to Human Player",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.011
+    "rotation": 59.99999999999999
   },
   "useDefaultConstraints": true
 }

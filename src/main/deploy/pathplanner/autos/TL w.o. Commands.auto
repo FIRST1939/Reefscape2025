@@ -7,49 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "CL_G"
+            "pathName": "TL_K"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "G_GH"
+            "pathName": "K_THP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GH_P"
+            "pathName": "THP_L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P_EF"
+            "pathName": "L_THP"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "EF_P"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "P_IJ"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "IJ_P"
+            "pathName": "THP_A"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Testing Autos",
   "choreoAuto": false
 }

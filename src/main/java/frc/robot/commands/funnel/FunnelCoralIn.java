@@ -1,8 +1,8 @@
 package frc.robot.commands.funnel;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.SetPointConstants;
 import frc.robot.subsystems.funnel.Funnel;
+import frc.robot.util.SetPointConstants;
 
 public class FunnelCoralIn extends Command {
     

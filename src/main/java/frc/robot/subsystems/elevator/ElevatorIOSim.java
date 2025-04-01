@@ -2,19 +2,35 @@ package frc.robot.subsystems.elevator;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 
-// TODO Elevator Simulation
 public class ElevatorIOSim implements ElevatorIO {
  
-    private final DCMotorSim elevatorMotorLeader = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
-        DCMotor.getNeoVortex(1)
+    private final ElevatorSim firstElevatorStage = new ElevatorSim(
+        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 8.829, 0.058, 3.0),
+        DCMotor.getNeoVortex(2),
+        0.091168,
+        2.187,
+        true,
+        0.091168
     );
 
-    private final DCMotorSim elevatorMotorFollower = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
-        DCMotor.getNeoVortex(1)
+    private final ElevatorSim secondElevatorStage = new ElevatorSim(
+        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 11.869, 0.058, 3.0),
+        DCMotor.getNeoVortex(2),
+        0.091168,
+        2.187,
+        true,
+        0.091168
+    );
+
+    private final ElevatorSim thirdElevatorStage = new ElevatorSim(
+        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 14.540, 0.058, 3.0),
+        DCMotor.getNeoVortex(2),
+        0.091168,
+        2.187,
+        true,
+        0.091168
     );
 
     private double appliedVolts = 0.0;
@@ -22,18 +38,42 @@ public class ElevatorIOSim implements ElevatorIO {
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {
 
-        elevatorMotorLeader.setInputVoltage(appliedVolts);
-        elevatorMotorLeader.update(0.02);
-        
-        elevatorMotorFollower.setInputVoltage(-appliedVolts);
-        elevatorMotorFollower.update(0.02);
+        ElevatorSim simulatedStage;
 
-        inputs.elevatorPosition = 0.0;
-        inputs.elevatorVelocity = 0.0;
-        inputs.leaderVoltage = 0.0;
-        inputs.leaderCurrent = 0.0;
-        inputs.followerVoltage = 0.0;
-        inputs.followerCurrent = 0.0;
+        if (inputs.elevatorPosition < 0.625) {
+
+            simulatedStage = this.firstElevatorStage;
+        } else if (inputs.elevatorPosition < 1.19) {
+
+            simulatedStage = this.secondElevatorStage;
+        } else {
+
+            simulatedStage = this.thirdElevatorStage;
+        }
+
+        simulatedStage.setInputVoltage(appliedVolts);
+        simulatedStage.update(0.02);
+
+        inputs.elevatorPosition = simulatedStage.getPositionMeters();
+        inputs.elevatorVelocity = simulatedStage.getVelocityMetersPerSecond();
+        inputs.leaderVoltage = appliedVolts;
+        inputs.followerVoltage = appliedVolts;
+        inputs.leaderCurrent = simulatedStage.getCurrentDrawAmps();
+        inputs.followerCurrent = simulatedStage.getCurrentDrawAmps();
+
+        if (simulatedStage == this.firstElevatorStage) {
+
+            this.secondElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+            this.thirdElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+        } else if (simulatedStage == this.secondElevatorStage) {
+
+            this.firstElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+            this.thirdElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+        } else {
+
+            this.firstElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+            this.secondElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+        }
     }
 
     @Override

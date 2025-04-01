@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.234210526315789,
-        "y": 2.899259868421052
+        "x": 5.151511638937917,
+        "y": 2.905129171870076
       },
       "prevControl": {
-        "x": 5.984210526315789,
-        "y": 1.6002217627443942
+        "x": 5.901511638937917,
+        "y": 1.606091066193418
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,9 +34,9 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -45,7 +45,7 @@
     "rotation": 119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef to Net",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

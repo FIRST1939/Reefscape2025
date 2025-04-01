@@ -5,24 +5,33 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.AlignToClosest;
+import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
-import edu.wpi.first.wpilibj.DriverStation;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
+import frc.robot.util.RobotGoals;
+import frc.robot.util.SetPointConstants;
+
+import org.littletonrobotics.junction.Logger;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.util.RobotGoals;
+import frc.robot.util.SetPointConstants;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.RumbleController;
-import frc.robot.commands.auto.TaxiBlue;
-import frc.robot.commands.auto.TaxiRed;
 import frc.robot.commands.elevator.ElevatorToHeight;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.IntakeAlgae;
@@ -64,6 +73,7 @@ public class RobotContainer {
         }
 
         this.configureBindings();
+        this.configureNamedCommands();
         new ConfirmAlliance().andThen(new ZeroGyro(this.swerve)).schedule();
     }
 
@@ -80,8 +90,11 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES));
-        this.driver.rightTrigger().whileTrue(new AlignToClosest(this.swerve, SetPointConstants.REEF_ALGAE_POSES));
+        this.driver.rightBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetCoralPath()));
+        this.driver.leftBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetAlgaePath()));
+
+        this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
+        this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));
 
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
@@ -113,36 +126,29 @@ public class RobotContainer {
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
     }
 
-    public Command getAutonomousCommand() {
+    public void configureNamedCommands () {
 
-        var alliance = DriverStation.getAlliance();
-        if (alliance.get() == DriverStation.Alliance.Red) {
+        NamedCommands.registerCommand("ElevatorToFunnel", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        NamedCommands.registerCommand("ElevatorToL2", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        NamedCommands.registerCommand("ElevatorToL3", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        NamedCommands.registerCommand("ElevatorToL4", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        NamedCommands.registerCommand("WaitForElevator", new WaitUntilCommand(() -> this.elevator.atGoal()));
 
-            //return new TaxiRed(this.swerve);
+        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel));
+        NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector));
+    }
+    
+    public void updateComponents () {
 
-            return Commands.sequence(
-                new WaitCommand(5.0),
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
-                new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
-                new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
-            );
-        } else {
+        Logger.recordOutput("Swerve_Pose", this.swerve.getPose());
 
-            //return new TaxiBlue(this.swerve);
-
-            return Commands.sequence(
-                new WaitCommand(5.0),
-                new AlignToClosest(this.swerve, SetPointConstants.REEF_CORAL_POSES).withTimeout(4.0),
-                new ElevatorToHeight(this.elevator, 1.59),
-                new WaitCommand(1.0),
-                new ScoreCoral(endEffector),
-                new WaitCommand(0.5),
-                new ElevatorToHeight(this.elevator, -0.015)
-            );
-        }
+        Logger.recordOutput("Component_Poses", new Pose3d[] {
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), 0.625, 1.19), new Rotation3d()),
+            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), 0.625), new Rotation3d()),
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+        });
     }
 
     public void onEnable () {

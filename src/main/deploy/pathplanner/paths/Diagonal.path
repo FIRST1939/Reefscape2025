@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.10178679657,
-        "y": 2.92178679657
+        "x": 2.516,
+        "y": 4.186
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.60178679657,
-        "y": 2.0557613927855614
+        "x": 3.516000000000001,
+        "y": 4.186
       },
       "isLocked": false,
-      "linkedName": "EF"
+      "linkedName": "TestStart"
     },
     {
       "anchor": {
-        "x": 5.98678679657,
-        "y": 0.40178679657
+        "x": 7.108582235944323,
+        "y": 5.220915068913755
       },
       "prevControl": {
-        "x": 5.98678679657,
-        "y": 1.4017867965700002
+        "x": 6.108582235944323,
+        "y": 5.220915068913755
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "P"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Reef to Proccesor",
+  "folder": "Testing Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

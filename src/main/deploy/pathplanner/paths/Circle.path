@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.10178679657,
-        "y": 2.92178679657
+        "x": 2.886,
+        "y": 4.064
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.60178679657,
-        "y": 2.0557613927855614
+        "x": 2.886,
+        "y": 7.064
       },
       "isLocked": false,
-      "linkedName": "EF"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.98678679657,
-        "y": 0.40178679657
+        "x": 6.357,
+        "y": 4.063999999999999
       },
       "prevControl": {
-        "x": 5.98678679657,
-        "y": 1.4017867965700002
+        "x": 6.357,
+        "y": 7.06399999999999
+      },
+      "nextControl": {
+        "x": 6.357,
+        "y": 1.0639999999999992
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.886,
+        "y": 4.063999999999999
+      },
+      "prevControl": {
+        "x": 2.886,
+        "y": 1.0639999999999992
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "P"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Reef to Proccesor",
+  "folder": "Testing Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

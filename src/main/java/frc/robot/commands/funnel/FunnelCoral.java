@@ -2,8 +2,8 @@ package frc.robot.commands.funnel;
 
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.SetPointConstants;
 import frc.robot.subsystems.funnel.Funnel;
+import frc.robot.util.SetPointConstants;
 
 public class FunnelCoral extends RepeatCommand {
     
