@@ -77,6 +77,12 @@ public class Robot extends LoggedRobot {
         @Override
         public void robotInit () {
 
+          for (int port = 5800; port <= 5809; port++) {
+    
+            PortForwarder.add(port, "limelight-left.local", port);
+            PortForwarder.add(port + 10, "limelight-right.local", port);
+        }
+
         Pathfinding.setPathfinder(new LocalADStarAK());
         PathfindingCommand.warmupCommand().schedule();
     }
@@ -97,32 +103,6 @@ public class Robot extends LoggedRobot {
     @Override
     public void disabledExit () {
     
-            for (int port = 5800; port <= 5809; port++) {
-    
-                PortForwarder.add(port, "limelight-left.local", port);
-                PortForwarder.add(port + 10, "limelight-right.local", port);
-            }
-        
-            Pathfinding.setPathfinder(new LocalADStarAK());
-            PathfindingCommand.warmupCommand().schedule();
-        }
-    
-        @Override
-        public void robotPeriodic() {
-    
-            CommandScheduler.getInstance().run();
-            this.robotContainer.updateComponents();
-        }
-    
-        @Override
-        public void disabledInit () {}
-    
-        @Override
-        public void disabledPeriodic () {}
-    
-        @Override
-        public void disabledExit () {
-        
           this.robotContainer.onEnable();
         }
     

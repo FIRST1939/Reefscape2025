@@ -39,18 +39,25 @@ public class SetPointConstants {
 
     public static final Pose2d[][] RED_REEF_CORAL_POSES = {
         
-        {new Pose2d(new Translation2d(15.021, 3.868), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.321, 3.868), Rotation2d.fromDegrees(180))},
-        {new Pose2d(new Translation2d(15.021, 4.197), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.321, 4.197), Rotation2d.fromDegrees(180))},
-        {new Pose2d(new Translation2d(14.335, 5.905), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.835, 5.039), Rotation2d.fromDegrees(-120))},
-        {new Pose2d(new Translation2d(14.050, 6.069), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.550, 5.203), Rotation2d.fromDegrees(-120))},
-        {new Pose2d(new Translation2d(12.078, 6.069), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(12.578, 5.203), Rotation2d.fromDegrees(-60))},
+        {new Pose2d(new Translation2d(15.021, 3.868), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.30, 3.89), Rotation2d.fromDegrees(180))},
+        {new Pose2d(new Translation2d(15.021, 4.197), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.32, 4.21), Rotation2d.fromDegrees(180))},
+        {new Pose2d(new Translation2d(14.335, 5.905), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.82, 5.02), Rotation2d.fromDegrees(-120))},
+        {new Pose2d(new Translation2d(14.050, 6.069), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.53, 5.21), Rotation2d.fromDegrees(-120))},
+        {new Pose2d(new Translation2d(12.078, 6.069), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(12.57, 5.21), Rotation2d.fromDegrees(-60))},
+        //{new Pose2d(new Translation2d(15.021, 3.868), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.321, 3.868), Rotation2d.fromDegrees(180))},
+        //{new Pose2d(new Translation2d(15.021, 4.197), Rotation2d.fromDegrees(180)), new Pose2d(new Translation2d(14.321, 4.197), Rotation2d.fromDegrees(180))},
+        //{new Pose2d(new Translation2d(14.335, 5.905), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.835, 5.039), Rotation2d.fromDegrees(-120))},
+        //{new Pose2d(new Translation2d(14.050, 6.069), Rotation2d.fromDegrees(-120)), new Pose2d(new Translation2d(13.550, 5.203), Rotation2d.fromDegrees(-120))},
+        //{new Pose2d(new Translation2d(12.078, 6.069), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(12.578, 5.203), Rotation2d.fromDegrees(-60))},
         {new Pose2d(new Translation2d(11.793, 5.905), Rotation2d.fromDegrees(-60)), new Pose2d(new Translation2d(12.293, 5.039), Rotation2d.fromDegrees(-60))},
         {new Pose2d(new Translation2d(11.007, 4.197), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(11.807, 4.197), Rotation2d.fromDegrees(0))},
         {new Pose2d(new Translation2d(11.007, 3.868), Rotation2d.fromDegrees(0)), new Pose2d(new Translation2d(11.807, 3.868), Rotation2d.fromDegrees(0))},
         {new Pose2d(new Translation2d(11.793, 2.160), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(12.293, 3.026), Rotation2d.fromDegrees(60))},
         {new Pose2d(new Translation2d(12.070, 1.995), Rotation2d.fromDegrees(60)), new Pose2d(new Translation2d(12.578, 2.861), Rotation2d.fromDegrees(60))},
-        {new Pose2d(new Translation2d(14.050, 1.995), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.550, 2.861), Rotation2d.fromDegrees(120))},
-        {new Pose2d(new Translation2d(14.335, 2.160), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.835, 3.026), Rotation2d.fromDegrees(120))}
+        {new Pose2d(new Translation2d(14.050, 1.995), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.58, 2.89), Rotation2d.fromDegrees(120))},
+        {new Pose2d(new Translation2d(14.335, 2.160), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.87, 3.05), Rotation2d.fromDegrees(120))}
+        //{new Pose2d(new Translation2d(14.050, 1.995), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.550, 2.861), Rotation2d.fromDegrees(120))},
+        //{new Pose2d(new Translation2d(14.335, 2.160), Rotation2d.fromDegrees(120)), new Pose2d(new Translation2d(13.835, 3.026), Rotation2d.fromDegrees(120))}
     };
 
     public static final Pose2d[][] BLUE_REEF_CORAL_POSES = {
