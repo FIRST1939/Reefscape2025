@@ -6,11 +6,14 @@ package frc.robot;
 
 import edu.wpi.first.net.PortForwarder;
 
+import javax.lang.model.util.ElementScanner14;
+
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +25,7 @@ public class Robot extends LoggedRobot {
     //private final SendableChooser<Command> autoSelector;
     private final RobotContainer robotContainer;
     private Command autoCommand;
+    private boolean HaveAlliance = false;
 
     public Robot () {
 
@@ -71,10 +75,32 @@ public class Robot extends LoggedRobot {
     }
 
     @Override
-    public void disabledInit () {}
+    public void disabledInit () {
+        if (HaveAlliance){
+            this.robotContainer.leds.BunnyHopStart();
+            this.robotContainer.leds.setScannerPattern();
+            }
+            else
+            
+            {
+                this.robotContainer.leds.setRainbowPattern();
+            }
+
+    }
 
     @Override
-    public void disabledPeriodic () {}
+    public void disabledPeriodic () {
+      
+        if (DriverStation.isFMSAttached() && DriverStation.getAlliance().isPresent()){
+            if (HaveAlliance==false){
+            this.robotContainer.leds.BunnyHopStart();
+            this.robotContainer.leds.setScannerPattern();
+            }
+            HaveAlliance=true;
+          }
+         
+
+    }
 
     @Override
     public void disabledExit () {
@@ -107,7 +133,8 @@ public class Robot extends LoggedRobot {
 
             this.autoCommand.cancel();
         }
-        this.robotContainer.leds.BunnyHop();
+        this.robotContainer.leds.BunnyHopStop();
+        this.robotContainer.leds.setScannerPattern();
     }
 
     @Override
