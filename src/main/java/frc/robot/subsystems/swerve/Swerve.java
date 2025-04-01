@@ -20,9 +20,9 @@ import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Elastic;
-import frc.robot.Elastic.Notification;
-import frc.robot.Elastic.Notification.NotificationLevel;
+import frc.robot.util.Elastic;
+import frc.robot.util.Elastic.Notification;
+import frc.robot.util.Elastic.Notification.NotificationLevel;
 import swervelib.SwerveDrive;
 import swervelib.SwerveModule;
 import swervelib.parser.SwerveParser;
@@ -117,6 +117,11 @@ public class Swerve extends SubsystemBase {
     public ChassisSpeeds getRobotVelocity () {
 
         return this.swerveDrive.getRobotVelocity();
+    }
+
+    public ChassisSpeeds getFieldVelocity () {
+
+        return this.swerveDrive.getFieldVelocity();
     }
 
     public void addVisionMeasurement (Pose2d pose, double timestamp, Matrix<N3, N1> standardDeviations) {

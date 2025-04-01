@@ -33,7 +33,7 @@ public class Vision {
         LimelightHelpers.PoseEstimate rightPoseEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
 
         // TODO Limelight Standard Deviations
-        if (leftPoseEstimate.tagCount != 0) {
+        if (leftPoseEstimate!=null && leftPoseEstimate.tagCount != 0) {
 
             this.swerve.addVisionMeasurement(
                 leftPoseEstimate.pose, 
@@ -42,7 +42,7 @@ public class Vision {
             );
         }
 
-        if (rightPoseEstimate.tagCount != 0) {
+        if (rightPoseEstimate!=null && rightPoseEstimate.tagCount != 0) {
 
             this.swerve.addVisionMeasurement(
                 rightPoseEstimate.pose, 
