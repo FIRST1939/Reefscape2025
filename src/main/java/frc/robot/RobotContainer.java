@@ -140,7 +140,7 @@ public class RobotContainer {
     
     public void updateComponents () {
 
-        Logger.recordOutput("Swerve_Pose", this.swerve.getSimulationPose());
+        Logger.recordOutput("Swerve_Pose", this.swerve.getPose());
 
         Logger.recordOutput("Component_Poses", new Pose3d[] {
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
