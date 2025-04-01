@@ -12,6 +12,14 @@ import frc.robot.subsystems.swerve.Swerve;
 
 import com.pathplanner.lib.auto.NamedCommands;
 
+import frc.robot.util.RobotGoals;
+import frc.robot.util.SetPointConstants;
+
+import org.littletonrobotics.junction.Logger;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -128,6 +136,17 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector));
+    public void updateComponents () {
+
+        Logger.recordOutput("Swerve_Pose", this.swerve.getSimulationPose());
+
+        Logger.recordOutput("Component_Poses", new Pose3d[] {
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), 0.625, 1.19), new Rotation3d()),
+            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), 0.625), new Rotation3d()),
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+        });
     }
 
     public void onEnable () {

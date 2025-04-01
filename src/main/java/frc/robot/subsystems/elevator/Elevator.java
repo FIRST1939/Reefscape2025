@@ -63,6 +63,11 @@ public class Elevator extends SubsystemBase {
         return this.inputs.manual;
     }
 
+    public double getHeight () {
+
+        return this.inputs.elevatorPosition;
+    }
+
     public void setGoal (double goal) {
 
         this.controller.setGoal(goal + this.offset);

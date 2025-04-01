@@ -76,6 +76,9 @@ public class Robot extends LoggedRobot {
     
         @Override
         public void robotInit () {
+
+        Pathfinding.setPathfinder(new LocalADStarAK());
+        PathfindingCommand.warmupCommand().schedule();
     
             for (int port = 5800; port <= 5809; port++) {
     
@@ -91,6 +94,7 @@ public class Robot extends LoggedRobot {
         public void robotPeriodic() {
     
             CommandScheduler.getInstance().run();
+            this.robotContainer.updateComponents();
         }
     
         @Override

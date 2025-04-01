@@ -15,10 +15,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
@@ -33,8 +32,6 @@ public class Swerve extends SubsystemBase {
     
     private SwerveDrive swerveDrive;
     private Vision vision;
-
-    private StructPublisher<Pose2d> posePublisher;
 
     public Swerve () {
 
@@ -60,14 +57,10 @@ public class Swerve extends SubsystemBase {
             swerveModule.getAngleMotor().configurePIDWrapping(-180, 180);
         }
 
-       this.vision = new Vision(this);
-
         this.swerveDrive.setHeadingCorrection(false);
         this.swerveDrive.setCosineCompensator(false);
         this.swerveDrive.setAngularVelocityCompensation(true, true, 0.1);
         this.swerveDrive.setModuleEncoderAutoSynchronize(false, 1);
-
-        this.swerveDrive.stopOdometryThread();
 
         AutoBuilder.configure(
             this::getPose,
@@ -89,19 +82,26 @@ public class Swerve extends SubsystemBase {
             this
         );
 
-        this.posePublisher = NetworkTableInstance.getDefault().getStructTopic("SwervePose", Pose2d.struct).publish();
+        this.vision = new Vision(this);
+
+        if (RobotBase.isReal()) {
+
+            this.swerveDrive.stopOdometryThread();
+        }
     }   
 
     @Override
     public void periodic () {
 
-        this.swerveDrive.updateOdometry();
-        this.posePublisher.set(this.swerveDrive.getPose());
+        if (RobotBase.isReal()) {
 
-        this.vision.updatePoseEstimation(
-            this.swerveDrive.getOdometryHeading().getDegrees(), 
-            this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
-        );
+            this.swerveDrive.updateOdometry();
+
+            this.vision.updatePoseEstimation(
+                this.swerveDrive.getOdometryHeading().getDegrees(), 
+                this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+            );
+        }
     }
 
     public SwerveDrive getSwerveDrive () {
@@ -112,6 +112,11 @@ public class Swerve extends SubsystemBase {
     public Pose2d getPose () {
 
         return this.swerveDrive.getPose();
+    }
+
+    public Pose2d getSimulationPose () {
+
+        return this.swerveDrive.getSimulationDriveTrainPose().orElse(new Pose2d());
     }
 
     public ChassisSpeeds getRobotVelocity () {
