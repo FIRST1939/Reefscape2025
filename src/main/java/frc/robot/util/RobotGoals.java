@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class RobotGoals {
     
-    private static Pose2d[] targetCoralPath;
-    private static Pose2d[] targetAlgaePath;
+    private static Pose2d[] targetCoralPath = SetPointConstants.RED_REEF_CORAL_POSES[0];
+    private static Pose2d[] targetAlgaePath = SetPointConstants.RED_REEF_ALGAE_POSES[0];
 
     public static void transformTargetCW () {
 
@@ -38,7 +38,7 @@ public class RobotGoals {
             }
         }
 
-        coralTargetIndex++;
+        coralTargetIndex--;
 
         if (coralTargetIndex >= reefCoralPaths.length) {
 
@@ -80,7 +80,7 @@ public class RobotGoals {
             }
         }
 
-        coralTargetIndex--;
+        coralTargetIndex++;
 
         if (coralTargetIndex < 0) {
 
