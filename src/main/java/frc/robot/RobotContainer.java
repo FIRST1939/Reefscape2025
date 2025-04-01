@@ -136,6 +136,8 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector));
+    }
+    
     public void updateComponents () {
 
         Logger.recordOutput("Swerve_Pose", this.swerve.getSimulationPose());
