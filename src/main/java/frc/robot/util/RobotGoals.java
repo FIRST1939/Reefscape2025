@@ -1,7 +1,5 @@
 package frc.robot.util;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -33,7 +31,7 @@ public class RobotGoals {
         
         for (int i = 0; i < reefCoralPaths.length; i++) {
 
-            if (reefCoralPaths[i].equals(reefCoralPaths)) {
+            if (reefCoralPaths[i].equals(targetCoralPath)) {
 
                 coralTargetIndex = i;
                 break;
@@ -75,7 +73,7 @@ public class RobotGoals {
         
         for (int i = 0; i < reefCoralPaths.length; i++) {
 
-            if (reefCoralPaths[i].equals(reefCoralPaths)) {
+            if (reefCoralPaths[i].equals(targetCoralPath)) {
 
                 coralTargetIndex = i;
                 break;
@@ -84,9 +82,9 @@ public class RobotGoals {
 
         coralTargetIndex--;
 
-        if (coralTargetIndex >= reefCoralPaths.length) {
+        if (coralTargetIndex < 0) {
 
-            coralTargetIndex = 0;
+            coralTargetIndex = reefCoralPaths.length - 1;
         }
 
         algaeTargetIndex = coralTargetIndex / 2;
@@ -113,10 +111,8 @@ public class RobotGoals {
         
         int algaeTargetIndex = postSelector / 2;
 
-
         targetCoralPath = reefCoralPaths[postSelector];
         targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
-        
     }
 
     public static Pose2d[] getTargetCoralPath () {

@@ -78,7 +78,7 @@ public class Swerve extends SubsystemBase {
                 SwerveConstants.PP_TURN_PID
             ),
             SwerveConstants.ROBOT_CONFIG,
-            this::isRedAlliance,
+            () -> !DriverStation.isTeleop() ? this.isRedAlliance() : false,
             this
         );
 
