@@ -154,5 +154,6 @@ public class RobotContainer {
     public void onEnable () {
 
         this.elevator.runVoltage(0.0);
+        this.elevator.setGoal(this.elevator.getHeight());
     }
 }
