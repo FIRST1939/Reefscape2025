@@ -9,11 +9,15 @@ import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
-import frc.robot.util.RobotGoals;
-import frc.robot.util.SetPointConstants;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.util.RobotGoals;
+import frc.robot.util.SetPointConstants;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
@@ -61,6 +65,7 @@ public class RobotContainer {
         }
 
         this.configureBindings();
+        this.configureNamedCommands();
         new ConfirmAlliance().andThen(new ZeroGyro(this.swerve)).schedule();
     }
 
@@ -111,6 +116,18 @@ public class RobotContainer {
         this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
         this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
+    }
+
+    public void configureNamedCommands () {
+
+        NamedCommands.registerCommand("ElevatorToFunnel", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        NamedCommands.registerCommand("ElevatorToL2", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        NamedCommands.registerCommand("ElevatorToL3", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        NamedCommands.registerCommand("ElevatorToL4", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        NamedCommands.registerCommand("WaitForElevator", new WaitUntilCommand(() -> this.elevator.atGoal()));
+
+        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel));
+        NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector));
     }
 
     public void onEnable () {
