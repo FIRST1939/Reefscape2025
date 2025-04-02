@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BL_D"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "D_BHP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BHP_C"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C_BHP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BHP_B"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": false,
+  "folder": "Testing Autos",
+  "choreoAuto": false
+}

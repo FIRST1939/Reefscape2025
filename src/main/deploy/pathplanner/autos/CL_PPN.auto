@@ -11,33 +11,191 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "H_GH"
+            "name": "ElevatorToL4"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "GH_P"
+            "name": "CoralScore"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "P_EF"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "H_GH"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToLowAlgae"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "EF_P"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "P_IJ"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GH_P"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToProcessor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristToProcessor"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreProcesser"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "P_EF"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToHighAlgae"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "EF_P"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristToProcessor"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToProcessor"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreProcesser"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "P_IJ"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToHighAlgae"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              }
+            ]
           }
         },
         {
@@ -45,11 +203,23 @@
           "data": {
             "pathName": "IJ_CN"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ElevatorToBarge"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreAlgae"
+          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Scoring Autos",
   "choreoAuto": false
 }

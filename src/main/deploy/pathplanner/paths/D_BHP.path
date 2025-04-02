@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.99,
-        "y": 2.825
+        "x": 3.98678679657,
+        "y": 2.83978679657
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5492386572990173,
-        "y": 2.0615789604296197
+        "x": 3.5460254538690172,
+        "y": 2.0763657569996194
       },
       "isLocked": false,
       "linkedName": "StartD"
     },
     {
       "anchor": {
-        "x": 1.5562757596547936,
-        "y": 0.71
+        "x": 1.56978679657,
+        "y": 0.61578679657
       },
       "prevControl": {
-        "x": 2.056275759654793,
-        "y": 1.5760254037844388
+        "x": 2.0697867965699994,
+        "y": 1.481812200354439
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,14 +29,35 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.75,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 360.0,
+        "maxAngularAcceleration": 360.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ElevatorToFunnel",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },

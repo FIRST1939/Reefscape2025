@@ -1,9 +1,9 @@
 package frc.robot.commands.end_effector;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.SetPointConstants;
 import frc.robot.subsystems.end_effector.EndEffector;
 import frc.robot.subsystems.leds.LEDs;
+import frc.robot.util.SetPointConstants;
 
 public class ScoreAlgae extends Command {
     

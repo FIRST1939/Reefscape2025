@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5562757596547936,
-        "y": 0.7100274926511793
+        "x": 5.151511638937917,
+        "y": 2.905129171870076
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.143905681002898,
-        "y": 1.5191573187831917
+        "x": 5.651511638937917,
+        "y": 2.0391037680856376
       },
       "isLocked": false,
-      "linkedName": "BHP"
+      "linkedName": "AEFNEW"
     },
     {
       "anchor": {
-        "x": 3.2,
-        "y": 3.865
+        "x": 7.769856409143518,
+        "y": 4.717728587962963
       },
       "prevControl": {
-        "x": 2.2,
-        "y": 3.865
+        "x": 6.769856409143518,
+        "y": 4.717728587962963
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "b"
+      "linkedName": "BN"
     }
   ],
   "rotationTargets": [],
@@ -34,9 +34,9 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Reef to Human Player",
+  "folder": "Reef to Net",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 54.011
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": true
 }

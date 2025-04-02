@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.177897257498469,
-        "y": 5.130142419119324
+        "x": 5.10178679657,
+        "y": 5.09978679657
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.677897257498469,
-        "y": 5.996167822903763
+        "x": 5.60178679657,
+        "y": 5.9658122003544385
       },
       "isLocked": false,
       "linkedName": "IJ"
     },
     {
       "anchor": {
-        "x": 8.062993421052632,
-        "y": 7.334868421052631
+        "x": 7.74778679657,
+        "y": 7.335
       },
       "prevControl": {
-        "x": 7.0629934210526315,
-        "y": 7.334868421052631
+        "x": 6.74778679657,
+        "y": 7.335
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,9 +34,9 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef to Net",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -119.99999999999999
