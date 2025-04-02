@@ -35,12 +35,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "IntakeCoral"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "THP_L"
@@ -68,12 +62,6 @@
           "type": "named",
           "data": {
             "name": "WaitForElevator"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeCoral"
           }
         },
         {

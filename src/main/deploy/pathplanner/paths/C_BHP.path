@@ -51,6 +51,12 @@
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
+    },
+    {
+      "name": "IntakeCoral",
+      "waypointRelativePos": 0.75,
+      "endWaypointRelativePos": null,
+      "command": null
     }
   ],
   "globalConstraints": {
