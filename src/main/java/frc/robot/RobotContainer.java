@@ -20,12 +20,11 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
-import frc.robot.util.RobotGoals;
-import frc.robot.util.SetPointConstants;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
@@ -46,6 +45,7 @@ import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
+import frc.robot.subsystems.leds.LEDs;
 
 
 public class RobotContainer {
@@ -54,6 +54,8 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
 
     private final Swerve swerve = new Swerve();
+    public final LEDs leds = new LEDs();
+
     private final Elevator elevator;
     private final EndEffector endEffector;
     private final Funnel funnel;
@@ -99,43 +101,45 @@ public class RobotContainer {
         new Trigger(this.elevator::isManual).whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
         Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
 
-        elevatorSetpoints.and(this.operator.x()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        elevatorSetpoints.and(this.operator.a()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        elevatorSetpoints.and(this.operator.b()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        elevatorSetpoints.and(this.operator.y()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        elevatorSetpoints.and(this.operator.x()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        elevatorSetpoints.and(this.operator.a()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        elevatorSetpoints.and(this.operator.b()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        elevatorSetpoints.and(this.operator.y()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
 
-        elevatorSetpoints.and(this.operator.povDown()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_INTAKE_LOW_HEIGHT));
-        elevatorSetpoints.and(this.operator.povRight()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_INTAKE_HIGH_HEIGHT));
-        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_OUTTAKE_PROCESSOR_HEIGHT));
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new ElevatorToHeight(this.elevator, SetPointConstants.ALGAE_OUTTAKE_NET_HEIGHT));
+        elevatorSetpoints.and(this.operator.povDown()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_LOW_HEIGHT));
+        elevatorSetpoints.and(this.operator.povRight()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_HIGH_HEIGHT));
+        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_PROCESSOR_HEIGHT));
+        elevatorSetpoints.and(this.operator.povUp()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_NET_HEIGHT));
 
         this.operator.rightBumper().toggleOnTrue(
-            new IntakeCoral(this.endEffector, this.funnel).andThen(
+            new IntakeCoral(this.endEffector, this.funnel, this.leds).andThen(
                 new RumbleController(this.operator, RumbleType.kRightRumble).withTimeout(0.5)
             )
         );
 
         this.operator.rightTrigger().toggleOnTrue(
-            new ScoreCoral(this.endEffector).andThen(
+            new ScoreCoral(this.endEffector,leds).andThen(
                 new RumbleController(this.driver, RumbleType.kBothRumble).withTimeout(0.5)
             )
         );
 
-        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector));
-        this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
-        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector));
+        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector, this.leds));
+        this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
+        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
+
+        new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliance(), this.leds));
     }
 
     public void configureNamedCommands () {
 
-        NamedCommands.registerCommand("ElevatorToFunnel", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        NamedCommands.registerCommand("ElevatorToL2", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        NamedCommands.registerCommand("ElevatorToL3", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        NamedCommands.registerCommand("ElevatorToL4", new ElevatorToHeight(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        NamedCommands.registerCommand("ElevatorToFunnel", new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        NamedCommands.registerCommand("ElevatorToL2", new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        NamedCommands.registerCommand("ElevatorToL3", new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        NamedCommands.registerCommand("ElevatorToL4", new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
         NamedCommands.registerCommand("WaitForElevator", new WaitUntilCommand(() -> this.elevator.atGoal()));
 
-        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel));
-        NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector));
+        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel, this.leds));
+        NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
     }
     
     public void updateComponents () {
