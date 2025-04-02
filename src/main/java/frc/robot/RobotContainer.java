@@ -32,12 +32,14 @@ import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.RumbleController;
+import frc.robot.commands.auto.SetElevatorTarget;
 import frc.robot.commands.elevator.ElevatorToHeight;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.IntakeAlgae;
 import frc.robot.commands.end_effector.ScoreAlgae;
 import frc.robot.commands.elevator.ManualElevator;
 import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
 import frc.robot.subsystems.elevator.ElevatorIOVortex;
 import frc.robot.subsystems.end_effector.EndEffector;
@@ -142,10 +144,10 @@ public class RobotContainer {
         NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel, this.leds));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
 
-        new EventTrigger("ElevatorToFunnel").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        new EventTrigger("ElevatorToL2").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        new EventTrigger("ElevatorToL3").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        new EventTrigger("ElevatorToL4").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        new EventTrigger("ElevatorToFunnel").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        new EventTrigger("ElevatorToL2").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        new EventTrigger("ElevatorToL3").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        new EventTrigger("ElevatorToL4").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
         new EventTrigger("WaitForElevator").onTrue(new WaitUntilCommand(() -> this.elevator.atGoal()));
         
         new EventTrigger("IntakeCoral").onTrue(new IntakeCoral(this.endEffector, this.funnel, this.leds));
@@ -158,8 +160,8 @@ public class RobotContainer {
 
         Logger.recordOutput("Component_Poses", new Pose3d[] {
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
-            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), 0.625, 1.19), new Rotation3d()),
-            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), 0.625), new Rotation3d()),
+            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_ELEVATOR_TRANSITION, ElevatorConstants.SECOND_ELEVATOR_TRANSITION), new Rotation3d()),
+            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_ELEVATOR_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
         });
