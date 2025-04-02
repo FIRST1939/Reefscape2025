@@ -11,6 +11,7 @@ import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 
 import frc.robot.util.RobotGoals;
 import frc.robot.util.SetPointConstants;
@@ -140,6 +141,15 @@ public class RobotContainer {
 
         NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel, this.leds));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
+
+        new EventTrigger("ElevatorToFunnel").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
+        new EventTrigger("ElevatorToL2").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        new EventTrigger("ElevatorToL3").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        new EventTrigger("ElevatorToL4").onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        new EventTrigger("WaitForElevator").onTrue(new WaitUntilCommand(() -> this.elevator.atGoal()));
+        
+        new EventTrigger("IntakeCoral").onTrue(new IntakeCoral(this.endEffector, this.funnel, this.leds));
+        new EventTrigger("ScoreCoral").onTrue(new ScoreCoral(this.endEffector, this.leds));
     }
     
     public void updateComponents () {
