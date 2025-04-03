@@ -10,6 +10,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.Waypoint;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class AlignToReef extends Command {
@@ -55,6 +56,8 @@ public class AlignToReef extends Command {
 
         this.pathfindingCommand = AutoBuilder.pathfindThenFollowPath(path, pathfindingConstraints);
         this.pathfindingCommand.schedule();
+
+        SmartDashboard.putBoolean("Reef Aligned", false);
     }
 
     @Override
@@ -70,5 +73,7 @@ public class AlignToReef extends Command {
 
             this.pathfindingCommand.cancel();
         }
+
+        SmartDashboard.putBoolean("Reef Aligned", true);
     }
 }

@@ -1,6 +1,7 @@
 package frc.robot.commands.end_effector;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.end_effector.EndEffector;
 import frc.robot.subsystems.leds.LEDs;
 import frc.robot.util.SetPointConstants;
@@ -37,5 +38,7 @@ public class ScoreCoral extends Command {
 
         this.endEffector.setCoralIntakeVelocity(0.0);
         this.leds.setAlliance();
+
+        SmartDashboard.putBoolean("Reef Aligned", false);
     }
 }

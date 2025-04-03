@@ -143,8 +143,6 @@ public class RobotContainer {
         new EventTrigger("ElevatorToL3").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
         new EventTrigger("ElevatorToL4").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
         new EventTrigger("WaitForElevator").onTrue(new WaitUntilCommand(() -> this.elevator.atGoal()));
-
-        
     }
     
     public void updateComponents () {
