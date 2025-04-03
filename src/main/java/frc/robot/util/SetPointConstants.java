@@ -11,11 +11,11 @@ public class SetPointConstants {
     public static final double CORAL_OUTTAKE_HEIGHT_L3 = 0.885;
     public static final double CORAL_OUTTAKE_HEIGHT_L4 = 1.35;
 
-    public static final double ALGAE_INTAKE_GROUND_HEIGHT = 0.13;
-    public static final double ALGAE_INTAKE_LOW_HEIGHT = 0.65;
-    public static final double ALGAE_INTAKE_HIGH_HEIGHT = 1.04;
+    public static final double ALGAE_INTAKE_GROUND_HEIGHT = 0.2;
+    public static final double ALGAE_INTAKE_LOW_HEIGHT = 0.34;
+    public static final double ALGAE_INTAKE_HIGH_HEIGHT = 0.66;
     public static final double ALGAE_OUTTAKE_PROCESSOR_HEIGHT = 0.3;
-    public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.96;
+    public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.44;
 
     public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 3.0;
 

@@ -33,7 +33,6 @@ public class Robot extends LoggedRobot {
     private final LoggedDashboardChooser<Integer> postSelector;
     private final RobotContainer robotContainer;
     private Command autoCommand;
-    private boolean HaveAlliance = false;
     
     public Robot () {
     
@@ -107,31 +106,18 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void disabledInit () {
-        if (HaveAlliance){
-            this.robotContainer.leds.BunnyHopStart();
-            this.robotContainer.leds.setScannerPattern();
-            }
-            else
-            
-            {
-                this.robotContainer.leds.setRainbowPattern();
-            }
 
+      if (DriverStation.isFMSAttached()) {
+
+        this.robotContainer.leds.setAlliancePattern();
+      } else {
+
+        this.robotContainer.leds.setAlliancePattern();
+      }
     }
 
     @Override
-    public void disabledPeriodic () {
-      
-        if (DriverStation.isFMSAttached() && DriverStation.getAlliance().isPresent()){
-            if (HaveAlliance==false){
-            this.robotContainer.leds.BunnyHopStart();
-            this.robotContainer.leds.setScannerPattern();
-            }
-            HaveAlliance=true;
-          }
-         
-
-    }
+    public void disabledPeriodic () {}
 
     @Override
     public void disabledExit () {
@@ -148,9 +134,6 @@ public class Robot extends LoggedRobot {
     
             this.autoCommand.schedule();
         }
-
-        this.robotContainer.leds.BunnyHopStop();
-        this.robotContainer.leds.setScannerPattern();
     }
     
     @Override

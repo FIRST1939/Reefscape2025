@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
@@ -85,6 +86,7 @@ public class RobotContainer {
     private void configureBindings () {
 
         SmartDashboard.putData("Commands", CommandScheduler.getInstance());
+        SmartDashboard.putBoolean("Reef Aligned", false);
 
         this.swerve.setDefaultCommand(
             new Drive(
@@ -130,7 +132,7 @@ public class RobotContainer {
         this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
 
-        new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliance(), this.leds));
+        new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliancePattern(), this.leds));
     }
 
     public void configureNamedCommands () {

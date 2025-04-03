@@ -19,7 +19,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreAlgae"
+            "name": null
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAlgae"
+            "name": null
           }
         },
         {
@@ -55,7 +55,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreAlgae"
+            "name": null
           }
         },
         {
@@ -73,7 +73,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAlgae"
+            "name": null
           }
         },
         {
@@ -91,7 +91,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreAlgae"
+            "name": null
           }
         },
         {
@@ -109,7 +109,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAlgae"
+            "name": null
           }
         },
         {
@@ -127,7 +127,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreAlgae"
+            "name": null
           }
         }
       ]

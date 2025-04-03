@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ReefDisplay extends SubsystemBase {
 
     private final CvSource source;
-    private Mat currentImage = new Mat();
+    private Mat currentImage;
 
     public ReefDisplay() {
 

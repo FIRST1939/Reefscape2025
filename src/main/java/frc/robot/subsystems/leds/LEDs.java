@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.AddressableLEDBufferView;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
@@ -24,18 +23,12 @@ public class LEDs extends SubsystemBase {
 
     private AddressableLEDBufferView m_bunny_right;
     private AddressableLEDBufferView m_bunny_left;
+    private AddressableLEDBufferView top_bar;
 
     private LEDPattern bunnyPattern;
-
-    private AddressableLEDBufferView TopBar;
-
-    private LEDPattern pattern;
-
-    private Timer bhTimer = new Timer();
+    private LEDPattern topPattern;
 
     public LEDs() {
-
-        bhTimer.start();
 
         this.ledStrip = new AddressableLED(LEDConstants.port);
         this.ledBuffer = new AddressableLEDBuffer(LEDConstants.leds);
@@ -43,36 +36,28 @@ public class LEDs extends SubsystemBase {
         this.ledStrip.setLength(LEDConstants.leds);
         this.ledStrip.start();
 
-        // Full bunny strip
-        m_bunny_right = ledBuffer.createView(0, 40);
-        m_bunny_left = ledBuffer.createView(LEDConstants.leds - 40, LEDConstants.leds - 1).reversed();
-
-        // Define bunny sections
-
-        TopBar = ledBuffer.createView(40, LEDConstants.leds - 81);
-
-        // Set initial pattern and effect
-        this.setRainbowPattern();
-        // this.setScannerPattern();
-        // this.BunnyHopStart();
+        this.m_bunny_right = ledBuffer.createView(0, 39);
+        this.m_bunny_left = ledBuffer.createView(LEDConstants.leds - 39, LEDConstants.leds - 1).reversed();
+        this.top_bar = ledBuffer.createView(40, LEDConstants.leds - 40);
     }
 
     @Override
     public void periodic() {
+
         try {
 
+            LEDPattern black = LEDPattern.solid(Color.kBlack);
+            black.applyTo(ledBuffer);
+
             if (bunnyPattern != null) {
-                LEDPattern black = LEDPattern.solid(Color.kBlack);
-                black.applyTo(ledBuffer);
+
                 bunnyPattern.applyTo(m_bunny_left);
                 bunnyPattern.applyTo(m_bunny_right);
-                if (pattern != null) {
-                    pattern.applyTo(TopBar);
-                }
-            } else {
-                if (pattern != null) {
-                    pattern.applyTo(ledBuffer);
-                }
+            }
+
+            if (topPattern != null) {
+
+                topPattern.applyTo(top_bar);
             }
 
             ledStrip.setData(ledBuffer);
@@ -82,30 +67,17 @@ public class LEDs extends SubsystemBase {
         }
     }
 
-    public void setScannerPattern() {
-        pattern = new ScannerPattern(getAllianceColor());
-    }
+    public void setAlliancePattern() {
 
-    public void BunnyHopStart() {
-        bunnyPattern = new BunnyHopPattern(Color.kGreen, 5, 6, 0, false);
-
-    }
-
-    public void BunnyHopStop() {
-        bunnyPattern = null;
-
-    }
-
-    public void setAlliance() {
-
-        Color allianceColor = getAllianceColor();
-        LEDPattern base = LEDPattern.solid(allianceColor);
-        pattern = base.blink(Seconds.of(1.0));
+        this.topPattern = new ScannerPattern(this.getAllianceColor());
+        this.bunnyPattern = new BunnyHopPattern(this.getAllianceColor(), 6, 5, 0, false);
     }
 
     public Color getAllianceColor() {
+
         Color allianceColor;
         var alliance = DriverStation.getAlliance();
+
         if (alliance.isPresent()) {
             if (alliance.get() == Alliance.Red) {
 
@@ -114,44 +86,60 @@ public class LEDs extends SubsystemBase {
 
                 allianceColor = Color.kBlue;
             }
-        } else { // No alliance. green
+        } else {
+
             allianceColor = Color.kGreen;
         }
+
         return allianceColor;
     }
 
     public void setCoralProcessing() {
 
         LEDPattern base = LEDPattern.solid(Color.kYellow);
-        pattern = base.blink(Seconds.of(0.5));
+        LEDPattern pattern = base.blink(Seconds.of(0.5));
+
+        this.bunnyPattern = pattern;
+        this.topPattern = pattern;
     }
 
     public void setAlgaeProcessing() {
 
         LEDPattern base = LEDPattern.solid(Color.kSeaGreen);
-        pattern = base.blink(Seconds.of(0.5));
+        LEDPattern pattern = base.blink(Seconds.of(0.5));
+
+        this.bunnyPattern = pattern;
+        this.topPattern = pattern;
     }
 
     public void setCoralHolding() {
 
-        pattern = LEDPattern.solid(Color.kYellow);
+        LEDPattern pattern = LEDPattern.solid(Color.kYellow);
+
+        this.bunnyPattern = pattern;
+        this.topPattern = pattern;
     }
 
     public void setAlgaeHolding() {
 
-        pattern = LEDPattern.solid(Color.kSeaGreen);
+        LEDPattern pattern = LEDPattern.solid(Color.kSeaGreen);
+        this.bunnyPattern = pattern;
+        this.topPattern = pattern;
     }
 
     public void setRainbowPattern() {
-        LEDPattern base = LEDPattern.rainbow(255, 128);
 
-        pattern = base.scrollAtRelativeSpeed(Percent.per(Second).of(25));
+        LEDPattern base = LEDPattern.rainbow(255, 64);
+        LEDPattern pattern = base.scrollAtRelativeSpeed(Percent.per(Second).of(65));
+
+        this.bunnyPattern = pattern;
+        this.topPattern = pattern;
     }
 
     public void setElevatorProgress(DoubleSupplier elevatorHeight, double targetHeight) {
 
         LEDPattern base = LEDPattern.solid(Color.kPink);
-        pattern = base.mask(LEDPattern.progressMaskLayer(() -> elevatorHeight.getAsDouble() / targetHeight));
+        topPattern = base.mask(LEDPattern.progressMaskLayer(() -> elevatorHeight.getAsDouble() / targetHeight));
     }
 
 }

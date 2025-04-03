@@ -19,7 +19,7 @@
         {
           "type": "named",
           "data": {
-            "name": "CoralScore"
+            "name": "ScoreCoral"
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToLowAlgae"
+                  "name": null
                 }
               }
             ]
@@ -48,7 +48,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeAlgae"
+                  "name": null
                 }
               },
               {
@@ -73,13 +73,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToProcessor"
+                  "name": null
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "WristToProcessor"
+                  "name": null
                 }
               }
             ]
@@ -88,7 +88,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreProcesser"
+            "name": null
           }
         },
         {
@@ -104,7 +104,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToHighAlgae"
+                  "name": null
                 }
               }
             ]
@@ -117,7 +117,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeAlgae"
+                  "name": null
                 }
               },
               {
@@ -142,13 +142,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "WristToProcessor"
+                  "name": null
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToProcessor"
+                  "name": null
                 }
               }
             ]
@@ -157,7 +157,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreProcesser"
+            "name": null
           }
         },
         {
@@ -173,7 +173,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ElevatorToHighAlgae"
+                  "name": null
                 }
               }
             ]
@@ -186,7 +186,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakeAlgae"
+                  "name": null
                 }
               },
               {
@@ -207,13 +207,13 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToBarge"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ScoreAlgae"
+            "name": null
           }
         }
       ]

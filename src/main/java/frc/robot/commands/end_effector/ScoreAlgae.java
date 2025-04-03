@@ -28,6 +28,6 @@ public class ScoreAlgae extends Command {
     public void end (boolean interrupted) {
 
         this.endEffector.setAlgaeIntakeVoltage(0.0);
-        this.leds.setAlliance();
+        this.leds.setAlliancePattern();
     }
 }

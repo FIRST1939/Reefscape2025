@@ -44,9 +44,9 @@ public class RobotGoals {
 
         coralTargetIndex--;
 
-        if (coralTargetIndex >= reefCoralPaths.length) {
+        if (coralTargetIndex < 0) {
 
-            coralTargetIndex = 0;
+            coralTargetIndex = reefCoralPaths.length - 1;
         }
 
         algaeTargetIndex = coralTargetIndex / 2;
@@ -87,9 +87,9 @@ public class RobotGoals {
 
         coralTargetIndex++;
 
-        if (coralTargetIndex < 0) {
+        if (coralTargetIndex == reefCoralPaths.length) {
 
-            coralTargetIndex = reefCoralPaths.length - 1;
+            coralTargetIndex = 0;
         }
 
         algaeTargetIndex = coralTargetIndex / 2;
