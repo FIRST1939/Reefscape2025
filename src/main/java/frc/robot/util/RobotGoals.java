@@ -3,11 +3,15 @@ package frc.robot.util;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.subsystems.ReefDisplay;
 
 public class RobotGoals {
     
     private static Pose2d[] targetCoralPath = SetPointConstants.RED_REEF_CORAL_POSES[0];
     private static Pose2d[] targetAlgaePath = SetPointConstants.RED_REEF_ALGAE_POSES[0];
+
+    private static final ReefDisplay reefDisplay = new ReefDisplay();
+    public static void load () {}
 
     public static void transformTargetCW () {
 
@@ -49,6 +53,7 @@ public class RobotGoals {
 
         targetCoralPath = reefCoralPaths[coralTargetIndex];
         targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
+        reefDisplay.display(coralTargetIndex);
     }
 
     public static void transformTargetCCW () {
@@ -91,6 +96,7 @@ public class RobotGoals {
 
         targetCoralPath = reefCoralPaths[coralTargetIndex];
         targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
+        reefDisplay.display(coralTargetIndex);
     }
 
     public static void setManualIndex (int postSelector) {
@@ -113,6 +119,7 @@ public class RobotGoals {
 
         targetCoralPath = reefCoralPaths[postSelector];
         targetAlgaePath = reefAlgaePaths[algaeTargetIndex];
+        reefDisplay.display(postSelector);
     }
 
     public static Pose2d[] getTargetCoralPath () {

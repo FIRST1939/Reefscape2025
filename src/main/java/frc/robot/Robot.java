@@ -10,6 +10,7 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import org.opencv.core.Core;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -17,6 +18,7 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -87,6 +89,13 @@ public class Robot extends LoggedRobot {
 
         Pathfinding.setPathfinder(new LocalADStarAK());
         PathfindingCommand.warmupCommand().schedule();
+
+        if (RobotBase.isSimulation()) {
+
+            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        }
+
+        RobotGoals.load();
     }
 
     @Override
