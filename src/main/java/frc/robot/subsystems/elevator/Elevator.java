@@ -60,7 +60,7 @@ public class Elevator extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
 
-        if (DriverStation.isEnabled()) {
+        if (DriverStation.isEnabled() && !this.inputs.manual) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
             if (this.inputs.elevatorPosition < SetPointConstants.CORAL_INTAKE_HEIGHT && feedback < 0) { return; }
