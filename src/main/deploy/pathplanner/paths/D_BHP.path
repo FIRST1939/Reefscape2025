@@ -55,7 +55,7 @@
     {
       "name": "IntakeCoral",
       "waypointRelativePos": 0.75,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 1.0,
       "command": null
     }
   ],
