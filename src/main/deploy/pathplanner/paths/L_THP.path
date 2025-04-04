@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.70178679657,
-        "y": 5.03878679657
+        "x": 3.202,
+        "y": 5.905
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2017867965700004,
-        "y": 5.9048122003544385
+        "x": 2.7020000000000004,
+        "y": 6.771025403784439
       },
       "isLocked": false,
       "linkedName": "L"
@@ -55,7 +55,7 @@
     {
       "name": "IntakeCoral",
       "waypointRelativePos": 0.75,
-      "endWaypointRelativePos": null,
+      "endWaypointRelativePos": 1.0,
       "command": null
     }
   ],
