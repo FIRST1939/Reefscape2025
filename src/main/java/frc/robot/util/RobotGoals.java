@@ -13,6 +13,22 @@ public class RobotGoals {
     private static final ReefDisplay reefDisplay = new ReefDisplay();
     public static void load () {}
 
+    public static Pose2d[][] getAllianceCoralPaths () {
+
+        Pose2d[][] reefCoralPaths;
+        var alliance = DriverStation.getAlliance();
+
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+
+            reefCoralPaths = SetPointConstants.RED_REEF_CORAL_POSES;
+        } else {
+
+            reefCoralPaths = SetPointConstants.BLUE_REEF_CORAL_POSES;
+        }
+
+        return reefCoralPaths;
+    }
+
     public static void transformTargetCW () {
 
         Pose2d[][] reefCoralPaths;

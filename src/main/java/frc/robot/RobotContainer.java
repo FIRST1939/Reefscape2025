@@ -143,27 +143,27 @@ public class RobotContainer {
     public void configureNamedCommands () {
         
         new EventTrigger("IntakeCoral").onTrue(new IntakeCoral(this.endEffector, this.funnel, this.leds));
+        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel, this.leds));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
 
-        NamedCommands.registerCommand("AlignToA", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[0]));
-        NamedCommands.registerCommand("AlignToB", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[1]));
-        NamedCommands.registerCommand("AlignToC", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[2]));
-        NamedCommands.registerCommand("AlignToD", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[3]));
-        NamedCommands.registerCommand("AlignToE", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[4]));
-        NamedCommands.registerCommand("AlignToF", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[5]));
-        NamedCommands.registerCommand("AlignToG", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[6]));
-        NamedCommands.registerCommand("AlignToH", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[7]));
-        NamedCommands.registerCommand("AlignToI", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[8]));
-        NamedCommands.registerCommand("AlignToJ", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[9]));
-        NamedCommands.registerCommand("AlignToK", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[10]));
-        NamedCommands.registerCommand("AlignToL", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[11]));
+        NamedCommands.registerCommand("AlignToA", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[0]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToB", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[1]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToC", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[2]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToD", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[3]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToE", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[4]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToF", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[5]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToG", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[6]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToH", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[7]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToI", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[8]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToJ", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[9]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToK", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[10]), Set.of(this.swerve)));
+        NamedCommands.registerCommand("AlignToL", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[11]), Set.of(this.swerve)));
 
-
-        new EventTrigger("ElevatorToFunnel").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        new EventTrigger("ElevatorToL2").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        new EventTrigger("ElevatorToL3").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        new EventTrigger("ElevatorToL4").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
-        new EventTrigger("WaitForElevator").onTrue(new WaitUntilCommand(() -> this.elevator.atGoal()));
+        NamedCommands.registerCommand("ElevatorToL4", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
+        NamedCommands.registerCommand("ElevatorToL3", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
+        NamedCommands.registerCommand("ElevatorToL2", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
+        NamedCommands.registerCommand("WaitForElevator", new WaitUntilCommand(() -> this.elevator.atGoal()));
+        NamedCommands.registerCommand("ElevatorToFunnel", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
     }
     
     public void updateComponents () {

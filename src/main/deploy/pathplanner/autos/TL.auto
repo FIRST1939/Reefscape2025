@@ -21,9 +21,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "ElevatorToL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorToL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -42,21 +55,54 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "K_THP"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "K_THP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "WaitForElevator"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "THP_L"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "THP_L"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WaitForElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeCoral"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -70,9 +116,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "ElevatorToL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorToL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -91,21 +150,54 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "L_THP"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "L_THP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "WaitForElevator"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "THP_A"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "THP_A"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WaitForElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeCoral"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -119,9 +211,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "ElevatorToL4"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorToL4"
+                      }
+                    }
+                  ]
                 }
               }
             ]
