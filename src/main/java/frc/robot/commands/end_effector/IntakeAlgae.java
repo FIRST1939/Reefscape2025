@@ -31,7 +31,7 @@ public class IntakeAlgae extends Command {
     @Override
     public void end (boolean interrupted) {
 
-        this.endEffector.setAlgaeWristPosition(0.0);
+        this.endEffector.setAlgaeWristPosition(SetPointConstants.ALGAE_HOLD_WRIST_POSITION);
         this.leds.setAlgaeHolding();
     }
 }

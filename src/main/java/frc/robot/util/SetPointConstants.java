@@ -31,6 +31,7 @@ public class SetPointConstants {
     public static final double CORAL_FUNNEL_IN_TIMEOUT = 3.0;
     public static final double CORAL_FUNNEL_OUT_TIMEOUT = 3.0;
 
+    public static final double ALGAE_HOLD_WRIST_POSITION = 5.0;
     public static final double ALGAE_INTAKE_REEF_WRIST_POSITION = 150.0;
     public static final double ALGAE_INTAKE_GROUND_WRIST_POSITION = 215.0;
 
