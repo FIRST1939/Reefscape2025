@@ -24,7 +24,7 @@ public class DriveToReef extends Command {
         Pose2d currentPose = this.swerve.getPose();
 
         Translation2d driveVector = this.reefTarget.getTranslation().minus(currentPose.getTranslation()).times(2.0);
-        double omega = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians();
+        double omega = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians() * 2.0;
 
         this.swerve.driveVector(driveVector, omega);
     }
@@ -35,8 +35,8 @@ public class DriveToReef extends Command {
         Pose2d currentPose = this.swerve.getPose();
 
         Translation2d driveVector = this.reefTarget.getTranslation().minus(currentPose.getTranslation());
-        double omega = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians();
+        double theta = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians();
 
-        return driveVector.getNorm() < 0.035 && Math.abs(omega) < 0.05;
+        return driveVector.getNorm() < 0.035 && Math.abs(theta) < 0.05;
     }
 }
