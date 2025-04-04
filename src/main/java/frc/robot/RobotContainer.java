@@ -16,6 +16,8 @@ import com.pathplanner.lib.events.EventTrigger;
 import frc.robot.util.RobotGoals;
 import frc.robot.util.SetPointConstants;
 
+import java.util.Set;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
@@ -27,7 +29,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.commands.GroundIntakeAlgae;
@@ -97,8 +98,8 @@ public class RobotContainer {
             )
         );
 
-        this.driver.rightBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetCoralPath()));
-        this.driver.leftBumper().whileTrue(new AlignToReef(() -> RobotGoals.getTargetAlgaePath()));
+        this.driver.rightBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetCoralPath()), Set.of(this.swerve)));
+        this.driver.leftBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetAlgaePath()), Set.of(this.swerve)));
 
         this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
         this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));
