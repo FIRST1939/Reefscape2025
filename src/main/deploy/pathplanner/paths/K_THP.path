@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.487,
-        "y": 6.069
+        "x": 3.987,
+        "y": 5.203
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9870000000000005,
-        "y": 6.935025403784438
+        "x": 3.4870000000000005,
+        "y": 6.069025403784439
       },
       "isLocked": false,
-      "linkedName": "K"
+      "linkedName": "KL4"
     },
     {
       "anchor": {
@@ -74,7 +74,7 @@
   "reversed": false,
   "folder": "Reef to Human Player",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true

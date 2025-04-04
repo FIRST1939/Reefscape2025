@@ -21,6 +21,7 @@ import java.util.Set;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -143,6 +144,20 @@ public class RobotContainer {
         
         new EventTrigger("IntakeCoral").onTrue(new IntakeCoral(this.endEffector, this.funnel, this.leds));
         NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
+
+        NamedCommands.registerCommand("AlignToA", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[0]));
+        NamedCommands.registerCommand("AlignToB", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[1]));
+        NamedCommands.registerCommand("AlignToC", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[2]));
+        NamedCommands.registerCommand("AlignToD", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[3]));
+        NamedCommands.registerCommand("AlignToE", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[4]));
+        NamedCommands.registerCommand("AlignToF", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[5]));
+        NamedCommands.registerCommand("AlignToG", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[6]));
+        NamedCommands.registerCommand("AlignToH", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[7]));
+        NamedCommands.registerCommand("AlignToI", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[8]));
+        NamedCommands.registerCommand("AlignToJ", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[9]));
+        NamedCommands.registerCommand("AlignToK", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[10]));
+        NamedCommands.registerCommand("AlignToL", new AlignToReef(this.swerve, SetPointConstants.RED_REEF_CORAL_POSES[11]));
+
 
         new EventTrigger("ElevatorToFunnel").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
         new EventTrigger("ElevatorToL2").onTrue(new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));

@@ -11,6 +11,25 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AlignToD"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToL4"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "WaitForElevator"
@@ -41,6 +60,25 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AlignToC"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToL4"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "WaitForElevator"
@@ -68,6 +106,25 @@
           "type": "path",
           "data": {
             "pathName": "BHP_B"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AlignToB"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToL4"
+                }
+              }
+            ]
           }
         },
         {

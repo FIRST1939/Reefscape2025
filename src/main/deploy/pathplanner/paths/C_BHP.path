@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.202,
-        "y": 2.138
+        "x": 3.702,
+        "y": 3.004
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.702000000000001,
-        "y": 1.271974596215561
+        "x": 3.202000000000001,
+        "y": 2.137974596215561
       },
       "isLocked": false,
-      "linkedName": "bhp_c"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -74,7 +74,7 @@
   "reversed": false,
   "folder": "Reef to Human Player",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 59.99999999999999
   },
   "useDefaultConstraints": true

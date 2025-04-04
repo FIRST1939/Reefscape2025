@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.487,
-        "y": 1.974
+        "x": 3.987,
+        "y": 2.84
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.987,
-        "y": 1.1079745962155614
+        "x": 3.487,
+        "y": 1.9739745962155613
       },
       "isLocked": false,
-      "linkedName": "StartD"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -74,7 +74,7 @@
   "reversed": false,
   "folder": "Reef to Human Player",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 59.99999999999999
   },
   "useDefaultConstraints": true
