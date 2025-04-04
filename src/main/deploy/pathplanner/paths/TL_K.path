@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.98678679657,
-        "y": 5.203
+        "x": 3.487,
+        "y": 6.069
       },
       "prevControl": {
-        "x": 3.48678679657,
-        "y": 6.069025403784439
+        "x": 2.987,
+        "y": 6.935025403784438
       },
       "nextControl": null,
       "isLocked": false,
@@ -44,7 +44,18 @@
       }
     }
   ],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.9,
+        "y": 4.75
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.25,
+      "maxWaypointRelativePos": 0.5,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [
     {
       "name": "ElevatorToL4",
@@ -62,7 +73,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -59.99999999999999
   },
   "reversed": false,
