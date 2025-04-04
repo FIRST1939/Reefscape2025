@@ -22,15 +22,21 @@ public class DriveToReef extends Command {
     public void execute () {
 
         Pose2d currentPose = this.swerve.getPose();
+
         Translation2d driveVector = this.reefTarget.getTranslation().minus(currentPose.getTranslation()).times(2.0);
-        this.swerve.driveVector(driveVector, 0.0);
+        double omega = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians();
+
+        this.swerve.driveVector(driveVector, omega);
     }
 
     @Override
     public boolean isFinished () {
 
         Pose2d currentPose = this.swerve.getPose();
+
         Translation2d driveVector = this.reefTarget.getTranslation().minus(currentPose.getTranslation());
-        return driveVector.getNorm() < 0.035;
+        double omega = this.reefTarget.getRotation().minus(currentPose.getRotation()).getRadians();
+
+        return driveVector.getNorm() < 0.035 && Math.abs(omega) < 0.05;
     }
 }

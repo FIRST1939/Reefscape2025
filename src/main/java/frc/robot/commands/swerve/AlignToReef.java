@@ -26,7 +26,6 @@ public class AlignToReef extends SequentialCommandGroup {
                 ), 
                 reefPath[1].getTranslation().minus(reefPath[0].getTranslation()).getNorm() * 2.0
             ),
-            new RotateToReef(swerve, reefPath[1]),
             new DriveToReef(swerve, reefPath[1]),
             Commands.runOnce(() -> SmartDashboard.putBoolean("Reef Aligned", true))
         );
