@@ -11,31 +11,13 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "ElevatorToL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "CoralScore"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "D_BHP"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "LoadCoral"
+                  "name": "AlignToD"
                 }
               },
               {
@@ -45,13 +27,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "BHP_C"
+                        "name": "ElevatorToL4"
                       }
                     }
                   ]
@@ -63,19 +45,64 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToL4"
+            "name": "WaitForElevator"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralScore"
+            "name": "ScoreCoral"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "c_bHP"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "D_BHP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BHP_C"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WaitForElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeCoral"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
@@ -85,7 +112,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "LoadCoral"
+                  "name": "AlignToC"
                 }
               },
               {
@@ -95,13 +122,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "BHP_b"
+                        "name": "ElevatorToL4"
                       }
                     }
                   ]
@@ -113,19 +140,114 @@
         {
           "type": "named",
           "data": {
-            "name": "ElevatorToL4"
+            "name": "WaitForElevator"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "CoralScore"
+            "name": "ScoreCoral"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "C_BHP"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ElevatorToFunnel"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BHP_B"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WaitForElevator"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeCoral"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AlignToB"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ElevatorToL4"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "WaitForElevator"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreCoral"
           }
         }
       ]
     }
   },
-  "resetOdom": false,
-  "folder": null,
+  "resetOdom": true,
+  "folder": "Scoring Autos",
   "choreoAuto": false
 }

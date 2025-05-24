@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TL_K"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "K_THP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "THP_L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L_THP"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "THP_A"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Testing Autos",
+  "choreoAuto": false
+}

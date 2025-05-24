@@ -7,33 +7,43 @@ import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.util.SetPointConstants;
 
 public class Elevator extends SubsystemBase {
     
     private final ElevatorIO io;
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
-    private final ElevatorFeedforward feedforward = new ElevatorFeedforward(
-        ElevatorConstants.kS,
-        ElevatorConstants.kG,
-        ElevatorConstants.kV
+    private final ElevatorFeedforward firstFeedforward = new ElevatorFeedforward(
+        ElevatorConstants.kS_1,
+        ElevatorConstants.kG_1,
+        ElevatorConstants.kV_1
+    );
+
+    private final ElevatorFeedforward secondFeedforward = new ElevatorFeedforward(
+        ElevatorConstants.kS_2,
+        ElevatorConstants.kG_2,
+        ElevatorConstants.kV_2
+    );
+
+    private final ElevatorFeedforward thirdFeedforward = new ElevatorFeedforward(
+        ElevatorConstants.kS_3,
+        ElevatorConstants.kG_3,
+        ElevatorConstants.kV_3
     );
 
     private final ProfiledPIDController controller = new ProfiledPIDController(
         ElevatorConstants.kP, 
-        0.0, 
+        0.0,
         ElevatorConstants.kD, 
         new TrapezoidProfile.Constraints(
             ElevatorConstants.maxVelocity, 
             ElevatorConstants.maxAcceleration
         )
     );
-
-    private double offset = 0.0;
 
     private final PIDController close = new PIDController(0.0, ElevatorConstants.kI, 0.0);
 
@@ -50,16 +60,30 @@ public class Elevator extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Elevator", this.inputs);
 
-        if (!this.isManual()) {
+        if (DriverStation.isEnabled() && !this.inputs.manual) {
 
             double feedback = this.controller.calculate(this.inputs.elevatorPosition);
-            double feedforward = this.feedforward.calculate(this.controller.getSetpoint().velocity);
-            double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
+            if (this.inputs.elevatorPosition < SetPointConstants.CORAL_INTAKE_HEIGHT && feedback < 0) { return; }
 
-            double voltage = MathUtil.clamp(feedback + feedforward + close, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
-            this.io.move(voltage);
+            double close = this.close.calculate(this.inputs.elevatorPosition, this.controller.getSetpoint().position);
+            double feedforward;
             
-            SmartDashboard.putNumber("Ele", voltage);
+            if (this.inputs.elevatorPosition < ElevatorConstants.FIRST_ELEVATOR_TRANSITION) {
+
+                feedforward = this.firstFeedforward.calculate(this.controller.getSetpoint().velocity);
+            } else if (this.inputs.elevatorPosition < ElevatorConstants.SECOND_ELEVATOR_TRANSITION) {
+
+                feedforward = this.secondFeedforward.calculate(this.controller.getSetpoint().velocity);
+            } else {
+
+                feedforward = this.thirdFeedforward.calculate(this.controller.getSetpoint().velocity);
+            }
+
+            SmartDashboard.putNumber("DesiredV", this.controller.getSetpoint().velocity);
+            SmartDashboard.putNumber("DesiredP", this.controller.getSetpoint().position);
+
+            double voltage = MathUtil.clamp(feedback + close + feedforward, -ElevatorConstants.maxVoltage, ElevatorConstants.maxVoltage);
+            this.io.move(voltage);
         }
     }
 
@@ -68,9 +92,14 @@ public class Elevator extends SubsystemBase {
         return this.inputs.manual;
     }
 
+    public double getHeight () {
+
+        return this.inputs.elevatorPosition;
+    }
+
     public void setGoal (double goal) {
 
-        this.controller.setGoal(goal + this.offset);
+        this.controller.setGoal(goal);
     }
 
     public boolean atGoal () {

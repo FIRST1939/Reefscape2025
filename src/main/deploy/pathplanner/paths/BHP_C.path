@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5562757596547936,
-        "y": 0.7100274926511793
+        "x": 1.56978679657,
+        "y": 0.61578679657
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.120237405810174,
-        "y": 1.5358284745261792
+        "x": 2.13374844272538,
+        "y": 1.4415877784450002
       },
       "isLocked": false,
       "linkedName": "BHP"
     },
     {
       "anchor": {
-        "x": 3.7115841628586446,
-        "y": 2.985
+        "x": 3.202,
+        "y": 2.138
       },
       "prevControl": {
-        "x": 3.1741737999631052,
-        "y": 2.141679122840846
+        "x": 2.664589637104461,
+        "y": 1.2946791228408463
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,19 +29,33 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.75,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 1.0,
+        "maxAngularVelocity": 360.0,
+        "maxAngularAcceleration": 360.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 360.0,
+    "maxAngularAcceleration": 360.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 59.99999999999999
   },
   "reversed": false,

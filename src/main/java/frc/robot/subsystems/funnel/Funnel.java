@@ -29,14 +29,4 @@ public class Funnel extends SubsystemBase {
 
         io.runVoltage(volts);
     }
-
-    public boolean coralStuck () {
-
-        return this.inputs.coralStuck;
-    }
-
-    public boolean getBeambreak () {
-
-        return this.inputs.funnelBeambreak;
-    }
 }

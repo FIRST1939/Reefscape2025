@@ -12,15 +12,18 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface;
+import au.grapplerobotics.interfaces.LaserCanInterface.Measurement;
+import au.grapplerobotics.interfaces.LaserCanInterface.RegionOfInterest;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
     private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
+    private double positionOffset;
 
     private final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.leaderCAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.followerCAN, MotorType.kBrushless);
 
-    // TODO Zero Elevator Encoders
     private final LaserCan laserCAN = new LaserCan(ElevatorConstants.laserCAN);
     private final RelativeEncoder leadEncoder = leadMotor.getEncoder();
     private final RelativeEncoder followerEncoder = followerMotor.getEncoder();
@@ -54,9 +57,9 @@ public class ElevatorIOVortex implements ElevatorIO {
 
         try {
 
-            // TODO Elevator LaserCAN ROI
-            this.laserCAN.setRangingMode(LaserCan.RangingMode.LONG);
-            this.laserCAN.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+            this.laserCAN.setRangingMode(LaserCan.RangingMode.SHORT);
+            this.laserCAN.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_100MS);
+            this.laserCAN.setRegionOfInterest(new RegionOfInterest(8, 8, 4, 4));
         } catch (ConfigurationFailedException error) {
 
             System.out.println("LaserCAN configuration failed! " + error);
@@ -66,9 +69,17 @@ public class ElevatorIOVortex implements ElevatorIO {
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
 
+        Measurement laserCANMeasurement = this.laserCAN.getMeasurement();
+        double encoderMeasurement = ((this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0) + positionOffset;
+        
+        if (laserCANMeasurement.status == LaserCanInterface.LASERCAN_STATUS_VALID_MEASUREMENT && encoderMeasurement < 0.35) {
+
+            this.positionOffset = (laserCANMeasurement.distance_mm / 1000.0) - ((this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0);
+        }
+
         inputs.manual = this.manual.get();
 
-        inputs.elevatorPosition = (this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0;
+        inputs.elevatorPosition = ((this.leadEncoder.getPosition() - this.followerEncoder.getPosition()) / 2.0) + positionOffset;
         inputs.elevatorVelocity = (this.leadEncoder.getVelocity() - this.followerEncoder.getVelocity()) / 2.0;
 
         inputs.leaderVoltage = this.leadMotor.getAppliedOutput() * this.leadMotor.getBusVoltage();
