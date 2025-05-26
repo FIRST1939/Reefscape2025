@@ -45,7 +45,7 @@ public class ElevatorIOSim extends ElevatorIOVortex {
 
         inputs.manual = this.manual.get();
 
-        inputs.motorPosition = this.random.nextGaussian(this.motor.getPosition(), 0.001) + this.beltSlippage;
+        inputs.motorPosition = this.random.nextGaussian(this.motor.getPosition(), 0.005) + this.beltSlippage;
         inputs.motorVelocity = this.random.nextGaussian(this.motor.getVelocity(), 0.01);
         inputs.motorVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
         inputs.motorCurrent = this.motor.getMotorCurrent();
