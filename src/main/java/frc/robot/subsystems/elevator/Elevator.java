@@ -25,9 +25,4 @@ public class Elevator extends SubsystemBase {
 
         return this.inputs.motorPosition;
     }
-
-    public void run (double volts) {
-
-        this.io.run(volts);
-    }
 }

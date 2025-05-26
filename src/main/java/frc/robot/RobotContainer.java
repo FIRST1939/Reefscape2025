@@ -93,8 +93,6 @@ public class RobotContainer {
             )
         );
 
-        this.elevator.setDefaultCommand(Commands.run(() -> this.elevator.run(this.operator.getRightY() * 6.0), this.elevator));
-
         this.driver.rightBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetCoralPath()), Set.of(this.swerve)));
         this.driver.leftBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetAlgaePath()), Set.of(this.swerve)));
 

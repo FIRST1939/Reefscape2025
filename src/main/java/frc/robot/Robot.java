@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.swerve.LocalADStarAK;
 import frc.robot.util.BuildConstants;
+import frc.robot.util.CurrentDrawSim;
 import frc.robot.util.RobotGoals;
 
 public class Robot extends LoggedRobot {
@@ -50,7 +51,7 @@ public class Robot extends LoggedRobot {
         } else {
     
             // TODO Replay
-            setUseTiming(false);
+            setUseTiming(true);
             Logger.addDataReceiver(new NT4Publisher());
             //Logger.setReplaySource(new WPILOGReader(logPath));
             //Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
@@ -102,6 +103,11 @@ public class Robot extends LoggedRobot {
 
         CommandScheduler.getInstance().run();
         this.robotContainer.updateComponents();
+
+        if (RobotBase.isSimulation()) {
+
+            CurrentDrawSim.updateBatteryLoad();
+        }
     }
 
     @Override
