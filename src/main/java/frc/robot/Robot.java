@@ -120,10 +120,7 @@ public class Robot extends LoggedRobot {
     public void disabledPeriodic () {}
 
     @Override
-    public void disabledExit () {
-    
-        this.robotContainer.onEnable();
-    }
+    public void disabledExit () {}
     
     @Override
     public void autonomousInit () {

@@ -1,23 +1,35 @@
 package frc.robot.subsystems.elevator;
 
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import com.revrobotics.sim.SparkFlexSim;
 
-public class ElevatorIOSim implements ElevatorIO {
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.ElevatorSim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+public class ElevatorIOSim extends ElevatorIOVortex {
  
+    private final SparkFlexSim motorSim = new SparkFlexSim(this.leadMotor, DCMotor.getNeoVortex(2));
+    private double lastTimestamp = Timer.getTimestamp();
+
     private final ElevatorSim firstElevatorStage = new ElevatorSim(
-        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 8.829, 0.058, 3.0),
-        DCMotor.getNeoVortex(2),
-        0.091168,
-        2.187,
-        true,
+        DCMotor.getNeoVortex(2), 
+        3.0, 
+        8.829, 
+        0.058, 
+        0.091168, 
+        2.187, 
+        true, 
         0.091168
     );
 
     private final ElevatorSim secondElevatorStage = new ElevatorSim(
-        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 11.869, 0.058, 3.0),
         DCMotor.getNeoVortex(2),
+        3.0,
+        11.869,
+        0.058,
         0.091168,
         2.187,
         true,
@@ -25,60 +37,75 @@ public class ElevatorIOSim implements ElevatorIO {
     );
 
     private final ElevatorSim thirdElevatorStage = new ElevatorSim(
-        LinearSystemId.createElevatorSystem(DCMotor.getNeoVortex(2), 14.540, 0.058, 3.0),
         DCMotor.getNeoVortex(2),
+        3.0,
+        14.540,
+        0.058,
         0.091168,
         2.187,
         true,
         0.091168
     );
 
-    private double appliedVolts = 0.0;
-
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {
 
-        ElevatorSim simulatedStage;
+        ElevatorSim activeStage;
 
-        if (inputs.elevatorPosition < 0.625) {
+        if (this.firstElevatorStage.getPositionMeters() < ElevatorConstants.FIRST_STAGE_TRANSITION) {
 
-            simulatedStage = this.firstElevatorStage;
-        } else if (inputs.elevatorPosition < 1.19) {
+            activeStage = this.firstElevatorStage;
+        } else if (this.firstElevatorStage.getPositionMeters() < ElevatorConstants.SECOND_STAGE_TRANSITION) {
 
-            simulatedStage = this.secondElevatorStage;
+            activeStage = this.secondElevatorStage;
         } else {
 
-            simulatedStage = this.thirdElevatorStage;
+            activeStage = this.thirdElevatorStage;
         }
 
-        simulatedStage.setInputVoltage(appliedVolts);
-        simulatedStage.update(0.02);
+        double dt = Timer.getTimestamp() - this.lastTimestamp;
+        this.lastTimestamp = Timer.getTimestamp();
 
-        inputs.elevatorPosition = simulatedStage.getPositionMeters();
-        inputs.elevatorVelocity = simulatedStage.getVelocityMetersPerSecond();
-        inputs.leaderVoltage = appliedVolts;
-        inputs.followerVoltage = appliedVolts;
-        inputs.leaderCurrent = simulatedStage.getCurrentDrawAmps();
-        inputs.followerCurrent = simulatedStage.getCurrentDrawAmps();
+        activeStage.setInputVoltage(this.motorSim.getAppliedOutput() * 12.0);
+        activeStage.update(dt);
 
-        if (simulatedStage == this.firstElevatorStage) {
+        double elevatorPosition = activeStage.getPositionMeters();
+        double elevatorVelocity = activeStage.getVelocityMetersPerSecond();
 
-            this.secondElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
-            this.thirdElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
-        } else if (simulatedStage == this.secondElevatorStage) {
+        SmartDashboard.putNumber("position", elevatorPosition);
+        SmartDashboard.putNumber("velocity", elevatorVelocity);
 
-            this.firstElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
-            this.thirdElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
-        } else {
+        if (this.firstElevatorStage != activeStage) {
 
-            this.firstElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
-            this.secondElevatorStage.setState(inputs.elevatorPosition, inputs.elevatorVelocity);
+            this.firstElevatorStage.setState(elevatorPosition, elevatorVelocity);
+            this.firstElevatorStage.update(0.000001);
+        } if (this.secondElevatorStage != activeStage) {
+
+            this.secondElevatorStage.setState(elevatorPosition, elevatorVelocity);
+            this.secondElevatorStage.update(0.000001);
+        } if (this.thirdElevatorStage != activeStage) {
+
+            this.thirdElevatorStage.setState(elevatorPosition, elevatorVelocity);
+            this.thirdElevatorStage.update(0.000001);
         }
-    }
 
-    @Override
-    public  void move (double volts) {
-        
-        appliedVolts = volts;
+        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(activeStage.getCurrentDrawAmps()));
+
+        this.motorSim.iterate(
+            elevatorVelocity, 
+            12.0, 
+            dt
+        );
+
+        inputs.manual = this.manual.get();
+
+        inputs.motorPosition = this.motorSim.getPosition();
+        inputs.motorVelocity = this.motorSim.getVelocity();
+        inputs.motorVoltage = this.motorSim.getAppliedOutput() * 12.0;
+        inputs.motorCurrent = this.motorSim.getMotorCurrent();
+        inputs.motorTemperature = 0.0;
+
+        inputs.laserCANStatus = 2;
+        inputs.laserCANDistance = 0.0;
     }
 }

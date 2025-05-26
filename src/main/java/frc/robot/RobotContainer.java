@@ -21,26 +21,20 @@ import java.util.Set;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
-import frc.robot.commands.GroundIntakeAlgae;
 import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.RumbleController;
-import frc.robot.commands.auto.SetElevatorTarget;
-import frc.robot.commands.elevator.ElevatorToHeight;
 import frc.robot.commands.end_effector.ScoreCoral;
 import frc.robot.commands.end_effector.IntakeAlgae;
 import frc.robot.commands.end_effector.ScoreAlgae;
-import frc.robot.commands.elevator.ManualElevator;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -99,27 +93,13 @@ public class RobotContainer {
             )
         );
 
+        this.elevator.setDefaultCommand(Commands.run(() -> this.elevator.run(this.operator.getRightY() * 6.0), this.elevator));
+
         this.driver.rightBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetCoralPath()), Set.of(this.swerve)));
         this.driver.leftBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetAlgaePath()), Set.of(this.swerve)));
 
         this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
         this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));
-
-        Trigger manualElevator = new Trigger(this.elevator::isManual);
-        Trigger elevatorSetpoints = new Trigger(this.elevator::isManual).negate();
-
-        manualElevator.whileTrue(new ManualElevator(this.elevator, () -> -this.operator.getRightY() * SetPointConstants.ELEVATOR_MAXIMUM_MANUAL_SPEED));
-        manualElevator.onFalse(Commands.runOnce(() -> this.elevator.setGoal(this.elevator.getHeight()), this.elevator));
-
-        elevatorSetpoints.and(this.operator.x()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_INTAKE_HEIGHT));
-        elevatorSetpoints.and(this.operator.a()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        elevatorSetpoints.and(this.operator.b()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        elevatorSetpoints.and(this.operator.y()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
-
-        elevatorSetpoints.and(this.operator.povDown()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_LOW_HEIGHT));
-        elevatorSetpoints.and(this.operator.povRight()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_INTAKE_HIGH_HEIGHT));
-        elevatorSetpoints.and(this.operator.povLeft()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_PROCESSOR_HEIGHT));
-        elevatorSetpoints.and(this.operator.povUp()).onTrue(new ElevatorToHeight(this.elevator, this.leds, SetPointConstants.ALGAE_OUTTAKE_NET_HEIGHT));
 
         this.operator.rightBumper().toggleOnTrue(
             new IntakeCoral(this.endEffector, this.funnel, this.leds).andThen(
@@ -133,7 +113,6 @@ public class RobotContainer {
             )
         );
 
-        this.operator.back().whileTrue(new GroundIntakeAlgae(this.elevator, this.endEffector, this.leds));
         this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
         this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
 
@@ -158,12 +137,6 @@ public class RobotContainer {
         NamedCommands.registerCommand("AlignToJ", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[9]), Set.of(this.swerve)));
         NamedCommands.registerCommand("AlignToK", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[10]), Set.of(this.swerve)));
         NamedCommands.registerCommand("AlignToL", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[11]), Set.of(this.swerve)));
-
-        NamedCommands.registerCommand("ElevatorToL4", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L4));
-        NamedCommands.registerCommand("ElevatorToL3", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L3));
-        NamedCommands.registerCommand("ElevatorToL2", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_OUTTAKE_HEIGHT_L2));
-        NamedCommands.registerCommand("WaitForElevator", new WaitUntilCommand(() -> this.elevator.atGoal()));
-        NamedCommands.registerCommand("ElevatorToFunnel", new SetElevatorTarget(this.elevator, SetPointConstants.CORAL_INTAKE_HEIGHT));
     }
     
     public void updateComponents () {
@@ -172,16 +145,10 @@ public class RobotContainer {
 
         Logger.recordOutput("Component_Poses", new Pose3d[] {
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
-            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_ELEVATOR_TRANSITION, ElevatorConstants.SECOND_ELEVATOR_TRANSITION), new Rotation3d()),
-            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_ELEVATOR_TRANSITION), new Rotation3d()),
+            new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION, ElevatorConstants.SECOND_STAGE_TRANSITION), new Rotation3d()),
+            new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
         });
-    }
-
-    public void onEnable () {
-
-        this.elevator.runVoltage(0.0);
-        this.elevator.setGoal(this.elevator.getHeight());
     }
 }

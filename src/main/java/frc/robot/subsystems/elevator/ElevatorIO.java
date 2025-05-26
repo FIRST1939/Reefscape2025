@@ -9,16 +9,16 @@ public interface ElevatorIO {
 
         public boolean manual = false;
 
-        public double elevatorPosition = 0.0;
-        public double elevatorVelocity = 0.0;
-        
-        public double leaderVoltage = 0.0;
-        public double leaderCurrent = 0.0;
-    
-        public double followerVoltage = 0.0;
-        public double followerCurrent = 0.0;
+        public double motorPosition = 0.0;
+        public double motorVelocity = 0.0;
+        public double motorVoltage = 0.0;
+        public double motorCurrent = 0.0;
+        public double motorTemperature = 0.0;
+
+        public int laserCANStatus = 2;
+        public double laserCANDistance = 0.0;
     }
 
     public default void updateInputs (ElevatorIOInputs inputs) {}
-    public default void move (double volts) {}
+    public default void run (double volts) {}
 }

@@ -17,7 +17,7 @@ public class SetPointConstants {
     public static final double ALGAE_OUTTAKE_PROCESSOR_HEIGHT = 0.3;
     public static final double ALGAE_OUTTAKE_NET_HEIGHT = 1.44;
 
-    public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 3.0;
+    public static final double ELEVATOR_MAXIMUM_MANUAL_SPEED = 6.0;
 
     public static final double CORAL_IN_SPEED = 10.0;
     public static final double CORAL_BACK_SPEED = -15.0; 
