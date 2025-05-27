@@ -1,43 +1,40 @@
 package frc.robot.subsystems.funnel;
 
+import com.revrobotics.sim.SparkFlexSim;
+
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import frc.robot.util.CurrentDrawSim;
 
-// TODO Funnel Simulation
-public class FunnelIOSim implements FunnelIO {
- 
-    private final DCMotorSim FunnelMotorLeader = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
+public class FunnelIOSim extends FunnelIOVortex {
+
+    private final SparkFlexSim motor = new SparkFlexSim(super.motor, DCMotor.getNeoVortex(1));
+
+    private final FlywheelSim funnel = new FlywheelSim(
+        LinearSystemId.createFlywheelSystem(
+            DCMotor.getNeoVortex(1), 
+            0.016, 
+            1.0
+        ), 
         DCMotor.getNeoVortex(1)
     );
 
-    private final DCMotorSim FunnelMotorFollower = new DCMotorSim(
-        LinearSystemId.createDCMotorSystem(DCMotor.getNeoVortex(1), 0.001, 1.0),
-        DCMotor.getNeoVortex(1)
-    );
-
-    private double appliedVolts = 0.0;
-
     @Override
-    public void updateInputs(FunnelIOInputsAutoLogged inputs) {
+    public void updateInputs (FunnelIOInputsAutoLogged inputs) {
 
-        FunnelMotorLeader.setInputVoltage(appliedVolts);
-        FunnelMotorLeader.update(0.02);
-        
-        FunnelMotorFollower.setInputVoltage(-appliedVolts);
-        FunnelMotorFollower.update(0.02);
+        this.funnel.setInputVoltage(this.motor.getAppliedOutput() * RoboRioSim.getVInVoltage());
+        this.funnel.update(0.02);
 
-        // inputs.funnelPosition = 0.0;
-        // inputs.funnelVelocity = 0.0;
-        // inputs.funnelVoltage = 0.0;
-        // inputs.funnelCurrent = 0.0;
-        // inputs.funnelBeambreak = false;
-    }
+        this.motor.iterate(
+            this.funnel.getAngularVelocityRPM() / 60.0,
+            RoboRioSim.getVInVoltage(),
+            0.02
+        );
 
-    @Override
-    public void runVoltage(double volts) {
-        
-        appliedVolts = volts;
+        CurrentDrawSim.setFunnelCurrentDraw(this.funnel.getCurrentDrawAmps());
+
+        super.updateInputs(inputs);
     }
 }

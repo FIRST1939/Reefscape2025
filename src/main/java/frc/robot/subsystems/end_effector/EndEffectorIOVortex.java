@@ -29,8 +29,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntakeconfig.limitSwitch.forwardLimitSwitchEnabled(false);
 
         coralIntakeconfig.encoder
-            .positionConversionFactor(1.0 / EndEffectorConstants.CORAL_INTAKE_GEARING)
-            .velocityConversionFactor(1.0 / EndEffectorConstants.CORAL_INTAKE_GEARING / 60.0)
+            .positionConversionFactor(1.0 / EndEffectorConstants.CORAL_INTAKE_REDUCTION)
+            .velocityConversionFactor(1.0 / EndEffectorConstants.CORAL_INTAKE_REDUCTION / 60.0)
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
 

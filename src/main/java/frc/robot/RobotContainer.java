@@ -5,32 +5,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.swerve.AlignToReef;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 import frc.robot.subsystems.swerve.Swerve;
-
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.events.EventTrigger;
-
-import frc.robot.util.RobotGoals;
-import frc.robot.util.SetPointConstants;
-
-import java.util.Set;
 
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
-import frc.robot.commands.RumbleController;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -41,24 +28,20 @@ import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
-import frc.robot.subsystems.leds.LEDs;
 
 
 public class RobotContainer {
 
     private final CommandXboxController driver = new CommandXboxController(0);
-    private final CommandXboxController operator = new CommandXboxController(1);
 
     private final Swerve swerve = new Swerve();
-    public final LEDs leds = new LEDs();
-
     private final Elevator elevator;
     private final EndEffector endEffector;
     private final Funnel funnel;
 
-    public RobotContainer (boolean isReal) {
+    public RobotContainer () {
 
-      if (isReal) {
+      if (RobotBase.isReal()) {
 
             this.endEffector = new EndEffector(new EndEffectorIOVortex());
             this.elevator = new Elevator(new ElevatorIOVortex());
@@ -71,14 +54,12 @@ public class RobotContainer {
         }
 
         this.configureBindings();
-        this.configureNamedCommands();
         new ConfirmAlliance().andThen(new ZeroGyro(this.swerve)).schedule();
     }
 
     private void configureBindings () {
 
         SmartDashboard.putData("Commands", CommandScheduler.getInstance());
-        SmartDashboard.putBoolean("Reef Aligned", false);
 
         this.swerve.setDefaultCommand(
             new Drive(
@@ -88,30 +69,6 @@ public class RobotContainer {
                 () -> -driver.getRightX()
             )
         );
-
-        this.driver.rightBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetCoralPath()), Set.of(this.swerve)));
-        this.driver.leftBumper().whileTrue(Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getTargetAlgaePath()), Set.of(this.swerve)));
-
-        this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
-        this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));
-
-        new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliancePattern(), this.leds));
-    }
-
-    public void configureNamedCommands () {
-
-        NamedCommands.registerCommand("AlignToA", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[0]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToB", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[1]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToC", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[2]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToD", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[3]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToE", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[4]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToF", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[5]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToG", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[6]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToH", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[7]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToI", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[8]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToJ", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[9]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToK", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[10]), Set.of(this.swerve)));
-        NamedCommands.registerCommand("AlignToL", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[11]), Set.of(this.swerve)));
     }
     
     public void updateComponents () {

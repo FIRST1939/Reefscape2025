@@ -2,7 +2,6 @@ package frc.robot.subsystems.funnel;
 
 public class FunnelConstants {
     
-    public static final int funnelCAN = 41;
-    public static final boolean funnelInverted = true;
-    public static final int currentLimit = 60;
+    public static final int FUNNEL_CAN = 41;
+    public static final double FUNNEL_REDUCTION = 1.0;
 }

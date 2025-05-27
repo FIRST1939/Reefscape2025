@@ -19,14 +19,4 @@ public class Funnel extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Funnel", this.inputs);
     }
-
-    public boolean isManual () {
-
-        return this.inputs.manual;
-    }
-
-    public void runVoltage (double volts) {
-
-        io.runVoltage(volts);
-    }
 }
