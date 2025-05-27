@@ -11,7 +11,7 @@ import frc.robot.util.CurrentDrawSim;
 
 public class ElevatorIOSim extends ElevatorIOVortex {
  
-    private final SparkFlexSim motor = new SparkFlexSim(this.leadMotor, DCMotor.getNeoVortex(2));
+    private final SparkFlexSim motor = new SparkFlexSim(super.leadMotor, DCMotor.getNeoVortex(2));
 
     private final ElevatorSim elevator = new ElevatorSim(
         DCMotor.getNeoVortex(2),
@@ -25,7 +25,6 @@ public class ElevatorIOSim extends ElevatorIOVortex {
     );
 
     private final Random random = new Random();
-    private double beltSlippage;
 
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {
@@ -41,12 +40,10 @@ public class ElevatorIOSim extends ElevatorIOVortex {
 
         CurrentDrawSim.setElevatorCurrentDraw(this.elevator.getCurrentDrawAmps());
 
-        this.beltSlippage += 0.001 * Math.abs(this.elevator.getVelocityMetersPerSecond() * 0.02);
+        inputs.manual = super.manual.get();
 
-        inputs.manual = this.manual.get();
-
-        inputs.motorPosition = this.random.nextGaussian(this.motor.getPosition(), 0.005) + this.beltSlippage;
-        inputs.motorVelocity = this.random.nextGaussian(this.motor.getVelocity(), 0.01);
+        inputs.motorPosition = this.motor.getPosition();
+        inputs.motorVelocity = this.motor.getVelocity();
         inputs.motorVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
         inputs.motorCurrent = this.motor.getMotorCurrent();
         inputs.motorTemperature = 0.0;
