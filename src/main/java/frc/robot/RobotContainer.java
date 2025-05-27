@@ -30,11 +30,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ConfirmAlliance;
-import frc.robot.commands.IntakeCoral;
 import frc.robot.commands.RumbleController;
-import frc.robot.commands.end_effector.ScoreCoral;
-import frc.robot.commands.end_effector.IntakeAlgae;
-import frc.robot.commands.end_effector.ScoreAlgae;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -99,29 +95,10 @@ public class RobotContainer {
         this.driver.rightTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCW()));
         this.driver.leftTrigger().onTrue(Commands.runOnce(() -> RobotGoals.transformTargetCCW()));
 
-        this.operator.rightBumper().toggleOnTrue(
-            new IntakeCoral(this.endEffector, this.funnel, this.leds).andThen(
-                new RumbleController(this.operator, RumbleType.kRightRumble).withTimeout(0.5)
-            )
-        );
-
-        this.operator.rightTrigger().toggleOnTrue(
-            new ScoreCoral(this.endEffector,leds).andThen(
-                new RumbleController(this.driver, RumbleType.kBothRumble).withTimeout(0.5)
-            )
-        );
-
-        this.operator.leftBumper().whileTrue(new IntakeAlgae(this.endEffector, this.leds, SetPointConstants.ALGAE_INTAKE_REEF_WRIST_POSITION));
-        this.operator.leftTrigger().whileTrue(new ScoreAlgae(this.endEffector, this.leds));
-
         new Trigger(() -> DriverStation.isFMSAttached()).onTrue(Commands.runOnce(() -> this.leds.setAlliancePattern(), this.leds));
     }
 
     public void configureNamedCommands () {
-        
-        new EventTrigger("IntakeCoral").onTrue(new IntakeCoral(this.endEffector, this.funnel, this.leds));
-        NamedCommands.registerCommand("IntakeCoral", new IntakeCoral(this.endEffector, this.funnel, this.leds));
-        NamedCommands.registerCommand("ScoreCoral", new ScoreCoral(this.endEffector, this.leds));
 
         NamedCommands.registerCommand("AlignToA", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[0]), Set.of(this.swerve)));
         NamedCommands.registerCommand("AlignToB", Commands.defer(() -> new AlignToReef(this.swerve, RobotGoals.getAllianceCoralPaths()[1]), Set.of(this.swerve)));
@@ -146,7 +123,7 @@ public class RobotContainer {
             new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION, ElevatorConstants.SECOND_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
-            new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
+            new Pose3d(0.248739, -0.114171, 0.337435 + this.elevator.getHeight(), new Rotation3d(0.0, this.endEffector.getAlgaeWristPosition() * 2 * Math.PI, 0.0)),
         });
     }
 }
