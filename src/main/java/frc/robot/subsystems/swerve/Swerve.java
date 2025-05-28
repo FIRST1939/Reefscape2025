@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.swerve.vision.Vision;
+import frc.robot.subsystems.swerve.vision.VisionIOLimelight;
+import frc.robot.subsystems.swerve.vision.VisionIOSim;
 import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
@@ -82,11 +85,13 @@ public class Swerve extends SubsystemBase {
             this
         );
 
-        this.vision = new Vision(this);
-
         if (RobotBase.isReal()) {
 
+            this.vision = new Vision(this, new VisionIOLimelight());
             this.swerveDrive.stopOdometryThread();
+        } else {
+
+            this.vision = new Vision(this, new VisionIOSim(() -> this.getSimulationPose()));
         }
     }   
 
@@ -96,12 +101,12 @@ public class Swerve extends SubsystemBase {
         if (RobotBase.isReal()) {
 
             this.swerveDrive.updateOdometry();
-
-            this.vision.updatePoseEstimation(
-                this.swerveDrive.getOdometryHeading().getDegrees(), 
-                this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
-            );
         }
+
+        this.vision.updatePoseEstimation(
+            this.swerveDrive.getOdometryHeading().getDegrees(), 
+            this.swerveDrive.getGyro().getYawAngularVelocity().in(DegreesPerSecond)
+        );
     }
 
     public SwerveDrive getSwerveDrive () {

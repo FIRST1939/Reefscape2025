@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
-import frc.robot.subsystems.swerve.Swerve;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -15,8 +14,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ConfirmAlliance;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
@@ -28,6 +25,7 @@ import frc.robot.subsystems.end_effector.EndEffectorIOVortex;
 import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
+import frc.robot.subsystems.swerve.Swerve;
 
 
 public class RobotContainer {
@@ -59,8 +57,6 @@ public class RobotContainer {
 
     private void configureBindings () {
 
-        SmartDashboard.putData("Commands", CommandScheduler.getInstance());
-
         this.swerve.setDefaultCommand(
             new Drive(
                 swerve, 
@@ -73,9 +69,15 @@ public class RobotContainer {
     
     public void updateComponents () {
 
-        Logger.recordOutput("Swerve_Pose", this.swerve.getPose());
+        if (RobotBase.isReal()) {
 
-        Logger.recordOutput("Component_Poses", new Pose3d[] {
+            Logger.recordOutput("Visualization/Swerve Pose", this.swerve.getPose());
+        } else {
+
+            Logger.recordOutput("Visualization/Swerve Pose", this.swerve.getSimulationPose());
+        }
+
+        Logger.recordOutput("Visualization/Component Poses", new Pose3d[] {
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
             new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION, ElevatorConstants.SECOND_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION), new Rotation3d()),
