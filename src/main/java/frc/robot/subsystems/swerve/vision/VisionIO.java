@@ -52,6 +52,21 @@ public interface VisionIO {
                 this.tync
             };
         }
+
+        public static AprilTagInputs fromArray (double[] array) {
+
+            AprilTagInputs inputs = new AprilTagInputs();
+
+            inputs.ambiguity = array[0];
+            inputs.distToCamera = array[1];
+            inputs.distToRobot = array[2];
+            inputs.id = (int) array[3];
+            inputs.ta = array[4];
+            inputs.txnc = array[5];
+            inputs.tync = array[6];
+
+            return inputs;
+        }
     }
 
     public default void updateInputs (VisionIOInputsAutoLogged inputs, double yaw, double yawRate) {}
