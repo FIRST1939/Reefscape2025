@@ -1,6 +1,7 @@
 package frc.robot.subsystems.end_effector;
 
 import com.revrobotics.sim.SparkFlexSim;
+import com.revrobotics.sim.SparkLimitSwitchSim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -14,6 +15,8 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
     private final SparkFlexSim coralIntakeMotor = new SparkFlexSim(super.coralIntakeMotor, DCMotor.getNeoVortex(1));
     private final SparkFlexSim algaeIntakeMotor = new SparkFlexSim(super.algaeIntakeMotor, DCMotor.getNeoVortex(1));
     private final SparkFlexSim algaeWristMotor = new SparkFlexSim(super.algaeWristMotor, DCMotor.getNeoVortex(1));
+
+    private final SparkLimitSwitchSim coralBeambreak = this.coralIntakeMotor.getForwardLimitSwitchSim();
 
     private final FlywheelSim coralIntake = new FlywheelSim(
         LinearSystemId.createFlywheelSystem(
@@ -51,8 +54,6 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {
 
-        super.updateInputs(inputs);
-
         this.coralIntake.setInputVoltage(this.coralIntakeMotor.getAppliedOutput() * RoboRioSim.getVInVoltage());
         this.coralIntake.update(0.02);
 
@@ -86,26 +87,7 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
             this.algaeWrist.getCurrentDrawAmps()
         );
 
-        inputs.manual = super.manual.get();
-
-        inputs.coralIntakePosition = this.coralIntakeMotor.getPosition();
-        inputs.coralIntakeVelocity = this.coralIntakeMotor.getVelocity();
-        inputs.coralIntakeVoltage = this.coralIntakeMotor.getAppliedOutput() * this.coralIntakeMotor.getBusVoltage();
-        inputs.coralIntakeCurrent = this.coralIntakeMotor.getMotorCurrent();
-        inputs.coralIntakeTemperature = 0.0;
-
-        inputs.algaeIntakePosition = this.algaeIntakeMotor.getPosition();
-        inputs.algaeIntakeVelocity = this.algaeIntakeMotor.getVelocity();
-        inputs.algaeIntakeVoltage = this.algaeIntakeMotor.getAppliedOutput() * this.coralIntakeMotor.getBusVoltage();
-        inputs.algaeIntakeCurrent = this.algaeIntakeMotor.getMotorCurrent();
-        inputs.algaeIntakeTemperature = 0.0;
-
-        inputs.algaeWristPosition = this.algaeWristMotor.getPosition();
-        inputs.algaeWristVelocity = this.algaeWristMotor.getVelocity();
-        inputs.algaeWristVoltage = this.algaeWristMotor.getAppliedOutput() * this.coralIntakeMotor.getBusVoltage();
-        inputs.algaeWristCurrent = this.algaeWristMotor.getMotorCurrent();
-        inputs.algaeWristTemperature = 0.0;
-
-        inputs.coralBeambreak = true;
+        this.coralBeambreak.setPressed(true);
+        super.updateInputs(inputs);
     }
 }

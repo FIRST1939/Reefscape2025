@@ -12,7 +12,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
 
-    protected final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual End Effector", false);
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual End Effector", false);
 
     protected final SparkFlex coralIntakeMotor = new SparkFlex(EndEffectorConstants.CORAL_INTAKE_CAN, MotorType.kBrushless);
     protected final SparkFlex algaeIntakeMotor = new SparkFlex(EndEffectorConstants.ALGAE_INTAKE_CAN, MotorType.kBrushless);
