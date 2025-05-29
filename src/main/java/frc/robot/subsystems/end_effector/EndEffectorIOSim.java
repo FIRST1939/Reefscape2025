@@ -5,6 +5,7 @@ import com.revrobotics.sim.SparkLimitSwitchSim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
@@ -46,10 +47,10 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
         DCMotor.getNeoVortex(1), 
         (125.0 / 1.0) * (42.0 / 24.0), 
         0.25, 
-        -Math.PI / 6, 
-        Math.PI / 2, 
+        Units.degreesToRadians(-30.0),
+        Units.degreesToRadians(90.0), 
         true, 
-        Math.PI / 2
+        Units.degreesToRadians(90.0)
     );
 
     @Override
@@ -77,7 +78,7 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
         );
 
         this.algaeWristMotor.iterate(
-            -this.algaeWrist.getVelocityRadPerSec() / (2 * Math.PI),
+            Units.radiansToRotations(-this.algaeWrist.getVelocityRadPerSec()),
             RoboRioSim.getVInVoltage(),
             0.02
         );

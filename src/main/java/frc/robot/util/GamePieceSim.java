@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class GamePieceSim extends SubsystemBase {
@@ -95,10 +96,10 @@ public class GamePieceSim extends SubsystemBase {
                 );
             } else if (this.coralTransform.getX() > 0.130) {
     
-                this.coralTransform = this.project(this.coralTransform, this.coralIntakeVelocitySupplier.get() * 0.02, new Rotation3d(0.0, 30.0 * (Math.PI / 180.0), 0.0));
+                this.coralTransform = this.project(this.coralTransform, this.coralIntakeVelocitySupplier.get() * 0.02, new Rotation3d(0.0, Units.degreesToRadians(30.0), 0.0));
             } else {
 
-                this.coralTransform = this.project(this.coralTransform, this.funnelVelocitySupplier.get() * 0.02, new Rotation3d(0.0, 30.0 * (Math.PI / 180.0), 0.0));
+                this.coralTransform = this.project(this.coralTransform, this.funnelVelocitySupplier.get() * 0.02, new Rotation3d(0.0, Units.degreesToRadians(30.0), 0.0));
             }
         } else {
 
@@ -115,13 +116,13 @@ public class GamePieceSim extends SubsystemBase {
 
             if (this.coralTransform.getZ() > 0.178) {
 
-                this.coralTransform = this.project(this.coralTransform, this.fallingVelocity * 0.02, new Rotation3d(0.0, 30.0 * (Math.PI / 180.0), 0.0));
-                this.coralTransform = this.project(this.coralTransform, this.fallingGravity * 0.02, new Rotation3d(0.0, 90.0 * (Math.PI / 180.0), 0.0));
+                this.coralTransform = this.project(this.coralTransform, this.fallingVelocity * 0.02, new Rotation3d(0.0, Units.degreesToRadians(30.0), 0.0));
+                this.coralTransform = this.project(this.coralTransform, this.fallingGravity * 0.02, new Rotation3d(0.0, Units.degreesToRadians(90.0), 0.0));
                 this.fallingGravity += (9.8 * 0.02);
             } else {
 
                 this.coralStatus = CoralStatus.STUCK;
-                this.coralTransform = new Transform3d(new Translation3d(0.216, 0.0, 0.076), new Rotation3d(0.0, 0.0, Math.PI / 2.0));
+                this.coralTransform = new Transform3d(new Translation3d(0.216, 0.0, 0.076), new Rotation3d(0.0, 0.0, Units.degreesToRadians(90.0)));
             }
         }
 
@@ -133,7 +134,7 @@ public class GamePieceSim extends SubsystemBase {
 
             if (this.coralStatus == CoralStatus.INDEXING) {
 
-                Translation3d elevatorTranslation = new Translation3d(0, 0, this.elevatorHeightSupplier.get() - 0.139);
+                Translation3d elevatorTranslation = new Translation3d(0.0, 0.0, this.elevatorHeightSupplier.get() - 0.139);
                 transform = transform.plus(new Transform3d(elevatorTranslation, new Rotation3d()));
             }
 
@@ -141,15 +142,22 @@ public class GamePieceSim extends SubsystemBase {
         }
 
         Logger.recordOutput("Visualization/Coral", coral.toArray(new Pose3d[0]));
+        Logger.recordOutput("Visualization/Algae", SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
     }
 
-    public void loadFunnel () {
+    public void loadCoral () {
 
         if (this.coralStatus == null) {
 
             this.coralStatus = CoralStatus.FUNNELING;
-            this.coralTransform = new Transform3d(new Translation3d(-0.145, 0.0, 0.495), new Rotation3d(0.0, 30.0 * (Math.PI / 180.0), 0.0));
+            this.coralTransform = new Transform3d(new Translation3d(-0.145, 0.0, 0.495), new Rotation3d(0.0, Units.degreesToRadians(30.0), 0.0));
         }
+    }
+
+    public void preloadCoral () {
+
+        this.coralStatus = CoralStatus.INDEXING;
+        this.coralTransform = new Transform3d(new Translation3d(0.214, 0.0, 0.269), new Rotation3d(0.0, Units.degreesToRadians(30.0), 0.0));
     }
 
     public void removeCoral () {
@@ -157,7 +165,7 @@ public class GamePieceSim extends SubsystemBase {
         this.coralStatus = null;
     }
 
-    public boolean getCoralBeambreak () {
+    public static boolean getCoralBeambreak () {
 
         return coralBeambreak;
     }
