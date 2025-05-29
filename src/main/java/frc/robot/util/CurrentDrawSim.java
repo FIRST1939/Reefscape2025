@@ -1,13 +1,21 @@
 package frc.robot.util;
 
-import edu.wpi.first.wpilibj.simulation.BatterySim;
-import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import static edu.wpi.first.units.Units.Amps;
+
+import org.ironmaple.simulation.motorsims.SimulatedBattery;
 
 public class CurrentDrawSim {
     
     private static double endEffector;
     private static double elevator;
     private static double funnel;
+
+    public CurrentDrawSim () {
+
+        SimulatedBattery.addElectricalAppliances(() -> Amps.of(endEffector));
+        SimulatedBattery.addElectricalAppliances(() -> Amps.of(elevator));
+        SimulatedBattery.addElectricalAppliances(() -> Amps.of(funnel));
+    }
 
     public static void setEndEffectorCurrentDraw (double amps) {
 
@@ -22,16 +30,5 @@ public class CurrentDrawSim {
     public static void setFunnelCurrentDraw (double amps) {
 
         funnel = amps;
-    }
-
-    public static void updateBatteryLoad () {
-
-        RoboRioSim.setVInVoltage(
-            BatterySim.calculateDefaultBatteryLoadedVoltage(
-                endEffector,
-                elevator,
-                funnel
-            )
-        );
     }
 }

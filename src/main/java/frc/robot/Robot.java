@@ -16,13 +16,11 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.swerve.LocalADStarAK;
 import frc.robot.util.BuildConstants;
-import frc.robot.util.CurrentDrawSim;
 
 public class Robot extends LoggedRobot {
     
@@ -73,11 +71,6 @@ public class Robot extends LoggedRobot {
 
         CommandScheduler.getInstance().run();
         this.robotContainer.updateComponents();
-
-        if (RobotBase.isSimulation()) {
-
-            CurrentDrawSim.updateBatteryLoad();
-        }
     }
 
     @Override

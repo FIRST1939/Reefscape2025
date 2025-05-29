@@ -26,6 +26,7 @@ import frc.robot.subsystems.funnel.Funnel;
 import frc.robot.subsystems.funnel.FunnelIOSim;
 import frc.robot.subsystems.funnel.FunnelIOVortex;
 import frc.robot.subsystems.swerve.Swerve;
+import frc.robot.util.CurrentDrawSim;
 
 
 public class RobotContainer {
@@ -49,6 +50,7 @@ public class RobotContainer {
             this.endEffector = new EndEffector(new EndEffectorIOSim());
             this.elevator = new Elevator(new ElevatorIOSim());
             this.funnel = new Funnel(new FunnelIOSim());
+            new CurrentDrawSim();
         }
 
         this.configureBindings();
