@@ -8,14 +8,16 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
-import au.grapplerobotics.LaserCan;
+import frc.robot.util.LaserCanWrapper;
 
 public class ElevatorIOVortex implements ElevatorIO {
     
-    protected final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
+
     protected final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.LEADER_CAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.FOLLOWER_CAN, MotorType.kBrushless);
-    private final LaserCan laserCAN = new LaserCan(ElevatorConstants.LASER_CAN);
+    
+    protected final LaserCanWrapper laserCan = new LaserCanWrapper(ElevatorConstants.LASER_CAN);
 
     public ElevatorIOVortex () {
         

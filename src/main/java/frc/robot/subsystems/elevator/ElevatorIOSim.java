@@ -8,10 +8,12 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import frc.robot.util.CurrentDrawSim;
+import frc.robot.util.LaserCanWrapper.SimLaserCan;
 
 public class ElevatorIOSim extends ElevatorIOVortex {
  
     private final SparkFlexSim motor = new SparkFlexSim(super.leadMotor, DCMotor.getNeoVortex(2));
+    private final SimLaserCan laserCan = super.laserCan.getSimulatedDevice();
 
     private final ElevatorSim elevator = new ElevatorSim(
         DCMotor.getNeoVortex(2),
@@ -40,22 +42,32 @@ public class ElevatorIOSim extends ElevatorIOVortex {
 
         CurrentDrawSim.setElevatorCurrentDraw(this.elevator.getCurrentDrawAmps());
 
-        inputs.manual = super.manual.get();
-
-        inputs.motorPosition = this.motor.getPosition();
-        inputs.motorVelocity = this.motor.getVelocity();
-        inputs.motorVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
-        inputs.motorCurrent = this.motor.getMotorCurrent();
-        inputs.motorTemperature = 0.0;
-
         if (this.elevator.getPositionMeters() > 0.45) {
 
-            inputs.laserCANStatus = 2;
-            inputs.laserCANDistance = 0.0;
+            this.laserCan.setStatus(2);
+            this.laserCan.setDistance(0);
         } else {
 
-            inputs.laserCANStatus = 0;
-            inputs.laserCANDistance = this.random.nextGaussian(this.elevator.getPositionMeters(), 0.035 * this.elevator.getPositionMeters());
+            this.laserCan.setStatus(0);
+            this.laserCan.setDistance(
+                (int) Math.round(
+                    this.random.nextGaussian(
+                        this.elevator.getPositionMeters() * 1000, 
+                        35 * this.elevator.getPositionMeters()
+                    )
+                )
+            );
         }
+
+        this.laserCan.setAmbient(
+            (int) Math.round(
+                this.random.nextGaussian(
+                    875 * this.elevator.getPositionMeters(), 
+                    200 * this.elevator.getPositionMeters()
+                )
+            )
+        );
+
+        super.updateInputs(inputs);
     }
 }
