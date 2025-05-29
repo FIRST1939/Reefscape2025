@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.util.CurrentDrawSim;
+import frc.robot.util.GamePieceSim;
 
 public class EndEffectorIOSim extends EndEffectorIOVortex {
  
@@ -87,7 +88,7 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
             this.algaeWrist.getCurrentDrawAmps()
         );
 
-        this.coralBeambreak.setPressed(true);
+        this.coralBeambreak.setPressed(GamePieceSim.getCoralBeambreak());
         super.updateInputs(inputs);
     }
 }

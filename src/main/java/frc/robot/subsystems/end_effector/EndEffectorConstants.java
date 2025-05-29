@@ -4,6 +4,7 @@ public class EndEffectorConstants {
 
     public static final int CORAL_INTAKE_CAN = 51;
     public static final double CORAL_INTAKE_REDUCTION = (56.0 / 36.0);
+    public static final double CORAL_INTAKE_DIAMETER = 0.057;
 
     public static final int ALGAE_INTAKE_CAN = 52;
     public static final double ALGAE_INTAKE_REDUCTION = (68.0 / 24.0);

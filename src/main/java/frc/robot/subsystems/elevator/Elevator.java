@@ -23,6 +23,6 @@ public class Elevator extends SubsystemBase {
 
     public double getHeight () {
 
-        return this.inputs.motorPosition;
+        return this.inputs.motorPosition + 0.091;
     }
 }

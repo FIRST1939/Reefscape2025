@@ -19,4 +19,9 @@ public class Funnel extends SubsystemBase {
         this.io.updateInputs(this.inputs);
         Logger.processInputs("Funnel", this.inputs);
     }
+
+    public double getVelocity () {
+
+        return this.inputs.funnelVelocity;
+    }
 }

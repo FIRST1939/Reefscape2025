@@ -21,6 +21,11 @@ public class EndEffector extends SubsystemBase {
         Logger.processInputs("End Effector", this.inputs);
     }
 
+    public double getCoralIntakeVelocity () {
+
+        return inputs.coralIntakeVelocity;
+    }
+
     public double getAlgaeWristPosition () {
 
         return this.inputs.algaeWristPosition;

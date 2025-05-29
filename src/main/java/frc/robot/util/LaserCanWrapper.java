@@ -79,21 +79,21 @@ public class LaserCanWrapper {
         }
     }
 
-    public SimLaserCan getSimulatedDevice () {
+    public LaserCanSim getSimulatedDevice () {
 
         if (!RobotBase.isSimulation()) {
 
             throw new IllegalStateException("Not running in simulation!");
         }
 
-        return new SimLaserCan(this);
+        return new LaserCanSim(this);
     }
 
-    public static class SimLaserCan {
+    public static class LaserCanSim {
 
         private final LaserCanWrapper wrapper;
 
-        private SimLaserCan (LaserCanWrapper wrapper) {
+        private LaserCanSim (LaserCanWrapper wrapper) {
 
             this.wrapper = wrapper;
         }

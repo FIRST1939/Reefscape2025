@@ -134,6 +134,11 @@ public class Swerve extends SubsystemBase {
         return this.swerveDrive.getFieldVelocity();
     }
 
+    public ChassisSpeeds getSimulationFieldVelocity () {
+
+        return this.swerveDrive.getMapleSimDrive().get().getDriveTrainSimulatedChassisSpeedsFieldRelative();
+    }
+
     public void addVisionMeasurement (Pose2d pose, double timestamp, Matrix<N3, N1> standardDeviations) {
 
         this.swerveDrive.addVisionMeasurement(pose, timestamp, standardDeviations);

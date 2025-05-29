@@ -8,12 +8,12 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import frc.robot.util.CurrentDrawSim;
-import frc.robot.util.LaserCanWrapper.SimLaserCan;
+import frc.robot.util.LaserCanWrapper.LaserCanSim;
 
 public class ElevatorIOSim extends ElevatorIOVortex {
  
     private final SparkFlexSim motor = new SparkFlexSim(super.leadMotor, DCMotor.getNeoVortex(2));
-    private final SimLaserCan laserCan = super.laserCan.getSimulatedDevice();
+    private final LaserCanSim laserCan = super.laserCan.getSimulatedDevice();
 
     private final ElevatorSim elevator = new ElevatorSim(
         DCMotor.getNeoVortex(2),
