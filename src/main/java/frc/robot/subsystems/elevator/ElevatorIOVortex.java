@@ -44,5 +44,8 @@ public class ElevatorIOVortex implements ElevatorIO {
     }
 
     @Override
-    public void updateInputs (ElevatorIOInputs inputs) {}
+    public void updateInputs (ElevatorIOInputs inputs) {
+        
+    }
+
 }

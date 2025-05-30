@@ -52,5 +52,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     }
     
     @Override
-    public void updateInputs (EndEffectorIOInputs inputs) {}
+    public void updateInputs (EndEffectorIOInputs inputs) {
+        
+    }
 }

@@ -31,5 +31,8 @@ public interface EndEffectorIO {
         public boolean coralBeambreak = true;
     }
 
-    public default void updateInputs (EndEffectorIOInputs inputs) {}
+    public default void updateInputs (EndEffectorIOInputs inputs) {
+
+
+    }
 }
