@@ -31,8 +31,8 @@ public interface EndEffectorIO {
         public boolean coralBeambreak = true;
     }
 
-    public default void updateInputs (EndEffectorIOInputs inputs) {
-
-
-    }
+    public default void updateInputs (EndEffectorIOInputs inputs) {}
+    public default void setCoralIntakeVoltage (double volts) {}
+    public default void setAlgaeIntakeVoltage (double volts) {}
+    public default void setAlgaeWristVoltage (double volts) {}
 }
