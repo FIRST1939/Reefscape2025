@@ -16,4 +16,6 @@ public interface FunnelIO {
     }
 
     public default void updateInputs (FunnelIOInputsAutoLogged inputs) {}
+    public default void setMotorVoltage (double volts) {}
+
 }

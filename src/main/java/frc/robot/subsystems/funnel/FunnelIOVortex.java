@@ -1,5 +1,6 @@
 package frc.robot.subsystems.funnel;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
@@ -9,6 +10,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 public class FunnelIOVortex implements FunnelIO {
     
     protected final SparkFlex motor = new SparkFlex(FunnelConstants.FUNNEL_CAN, MotorType.kBrushless);
+    private final RelativeEncoder motorEncoder = motor.getEncoder();
 
     public FunnelIOVortex () {
 
@@ -24,5 +26,19 @@ public class FunnelIOVortex implements FunnelIO {
     }
 
     @Override
-    public void updateInputs (FunnelIOInputsAutoLogged inputs) {}
+    public void updateInputs (FunnelIOInputsAutoLogged inputs) {
+
+        inputs.funnelPosition = this.motorEncoder.getPosition();
+        inputs.funnelVelocity = this.motorEncoder.getVelocity();
+        inputs.funnelVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
+        inputs.funnelCurrent = this.motor.getOutputCurrent();
+
+    }
+
+    @Override
+    public void setMotorVoltage (double volts) {
+
+        motor.setVoltage(volts);
+    }
+
 }
