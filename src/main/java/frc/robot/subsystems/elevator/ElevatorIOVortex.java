@@ -2,12 +2,15 @@ package frc.robot.subsystems.elevator;
 
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import au.grapplerobotics.interfaces.LaserCanInterface.Measurement;
+import edu.wpi.first.wpilibj.LEDPattern;
 import frc.robot.util.LaserCanWrapper;
 
 public class ElevatorIOVortex implements ElevatorIO {
@@ -16,6 +19,8 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     protected final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.LEADER_CAN, MotorType.kBrushless);
     private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.FOLLOWER_CAN, MotorType.kBrushless);
+    private final RelativeEncoder leadEncoder = leadMotor.getEncoder();
+    private final RelativeEncoder followerEncoder = followerMotor.getEncoder();
     
     protected final LaserCanWrapper laserCan = new LaserCanWrapper(ElevatorConstants.LASER_CAN);
 
@@ -45,7 +50,21 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
-        
+
+        inputs.manual = false;
+
+        inputs.leaderMotorPosition = leadEncoder.getPosition();
+        inputs.leaderMotorVelocity = leadEncoder.getVelocity();
+        inputs.leaderMotorVoltage = leadMotor.getAppliedOutput() * leadMotor.getBusVoltage();
+        inputs.leaderMotorCurrent = leadMotor.getOutputCurrent();
+        inputs.leaderMotorTemperature = leadMotor.getMotorTemperature();
+
+        inputs.followerMotorPosition = followerEncoder.getPosition();
+        inputs.followerMotorVelocity = followerEncoder.getVelocity();
+        inputs.follwerMotorVoltage = followerMotor.getAppliedOutput() * followerMotor.getBusVoltage();
+        inputs.followerMotorCurrent = followerMotor.getOutputCurrent();
+        inputs.followerMotorTemperature = followerMotor.getMotorTemperature();
+
     }
 
 }

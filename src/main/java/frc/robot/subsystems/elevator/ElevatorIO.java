@@ -9,11 +9,17 @@ public interface ElevatorIO {
 
         public boolean manual = false;
 
-        public double motorPosition = 0.0;
-        public double motorVelocity = 0.0;
-        public double motorVoltage = 0.0;
-        public double motorCurrent = 0.0;
-        public double motorTemperature = 0.0;
+        public double leaderMotorPosition = 0.0;
+        public double leaderMotorVelocity = 0.0;
+        public double leaderMotorVoltage = 0.0;
+        public double leaderMotorCurrent = 0.0;
+        public double leaderMotorTemperature = 0.0;
+
+        public double followerMotorPosition = 0.0;
+        public double followerMotorVelocity = 0.0;
+        public double follwerMotorVoltage = 0.0;
+        public double followerMotorCurrent = 0.0;
+        public double followerMotorTemperature = 0.0;
 
         public int laserCANStatus = 2;
         public double laserCANDistance = 0.0;
