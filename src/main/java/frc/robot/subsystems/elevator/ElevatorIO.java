@@ -9,15 +9,15 @@ public interface ElevatorIO {
 
         public boolean manual = false;
 
-        public double leaderMotorPosition = 0.0;
-        public double leaderMotorVelocity = 0.0;
-        public double leaderMotorVoltage = 0.0;
-        public double leaderMotorCurrent = 0.0;
-        public double leaderMotorTemperature = 0.0;
+        public double leadMotorPosition = 0.0;
+        public double leadMotorVelocity = 0.0;
+        public double leadMotorVoltage = 0.0;
+        public double leadMotorCurrent = 0.0;
+        public double leadMotorTemperature = 0.0;
 
         public double followerMotorPosition = 0.0;
         public double followerMotorVelocity = 0.0;
-        public double follwerMotorVoltage = 0.0;
+        public double followerMotorVoltage = 0.0;
         public double followerMotorCurrent = 0.0;
         public double followerMotorTemperature = 0.0;
 

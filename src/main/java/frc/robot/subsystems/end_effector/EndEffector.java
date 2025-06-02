@@ -11,7 +11,7 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
-     private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
+    private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
     private final PIDController algaeWristFeedback = new PIDController(0.0, 0.0, 0.0);
 
     public EndEffector (EndEffectorIO io) {
@@ -34,5 +34,10 @@ public class EndEffector extends SubsystemBase {
     public double getAlgaeWristPosition () {
 
         return this.inputs.algaeWristPosition;
+    }
+
+    public boolean isManual () {
+
+        return this.inputs.manual;
     }
 }

@@ -9,8 +9,6 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
-import au.grapplerobotics.interfaces.LaserCanInterface.Measurement;
-import edu.wpi.first.wpilibj.LEDPattern;
 import frc.robot.util.LaserCanWrapper;
 
 public class ElevatorIOVortex implements ElevatorIO {
@@ -51,13 +49,13 @@ public class ElevatorIOVortex implements ElevatorIO {
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
 
-        inputs.manual = false;
+        inputs.manual = this.manual.get();
 
-        inputs.leaderMotorPosition = leadEncoder.getPosition();
-        inputs.leaderMotorVelocity = leadEncoder.getVelocity();
-        inputs.leaderMotorVoltage = leadMotor.getAppliedOutput() * leadMotor.getBusVoltage();
-        inputs.leaderMotorCurrent = leadMotor.getOutputCurrent();
-        inputs.leaderMotorTemperature = leadMotor.getMotorTemperature();
+        inputs.leadMotorPosition = leadEncoder.getPosition();
+        inputs.leadMotorVelocity = leadEncoder.getVelocity();
+        inputs.leadMotorVoltage = leadMotor.getAppliedOutput() * leadMotor.getBusVoltage();
+        inputs.leadMotorCurrent = leadMotor.getOutputCurrent();
+        inputs.leadMotorTemperature = leadMotor.getMotorTemperature();
 
         inputs.followerMotorPosition = followerEncoder.getPosition();
         inputs.followerMotorVelocity = followerEncoder.getVelocity();
