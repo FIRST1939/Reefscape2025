@@ -61,7 +61,7 @@ public class ElevatorIOVortex implements ElevatorIO {
 
         inputs.followerMotorPosition = followerEncoder.getPosition();
         inputs.followerMotorVelocity = followerEncoder.getVelocity();
-        inputs.follwerMotorVoltage = followerMotor.getAppliedOutput() * followerMotor.getBusVoltage();
+        inputs.followerMotorVoltage = followerMotor.getAppliedOutput() * followerMotor.getBusVoltage();
         inputs.followerMotorCurrent = followerMotor.getOutputCurrent();
         inputs.followerMotorTemperature = followerMotor.getMotorTemperature();
 
