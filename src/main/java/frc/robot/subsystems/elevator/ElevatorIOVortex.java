@@ -9,6 +9,9 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
+import au.grapplerobotics.ConfigurationFailedException;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface.RegionOfInterest;
 import frc.robot.util.LaserCanWrapper;
 
 public class ElevatorIOVortex implements ElevatorIO {
@@ -44,6 +47,17 @@ public class ElevatorIOVortex implements ElevatorIO {
 
         this.leadMotor.configure(leadConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         this.followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        try {
+
+            this.laserCan.setRangingMode(LaserCan.RangingMode.LONG);
+            this.laserCan.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_100MS);
+            this.laserCan.setRegionOfInterest(new RegionOfInterest(8, 8, 4, 4));
+        } catch (ConfigurationFailedException error) {
+
+            System.out.println("LaserCAN configuration failed! " + error);
+        }
+
     }
 
     @Override
