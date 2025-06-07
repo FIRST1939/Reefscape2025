@@ -8,5 +8,6 @@ public class SetPointConstants {
     public static final double CORAL_OUTTAKE_HEIGHT_L4 = 0.0; //TODO Config lc + heights
 
     public static final double FUNNEL_INTAKE_VOLTAGE = 5.0;
+    public static final double FUNNEL_OUTTAKE_VOLTAGE = -5.0;
     
 }
