@@ -11,6 +11,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 
 import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.interfaces.LaserCanInterface.Measurement;
 import au.grapplerobotics.interfaces.LaserCanInterface.RegionOfInterest;
 import frc.robot.util.LaserCanWrapper;
 
@@ -62,6 +63,15 @@ public class ElevatorIOVortex implements ElevatorIO {
 
     @Override
     public void updateInputs (ElevatorIOInputs inputs) {
+
+
+        Measurement laserCanMeasurement = this.laserCan.getMeasurement();
+        if (laserCanMeasurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT && laserCanMeasurement.distance_mm <= 100) {
+            System.out.println("The target is " + laserCanMeasurement.distance_mm + "mm away!");
+        } else {System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
+
+        }
+
 
         inputs.manual = this.manual.get();
 
