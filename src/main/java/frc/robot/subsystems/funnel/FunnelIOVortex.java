@@ -43,7 +43,7 @@ public class FunnelIOVortex implements FunnelIO {
     @Override
     public void setMotorVoltage (double volts) {
 
-        motor.setVoltage(volts);
+        this.motor.setVoltage(volts);
     }
 
 }

@@ -24,4 +24,9 @@ public class Funnel extends SubsystemBase {
 
         return this.inputs.funnelVelocity;
     }
+    
+    public void setMotorVoltage (double volts) {
+       
+        io.setMotorVoltage(volts);
+    }
 }
