@@ -40,4 +40,15 @@ public class EndEffector extends SubsystemBase {
 
         return this.inputs.manual;
     }
+
+    public boolean getCoralIntakeBeambreak () {
+
+        return inputs.coralBeambreak;
+    }
+
+    public void setCoralIntakeVelocity (double velocity) {
+
+        this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
+    }
+
 }
