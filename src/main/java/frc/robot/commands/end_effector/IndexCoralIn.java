@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.end_effector.EndEffector;
 import frc.robot.util.SetPointConstants;
 
-public class IndexCoral extends Command {
+public class IndexCoralIn extends Command {
     
     private final EndEffector endEffector;
     private boolean isFinished;
 
-    public IndexCoral (EndEffector endEffector) {
+    public IndexCoralIn (EndEffector endEffector) {
 
         this.endEffector = endEffector;
         this.addRequirements(this.endEffector);
@@ -23,7 +23,7 @@ public class IndexCoral extends Command {
     public void initialize () {
 
         this.isFinished = false;
-        this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_INDEX_SPEED);
+        this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_INDEX_IN_SPEED);
     }
 
     @Override
