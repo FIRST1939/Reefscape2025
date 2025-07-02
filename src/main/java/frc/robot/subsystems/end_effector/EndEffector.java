@@ -4,7 +4,11 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.units.Units;
+
 
 public class EndEffector extends SubsystemBase {
     
@@ -13,10 +17,26 @@ public class EndEffector extends SubsystemBase {
 
     private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
     private final PIDController algaeWristFeedback = new PIDController(0.0, 0.0, 0.0);
+    private final SysIdRoutine sysIdRoutine;
 
     public EndEffector (EndEffectorIO io) {
 
         this.io = io;
+
+        sysIdRoutine = new SysIdRoutine(
+            new SysIdRoutine.Config(),
+            new SysIdRoutine.Mechanism(
+                voltage -> io.setCoralIntakeVoltage(voltage.in(Units.Volts)),
+                log -> {
+                    log.motor("coralIntake")    
+                        .voltage(inputs.coralIntakeVoltage)
+                        .position(inputs.coralIntakePosition)    
+                        .velocity(inputs.coralIntakeVelocity);
+                },
+                this
+            )
+        );
+        
     }
     
     @Override
@@ -50,5 +70,7 @@ public class EndEffector extends SubsystemBase {
 
         this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
     }
+
+  
 
 }

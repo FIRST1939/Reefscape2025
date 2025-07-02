@@ -9,5 +9,8 @@ public class SetPointConstants {
 
     public static final double FUNNEL_INTAKE_VOLTAGE = 5.0;
     public static final double FUNNEL_OUTTAKE_VOLTAGE = -5.0;
+    public static final double CORAL_INDEX_IN_SPEED = 5.0;
+    public static final double CORAL_INDEX_OUT_SPEED = -5.0;
+
     
 }
