@@ -1,5 +1,7 @@
 package frc.robot.subsystems.end_effector;
 
+import static edu.wpi.first.units.Units.Volts;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -23,19 +25,18 @@ public class EndEffector extends SubsystemBase {
 
         this.io = io;
 
-        sysIdRoutine = new SysIdRoutine(
+        this.sysIdRoutine = new SysIdRoutine(
             new SysIdRoutine.Config(),
             new SysIdRoutine.Mechanism(
-                voltage -> io.setCoralIntakeVoltage(voltage.in(Units.Volts)),
-                log -> {
-                    log.motor("coralIntake")    
-                        .voltage(inputs.coralIntakeVoltage)
-                        .position(inputs.coralIntakePosition)    
-                        .velocity(inputs.coralIntakeVelocity);
-                },
-                this
-            )
-        );
+            voltage -> io.setCoralIntakeVoltage(voltage.in(Units.Volts)),
+            log -> {
+            log.motor("coralIntake")
+               .voltage(Volts.of(inputs.coralIntakeVoltage));
+        },
+
+        this
+        ) 
+    );
         
     }
     
