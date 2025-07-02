@@ -71,6 +71,20 @@ public class EndEffector extends SubsystemBase {
         this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
     }
 
-  
+    public Command sysIdQuasistaticForward() {
+        return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
+    }
+
+    public Command sysIdQuasistaticReverse() {
+        return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse);
+    }
+
+    public Command sysIdDynamicForward() {
+        return sysIdRoutine.dynamic(SysIdRoutine.Direction.kForward);
+    }
+
+    public Command sysIdDynamicReverse() {
+        return sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
+    }
 
 }
