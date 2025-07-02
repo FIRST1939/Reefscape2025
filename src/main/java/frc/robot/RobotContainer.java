@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
@@ -38,7 +39,8 @@ import frc.robot.util.GamePieceSim;
 
 public class RobotContainer {
 
-    private final CommandXboxController driver = new CommandXboxController(0);
+    private final CommandPS4Controller driver = new CommandPS4Controller(0);
+    private final CommandPS4Controller operator = new CommandPS4Controller(1);
 
     private final Swerve swerve = new Swerve();
     private final Elevator elevator;
@@ -88,6 +90,10 @@ public class RobotContainer {
                 () -> -driver.getRightX()
             )
         );
+            operator.square().whileTrue(endEffector.sysIdQuasistaticForward());
+            operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
+            operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
+            operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
 
         
     }
