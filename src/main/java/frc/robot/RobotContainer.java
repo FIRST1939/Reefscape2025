@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
 
@@ -20,6 +19,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConfirmAlliance;
+import frc.robot.commands.end_effector.SetAlgaeWristPosition;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -35,6 +35,7 @@ import frc.robot.subsystems.funnel.FunnelIOVortex;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.util.CurrentDrawSim;
 import frc.robot.util.GamePieceSim;
+import frc.robot.util.SetPointConstants;
 
 
 public class RobotContainer {
@@ -93,7 +94,7 @@ public class RobotContainer {
             operator.square().whileTrue(endEffector.sysIdQuasistaticForward());
             operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
             operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
-            operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
+            operator.L1().onTrue(new SetAlgaeWristPosition(endEffector, SetPointConstants.ALGAE_WRIST_LOW_POSITION));
 
         
     }
