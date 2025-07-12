@@ -11,6 +11,9 @@ public class SetPointConstants {
     public static final double FUNNEL_OUTTAKE_VOLTAGE = -5.0;
     public static final double CORAL_INDEX_IN_SPEED = 5.0;
     public static final double CORAL_INDEX_OUT_SPEED = -5.0;
-
+    
+    public static final double ALGAE_INTAKE_VOLTAGE = 0.0;
+    public static final double ALGAE_HOLD_WRIST_POSITION = 0.0;
+    public static final double ALGAE_WRIST_LOW_POSITION = 50.0;
     
 }
