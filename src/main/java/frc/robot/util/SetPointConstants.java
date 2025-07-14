@@ -14,6 +14,6 @@ public class SetPointConstants {
     
     public static final double ALGAE_INTAKE_VOLTAGE = 0.0;
     public static final double ALGAE_HOLD_WRIST_POSITION = 0.0;
-    public static final double ALGAE_WRIST_LOW_POSITION = 50.0;
+    public static final double ALGAE_WRIST_LOW_POSITION = 0.2;
     
 }
