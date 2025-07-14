@@ -19,7 +19,7 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
 
     private final SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
-    private final PIDController algaeWristFeedback = new PIDController(0.1, 0.0, 0.0);
+    private final PIDController algaeWristFeedback = new PIDController(0.06, 0.0, 0.0);
     private final SysIdRoutine sysIdRoutine;
 
     public EndEffector (EndEffectorIO io) {
@@ -49,11 +49,8 @@ public class EndEffector extends SubsystemBase {
 
         Logger.processInputs("End Effector", this.inputs);
 
-        double pidOutput = algaeWristFeedback.calculate(inputs.algaeWristPosition);
+        this.io.setAlgaeWristVoltage(MathUtil.clamp(this.algaeWristFeedback.calculate(this.inputs.algaeWristPosition), -3.5, 3.5));
 
-        double voltage = MathUtil.clamp(pidOutput, -3.5, 3.5);
-
-        io.setAlgaeWristVoltage(voltage);
     }
 
     public double getCoralIntakeVelocity () {
@@ -82,6 +79,7 @@ public class EndEffector extends SubsystemBase {
     }
 
     public void setAlgaeWristPosition (double position) {
+
         this.algaeWristFeedback.setSetpoint(position);
     }
 
@@ -101,9 +99,9 @@ public class EndEffector extends SubsystemBase {
         return sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
     }
 
-    public void setAlgaeIntakeVoltage(double algaeIntakeVoltage) {
+    public void setAlgaeIntakeVoltage(double voltage) {
         
-        this.io.setAlgaeIntakeVoltage(algaeIntakeVoltage);
+        this.io.setAlgaeIntakeVoltage(voltage);
     }
 
 }

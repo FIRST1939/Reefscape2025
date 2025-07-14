@@ -1,27 +1,31 @@
 package frc.robot.commands.end_effector;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.end_effector.EndEffector;
 
 public class AlgaeWristVoltageTest extends Command {
 
     private final EndEffector endEffector;
-    private final double voltage;
+    private final double position;
 
-    public AlgaeWristVoltageTest(EndEffector endEffector, double voltage) {
+    public AlgaeWristVoltageTest(EndEffector endEffector, double position) {
         this.endEffector = endEffector;
-        this.voltage = voltage;
+        this.position = position;
         addRequirements(endEffector);
     }
 
     @Override
-    public void execute() {
-        endEffector.setAlgaeIntakeVoltage(voltage);
+    public void initialize() {
+        
+        endEffector.setAlgaeWristPosition(position);
     }
 
     @Override
     public void end(boolean interrupted) {
-        endEffector.setAlgaeIntakeVoltage(0);
+        
+        endEffector.setAlgaeWristPosition(0.0);
     }
 
     @Override
