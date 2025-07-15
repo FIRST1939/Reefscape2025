@@ -1,5 +1,9 @@
 package frc.robot.subsystems.end_effector;
 
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import org.littletonrobotics.junction.Logger;
@@ -29,11 +33,13 @@ public class EndEffector extends SubsystemBase {
         this.sysIdRoutine = new SysIdRoutine(
             new SysIdRoutine.Config(),
             new SysIdRoutine.Mechanism(
-            voltage -> io.setCoralIntakeVoltage(voltage.in(Units.Volts)),
+            voltage -> io.setAlgaeWristVoltage(voltage.in(Units.Volts)),
             log -> {
             log
-                .motor("coralIntake")
-                .voltage(Volts.of(inputs.coralIntakeVoltage));
+                .motor("algaeWrist")
+                .voltage(Volts.of(inputs.algaeWristVoltage))
+                .angularPosition(Rotations.of(inputs.algaeWristPosition))
+                .angularVelocity(RotationsPerSecond.of(inputs.algaeWristVelocity));
         },
 
         this
@@ -51,6 +57,7 @@ public class EndEffector extends SubsystemBase {
 
         this.io.setAlgaeWristVoltage(MathUtil.clamp(this.algaeWristFeedback.calculate(this.inputs.algaeWristPosition), -3.5, 3.5));
 
+        
     }
 
     public double getCoralIntakeVelocity () {
@@ -84,6 +91,7 @@ public class EndEffector extends SubsystemBase {
     }
 
     public Command sysIdQuasistaticForward() {
+        Logger.recordOutput("sysIdQuasistaticForward running", true);
         return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
     }
 

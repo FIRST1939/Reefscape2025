@@ -106,6 +106,8 @@ public class Robot extends LoggedRobot {
     
             this.autoCommand.cancel();
         }
+
+        Logger.recordOutput("sysIdQuasistaticForward running", false);
     }
 
     @Override
