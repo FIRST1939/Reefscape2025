@@ -19,8 +19,6 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConfirmAlliance;
-import frc.robot.commands.end_effector.AlgaeWristVoltageTest;
-import frc.robot.commands.end_effector.IntakeAlgae;
 import frc.robot.commands.end_effector.SetAlgaeWristPosition;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
@@ -96,7 +94,8 @@ public class RobotContainer {
             operator.square().whileTrue(endEffector.sysIdQuasistaticForward());
             operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
             operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
-            operator.L1().whileTrue(new IntakeAlgae(this.endEffector, SetPointConstants.ALGAE_WRIST_LOW_POSITION));
+            operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
+            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, SetPointConstants.ALGAE_WRIST_LOW_POSITION));
 
         
     }
