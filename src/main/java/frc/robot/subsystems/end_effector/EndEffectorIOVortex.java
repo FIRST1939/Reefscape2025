@@ -34,6 +34,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         SparkFlexConfig algaeIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
+        algaeWristconfig.inverted(true);
+
         coralIntakeconfig.limitSwitch.forwardLimitSwitchEnabled(false);
 
         coralIntakeconfig.encoder
@@ -57,7 +59,10 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntakeMotor.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        
+        algaeWristEncoder.setPosition(0.25);
     }
+
     
     @Override
     public void updateInputs (EndEffectorIOInputs inputs) {

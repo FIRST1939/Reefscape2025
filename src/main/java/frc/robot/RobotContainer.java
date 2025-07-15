@@ -95,7 +95,7 @@ public class RobotContainer {
             operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
             operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
             operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
-            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, SetPointConstants.ALGAE_WRIST_LOW_POSITION));
+            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, SetPointConstants.ALGAE_WRIST_RESET_POSITION));
 
         
     }
@@ -115,7 +115,7 @@ public class RobotContainer {
             new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION, ElevatorConstants.SECOND_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
-            new Pose3d(0.249, -0.114, 0.337 + this.elevator.getHeight(), new Rotation3d(0.0, Units.rotationsToRadians(this.endEffector.getAlgaeWristPosition()), 0.0)),
+            new Pose3d(0.249, -0.114, 0.337 + this.elevator.getHeight(), new Rotation3d(0.0, -Units.rotationsToRadians(this.endEffector.getAlgaeWristPosition() - 0.25), 0.0))
         });
     }
 }
