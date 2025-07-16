@@ -60,7 +60,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
-        algaeWristEncoder.setPosition(0.25);
     }
 
     
@@ -76,12 +75,13 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.coralIntakeTemperature = coralIntakeMotor.getMotorTemperature();
 
         inputs.algaeIntakePosition = algaeIntakeEncoder.getPosition();
-        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();
         inputs.algaeIntakeVoltage = algaeIntakeMotor.getAppliedOutput() * algaeIntakeMotor.getBusVoltage();
         inputs.algaeIntakeCurrent = algaeIntakeMotor.getOutputCurrent();
         inputs.algaeIntakeTemperature = algaeIntakeMotor.getMotorTemperature();
         
-        inputs.algaeWristPosition = algaeWristEncoder.getPosition();
+        
+        inputs.algaeWristPosition = -(algaeWristEncoder.getPosition() - EndEffectorConstants.WRIST_ZERO_OFFSET_ROTATIONS);
+        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();;
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWristMotor.getAppliedOutput() * algaeWristMotor.getBusVoltage();
         inputs.algaeWristCurrent = algaeWristMotor.getOutputCurrent();
@@ -107,4 +107,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
 
         algaeWristMotor.setVoltage(volts);
     }
+
+    
 }

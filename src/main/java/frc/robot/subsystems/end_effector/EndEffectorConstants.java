@@ -11,4 +11,6 @@ public class EndEffectorConstants {
 
     public static final int ALGAE_WRIST_CAN = 53;
     public static final double ALGAE_WRIST_REDUCTION = (125.0 / 1.0) * (42.0 / 24.0);
+
+    public static final double WRIST_ZERO_OFFSET_ROTATIONS = 0.25;
 }

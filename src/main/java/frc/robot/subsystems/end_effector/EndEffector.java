@@ -110,6 +110,6 @@ public class EndEffector extends SubsystemBase {
     public void setAlgaeIntakeVoltage(double voltage) {
         
         this.io.setAlgaeIntakeVoltage(voltage);
-    }
+    }    
 
 }
