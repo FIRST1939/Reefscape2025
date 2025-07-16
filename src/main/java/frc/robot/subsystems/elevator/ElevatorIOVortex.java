@@ -4,6 +4,7 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -15,7 +16,10 @@ public class ElevatorIOVortex implements ElevatorIO {
     private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Elevator", false);
 
     protected final SparkFlex leadMotor = new SparkFlex(ElevatorConstants.LEADER_CAN, MotorType.kBrushless);
-    private final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.FOLLOWER_CAN, MotorType.kBrushless);
+    protected final SparkFlex followerMotor = new SparkFlex(ElevatorConstants.FOLLOWER_CAN, MotorType.kBrushless);
+    
+    protected final RelativeEncoder leadEncoder = this.leadMotor.getEncoder();
+    protected final RelativeEncoder followerEncoder = this.followerMotor.getEncoder();
     
     protected final LaserCanWrapper laserCan = new LaserCanWrapper(ElevatorConstants.LASER_CAN);
 

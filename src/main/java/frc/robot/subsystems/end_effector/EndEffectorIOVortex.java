@@ -4,6 +4,7 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -17,6 +18,10 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     protected final SparkFlex coralIntakeMotor = new SparkFlex(EndEffectorConstants.CORAL_INTAKE_CAN, MotorType.kBrushless);
     protected final SparkFlex algaeIntakeMotor = new SparkFlex(EndEffectorConstants.ALGAE_INTAKE_CAN, MotorType.kBrushless);
     protected final SparkFlex algaeWristMotor = new SparkFlex(EndEffectorConstants.ALGAE_WRIST_CAN, MotorType.kBrushless);
+
+    protected final RelativeEncoder coralIntakeEncoder = this.coralIntakeMotor.getEncoder();
+    protected final RelativeEncoder algaeIntakeEncoder = this.algaeIntakeMotor.getEncoder();
+    protected final RelativeEncoder algaeWristEncoder = this.algaeWristMotor.getEncoder();
 
     private final SparkLimitSwitch coralBeambreak = coralIntakeMotor.getForwardLimitSwitch();
 
