@@ -1,5 +1,4 @@
 package frc.robot.subsystems.funnel;
-
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,5 +22,10 @@ public class Funnel extends SubsystemBase {
     public double getVelocity () {
 
         return this.inputs.funnelVelocity;
+    }
+    
+    public void setMotorVoltage (double volts) {
+       
+        io.setMotorVoltage(volts);
     }
 }

@@ -1,14 +1,15 @@
 package frc.robot.subsystems.funnel;
-
+import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class FunnelIOVortex implements FunnelIO {
-    
+
+    private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Funnel", false);
     protected final SparkFlex motor = new SparkFlex(FunnelConstants.FUNNEL_CAN, MotorType.kBrushless);
     protected final RelativeEncoder encoder = this.motor.getEncoder();
 
@@ -26,5 +27,21 @@ public class FunnelIOVortex implements FunnelIO {
     }
 
     @Override
-    public void updateInputs (FunnelIOInputsAutoLogged inputs) {}
+    public void updateInputs (FunnelIOInputsAutoLogged inputs) {
+
+        inputs.manual = this.manual.get();
+
+        inputs.funnelPosition = this.encoder.getPosition();
+        inputs.funnelVelocity = this.encoder.getVelocity();
+        inputs.funnelVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
+        inputs.funnelCurrent = this.motor.getOutputCurrent();
+
+    }
+
+    @Override
+    public void setMotorVoltage (double volts) {
+
+        this.motor.setVoltage(volts);
+    }
+
 }

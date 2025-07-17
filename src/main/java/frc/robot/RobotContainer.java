@@ -3,15 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import frc.robot.commands.swerve.Drive;
 import frc.robot.commands.swerve.ZeroGyro;
-
 import org.ironmaple.simulation.SimulatedArena;
 import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -19,6 +16,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConfirmAlliance;
+import frc.robot.commands.end_effector.SetAlgaeWristPosition;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
 import frc.robot.subsystems.elevator.ElevatorIOSim;
@@ -34,11 +32,13 @@ import frc.robot.subsystems.funnel.FunnelIOVortex;
 import frc.robot.subsystems.swerve.Swerve;
 import frc.robot.util.CurrentDrawSim;
 import frc.robot.util.GamePieceSim;
+import frc.robot.util.SetPointConstants;
 
 
 public class RobotContainer {
 
-    private final CommandXboxController driver = new CommandXboxController(0);
+    private final CommandPS4Controller driver = new CommandPS4Controller(0);
+    private final CommandPS4Controller operator = new CommandPS4Controller(1);
 
     private final Swerve swerve = new Swerve();
     private final Elevator elevator;
@@ -88,6 +88,13 @@ public class RobotContainer {
                 () -> -driver.getRightX()
             )
         );
+            operator.square().whileTrue(endEffector.sysIdQuasistaticForward());
+            operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
+            operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
+            operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
+            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, SetPointConstants.ALGAE_WRIST_RESET_POSITION));
+
+        
     }
     
     public void updateComponents () {
@@ -105,7 +112,7 @@ public class RobotContainer {
             new Pose3d(0.0, 0.0, MathUtil.clamp(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION, ElevatorConstants.SECOND_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, Math.max(this.elevator.getHeight(), ElevatorConstants.FIRST_STAGE_TRANSITION), new Rotation3d()),
             new Pose3d(0.0, 0.0, this.elevator.getHeight(), new Rotation3d()),
-            new Pose3d(0.249, -0.114, 0.337 + this.elevator.getHeight(), new Rotation3d(0.0, Units.rotationsToRadians(this.endEffector.getAlgaeWristPosition()), 0.0)),
+            new Pose3d(0.249, -0.114, 0.337 + this.elevator.getHeight(), new Rotation3d(0.0, -Units.rotationsToRadians(this.endEffector.getAlgaeWristPosition() - 0.25), 0.0))
         });
     }
 }

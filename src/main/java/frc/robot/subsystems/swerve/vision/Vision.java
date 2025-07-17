@@ -1,7 +1,5 @@
 package frc.robot.subsystems.swerve.vision;
-
 import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.swerve.Swerve;

@@ -1,5 +1,4 @@
 package frc.robot.subsystems.funnel;
-
 import org.littletonrobotics.junction.AutoLog;
 
 public interface FunnelIO {
@@ -16,4 +15,6 @@ public interface FunnelIO {
     }
 
     public default void updateInputs (FunnelIOInputsAutoLogged inputs) {}
+    public default void setMotorVoltage (double volts) {}
+
 }

@@ -4,17 +4,14 @@
 
 package frc.robot;
 import edu.wpi.first.net.PortForwarder;
-
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
-
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -64,6 +61,8 @@ public class Robot extends LoggedRobot {
 
         Pathfinding.setPathfinder(new LocalADStarAK());
         PathfindingCommand.warmupCommand().schedule();
+
+
     }
 
     @Override
@@ -106,6 +105,8 @@ public class Robot extends LoggedRobot {
     
             this.autoCommand.cancel();
         }
+
+        Logger.recordOutput("sysIdQuasistaticForward running", false);
     }
 
     @Override

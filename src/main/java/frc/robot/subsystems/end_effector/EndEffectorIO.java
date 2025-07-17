@@ -1,6 +1,4 @@
 package frc.robot.subsystems.end_effector;
-
-
 import org.littletonrobotics.junction.AutoLog;
 
 public interface EndEffectorIO {
@@ -32,4 +30,8 @@ public interface EndEffectorIO {
     }
 
     public default void updateInputs (EndEffectorIOInputs inputs) {}
-}
+    public default void setCoralIntakeVoltage (double volts) {}
+    public default void setAlgaeIntakeVoltage (double volts) {}
+    public default void setAlgaeWristVoltage (double volts) {}
+    public default void setAlgaeWristControllerReference (double position, double feedforward) {}
+ }

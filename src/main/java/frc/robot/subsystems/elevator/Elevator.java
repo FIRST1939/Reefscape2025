@@ -23,6 +23,22 @@ public class Elevator extends SubsystemBase {
 
     public double getHeight () {
 
-        return this.inputs.motorPosition + 0.091;
+        return ((this.inputs.leadMotorPosition) + (this.inputs.followerMotorPosition) / 2)+ 0.091;
+    }
+
+    public double getVelocity () {
+        return ((this.inputs.leadMotorVelocity) + (this.inputs.followerMotorVelocity) / 2 );
+    }
+
+    public double getVoltage () {
+        return ((this.inputs.leadMotorVoltage) + (this.inputs.followerMotorVoltage) / 2 );
+    }
+
+    public double getCurrent () {
+        return ((this.inputs.leadMotorCurrent) + (this.inputs.followerMotorCurrent) / 2 );
+    }
+
+    public double getTemperature () {
+        return ((this.inputs.leadMotorTemperature) + (this.inputs.followerMotorTemperature) / 2 );
     }
 }
