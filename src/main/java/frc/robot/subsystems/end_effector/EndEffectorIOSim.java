@@ -46,11 +46,11 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
         ),
         DCMotor.getNeoVortex(1), 
         (125.0 / 1.0) * (42.0 / 24.0), 
-        0.25, 
-        Units.degreesToRadians(-30.0),
-        Units.degreesToRadians(90.0), 
+        0.227, 
+        Units.degreesToRadians(-4.301),
+        Units.degreesToRadians(115.699), 
         true, 
-        Units.degreesToRadians(90.0)
+        Units.degreesToRadians(115.699)
     );
 
     public EndEffectorIOSim () {
