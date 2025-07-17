@@ -2,6 +2,7 @@ package frc.robot.subsystems.end_effector;
 
 import com.revrobotics.sim.SparkFlexSim;
 import com.revrobotics.sim.SparkLimitSwitchSim;
+import com.revrobotics.sim.SparkRelativeEncoderSim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -17,6 +18,10 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
     private final SparkFlexSim coralIntakeMotor = new SparkFlexSim(super.coralIntakeMotor, DCMotor.getNeoVortex(1));
     private final SparkFlexSim algaeIntakeMotor = new SparkFlexSim(super.algaeIntakeMotor, DCMotor.getNeoVortex(1));
     private final SparkFlexSim algaeWristMotor = new SparkFlexSim(super.algaeWristMotor, DCMotor.getNeoVortex(1));
+
+    private final SparkRelativeEncoderSim coralIntakeEncoder = new SparkRelativeEncoderSim(super.coralIntakeMotor);
+    private final SparkRelativeEncoderSim algaeIntakeEncoder = new SparkRelativeEncoderSim(super.algaeIntakeMotor);
+    private final SparkRelativeEncoderSim algaeWristEncoder = new SparkRelativeEncoderSim(super.algaeWristMotor);
 
     private final SparkLimitSwitchSim coralBeambreak = this.coralIntakeMotor.getForwardLimitSwitchSim();
 
@@ -52,6 +57,15 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
         true, 
         Units.degreesToRadians(90.0)
     );
+
+    public EndEffectorIOSim () {
+
+        super();
+
+        this.coralIntakeEncoder.setPosition(super.coralIntakeEncoder.getPosition());
+        this.algaeIntakeEncoder.setPosition(super.algaeIntakeEncoder.getPosition());
+        this.algaeWristEncoder.setPosition(super.algaeWristEncoder.getPosition());
+    }
 
     @Override
     public void updateInputs(EndEffectorIOInputs inputs) {

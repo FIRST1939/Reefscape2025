@@ -5,6 +5,7 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -13,7 +14,7 @@ public class FunnelIOVortex implements FunnelIO {
 
     private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual Funnel", false);
     protected final SparkFlex motor = new SparkFlex(FunnelConstants.FUNNEL_CAN, MotorType.kBrushless);
-    private final RelativeEncoder motorEncoder = motor.getEncoder();
+    protected final RelativeEncoder encoder = this.motor.getEncoder();
 
     public FunnelIOVortex () {
 

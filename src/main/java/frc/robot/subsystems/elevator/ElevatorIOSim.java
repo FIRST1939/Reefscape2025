@@ -3,6 +3,7 @@ package frc.robot.subsystems.elevator;
 import java.util.Random;
 
 import com.revrobotics.sim.SparkFlexSim;
+import com.revrobotics.sim.SparkRelativeEncoderSim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
@@ -13,6 +14,10 @@ import frc.robot.util.LaserCanWrapper.LaserCanSim;
 public class ElevatorIOSim extends ElevatorIOVortex {
  
     private final SparkFlexSim motor = new SparkFlexSim(super.leadMotor, DCMotor.getNeoVortex(2));
+
+    private final SparkRelativeEncoderSim leadEncoder = new SparkRelativeEncoderSim(super.leadMotor);
+    private final SparkRelativeEncoderSim followerEncoder = new SparkRelativeEncoderSim(super.followerMotor);
+
     private final LaserCanSim laserCan = super.laserCan.getSimulatedDevice();
 
     private final ElevatorSim elevator = new ElevatorSim(
@@ -27,6 +32,14 @@ public class ElevatorIOSim extends ElevatorIOVortex {
     );
 
     private final Random random = new Random();
+
+    public ElevatorIOSim () {
+
+        super();
+
+        this.leadEncoder.setPosition(super.leadEncoder.getPosition());
+        this.followerEncoder.setPosition(super.followerEncoder.getPosition());
+    }
 
     @Override
     public void updateInputs(ElevatorIOInputs inputs) {
