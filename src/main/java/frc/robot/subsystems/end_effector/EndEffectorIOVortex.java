@@ -5,7 +5,6 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -83,8 +82,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeIntakeTemperature = algaeIntakeMotor.getMotorTemperature();
         
         
-        inputs.algaeWristPosition = -(algaeWristEncoder.getPosition() - EndEffectorConstants.WRIST_ZERO_OFFSET_ROTATIONS);
-        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();;
+        inputs.algaeWristPosition = -algaeWristEncoder.getPosition();
+        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWristMotor.getAppliedOutput() * algaeWristMotor.getBusVoltage();
         inputs.algaeWristCurrent = algaeWristMotor.getOutputCurrent();
