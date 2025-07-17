@@ -1,7 +1,6 @@
 package frc.robot.subsystems.funnel;
 
 import com.revrobotics.sim.SparkFlexSim;
-import com.revrobotics.sim.SparkRelativeEncoderSim;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
@@ -12,7 +11,6 @@ import frc.robot.util.CurrentDrawSim;
 public class FunnelIOSim extends FunnelIOVortex {
 
     private final SparkFlexSim motor = new SparkFlexSim(super.motor, DCMotor.getNeoVortex(1));
-    private final SparkRelativeEncoderSim encoder = new SparkRelativeEncoderSim(super.motor);
 
     private final FlywheelSim funnel = new FlywheelSim(
         LinearSystemId.createFlywheelSystem(
@@ -27,7 +25,7 @@ public class FunnelIOSim extends FunnelIOVortex {
 
         super();
         
-        this.encoder.setPosition(super.encoder.getPosition());
+        this.motor.setPosition(super.encoder.getPosition());
     }
 
     @Override
