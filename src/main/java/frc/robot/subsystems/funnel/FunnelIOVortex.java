@@ -34,8 +34,8 @@ public class FunnelIOVortex implements FunnelIO {
 
         inputs.manual = this.manual.get();
 
-        inputs.funnelPosition = this.motorEncoder.getPosition();
-        inputs.funnelVelocity = this.motorEncoder.getVelocity();
+        inputs.funnelPosition = this.encoder.getPosition();
+        inputs.funnelVelocity = this.encoder.getVelocity();
         inputs.funnelVoltage = this.motor.getAppliedOutput() * this.motor.getBusVoltage();
         inputs.funnelCurrent = this.motor.getOutputCurrent();
 

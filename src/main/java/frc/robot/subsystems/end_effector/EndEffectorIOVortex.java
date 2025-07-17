@@ -17,11 +17,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     private final LoggedNetworkBoolean manual = new LoggedNetworkBoolean("Manual End Effector", false);
 
     protected final SparkFlex coralIntakeMotor = new SparkFlex(EndEffectorConstants.CORAL_INTAKE_CAN, MotorType.kBrushless);
-    private final RelativeEncoder coralIntakeEncoder = coralIntakeMotor.getEncoder();
     protected final SparkFlex algaeIntakeMotor = new SparkFlex(EndEffectorConstants.ALGAE_INTAKE_CAN, MotorType.kBrushless); 
-    private final RelativeEncoder algaeIntakeEncoder = algaeIntakeMotor.getEncoder();
     protected final SparkFlex algaeWristMotor = new SparkFlex(EndEffectorConstants.ALGAE_WRIST_CAN, MotorType.kBrushless);
-    private final RelativeEncoder algaeWristEncoder = algaeWristMotor.getEncoder();
 
     
    
@@ -65,6 +62,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
+        algaeWristEncoder.setPosition(0.25);
     }
 
     
