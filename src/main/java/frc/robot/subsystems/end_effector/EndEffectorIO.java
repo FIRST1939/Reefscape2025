@@ -33,4 +33,5 @@ public interface EndEffectorIO {
     public default void setCoralIntakeVoltage (double volts) {}
     public default void setAlgaeIntakeVoltage (double volts) {}
     public default void setAlgaeWristVoltage (double volts) {}
-}
+    public default void setAlgaeWristControllerReference (double position, double feedforward) {}
+ }

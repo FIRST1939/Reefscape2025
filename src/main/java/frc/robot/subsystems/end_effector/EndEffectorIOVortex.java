@@ -1,12 +1,19 @@
 package frc.robot.subsystems.end_effector;
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
+
+import edu.wpi.first.math.controller.ArmFeedforward;
+import frc.robot.util.SetPointConstants;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
 
@@ -15,24 +22,31 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     protected final SparkFlex coralIntakeMotor = new SparkFlex(EndEffectorConstants.CORAL_INTAKE_CAN, MotorType.kBrushless);
     protected final SparkFlex algaeIntakeMotor = new SparkFlex(EndEffectorConstants.ALGAE_INTAKE_CAN, MotorType.kBrushless); 
     protected final SparkFlex algaeWristMotor = new SparkFlex(EndEffectorConstants.ALGAE_WRIST_CAN, MotorType.kBrushless);
-
     
-   
-    
-
+    private final SparkClosedLoopController algaeWristController = algaeWristMotor.getClosedLoopController();
     protected final RelativeEncoder coralIntakeEncoder = this.coralIntakeMotor.getEncoder();
     protected final RelativeEncoder algaeIntakeEncoder = this.algaeIntakeMotor.getEncoder();
     protected final RelativeEncoder algaeWristEncoder = this.algaeWristMotor.getEncoder();
 
     private final SparkLimitSwitch coralBeambreak = coralIntakeMotor.getForwardLimitSwitch();
-
+    
     public EndEffectorIOVortex () {
 
         SparkFlexConfig coralIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
-        algaeWristconfig.inverted(true);
+        algaeWristconfig.closedLoop
+        .p(0.0)
+        .i(0.0)
+        .d(0.0)
+        .outputRange(-12.0, 12.0);
+
+        algaeWristconfig.closedLoop.maxMotion
+        .maxVelocity(2)
+        .maxAcceleration(4)
+        .allowedClosedLoopError(0);
+        
 
         coralIntakeconfig.limitSwitch.forwardLimitSwitchEnabled(false);
 
@@ -57,8 +71,11 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         coralIntakeMotor.configure(coralIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+       
+
+
+        algaeWristEncoder.setPosition(0.25);
         
-        algaeWristEncoder.setPosition(-0.25);
     }
 
     
@@ -107,5 +124,11 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         algaeWristMotor.setVoltage(volts);
     }
 
+    @Override
+    public void setAlgaeWristControllerReference (double position, double feedforward) {
+        
+        algaeWristController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedforward);
+    }
+        
+    }
     
-}
