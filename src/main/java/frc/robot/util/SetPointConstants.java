@@ -13,7 +13,5 @@ public class SetPointConstants {
     public static final double CORAL_INDEX_OUT_SPEED = -5.0;
     
     public static final double ALGAE_INTAKE_VOLTAGE = 1.0;
-    public static final double ALGAE_HOLD_WRIST_POSITION = 0.0;
-    public static final double ALGAE_WRIST_RESET_POSITION = -150.0;
-    
+    public static final double ALGAE_HOLD_WRIST_POSITION = 0.2;
 }
