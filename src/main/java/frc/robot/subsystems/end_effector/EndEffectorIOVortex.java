@@ -1,14 +1,11 @@
 package frc.robot.subsystems.end_effector;
-
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
@@ -61,7 +58,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
-        algaeWristEncoder.setPosition(0.25);
+        algaeWristEncoder.setPosition(-0.25);
     }
 
     
@@ -77,13 +74,13 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.coralIntakeTemperature = coralIntakeMotor.getMotorTemperature();
 
         inputs.algaeIntakePosition = algaeIntakeEncoder.getPosition();
+        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();
         inputs.algaeIntakeVoltage = algaeIntakeMotor.getAppliedOutput() * algaeIntakeMotor.getBusVoltage();
         inputs.algaeIntakeCurrent = algaeIntakeMotor.getOutputCurrent();
         inputs.algaeIntakeTemperature = algaeIntakeMotor.getMotorTemperature();
         
         
         inputs.algaeWristPosition = -algaeWristEncoder.getPosition();
-        inputs.algaeIntakeVelocity = algaeIntakeEncoder.getVelocity();
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWristMotor.getAppliedOutput() * algaeWristMotor.getBusVoltage();
         inputs.algaeWristCurrent = algaeWristMotor.getOutputCurrent();

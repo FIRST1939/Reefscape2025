@@ -1,5 +1,4 @@
 package frc.robot.subsystems.funnel;
-
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
