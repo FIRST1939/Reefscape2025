@@ -37,9 +37,9 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
         algaeWristconfig.closedLoop
-        .p(0.0)
+        .p(3.4911)
         .i(0.0)
-        .d(0.0)
+        .d(1091)
         .outputRange(-12.0, 12.0);
 
         algaeWristconfig.closedLoop.maxMotion
