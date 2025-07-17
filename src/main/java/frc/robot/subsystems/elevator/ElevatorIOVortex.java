@@ -66,12 +66,12 @@ public class ElevatorIOVortex implements ElevatorIO {
     public void updateInputs (ElevatorIOInputs inputs) {
 
 
-        Measurement laserCanMeasurement = this.laserCan.getMeasurement();
-        if (laserCanMeasurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT && laserCanMeasurement.distance_mm <= 100) {
-            System.out.println("The target is " + laserCanMeasurement.distance_mm + "mm away!");
-        } else {System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
+        //Measurement laserCanMeasurement = this.laserCan.getMeasurement();
+        //if (laserCanMeasurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT && laserCanMeasurement.distance_mm <= 100) {
+            //System.out.println("The target is " + laserCanMeasurement.distance_mm + "mm away!");
+        //} else {System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
 
-        }
+        //}
 
 
         inputs.manual = this.manual.get();

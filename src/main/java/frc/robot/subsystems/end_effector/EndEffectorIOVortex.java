@@ -80,7 +80,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeIntakeTemperature = algaeIntakeMotor.getMotorTemperature();
         
         
-        inputs.algaeWristPosition = -algaeWristEncoder.getPosition();
+        inputs.algaeWristPosition = algaeWristEncoder.getPosition();
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
         inputs.algaeWristVoltage = algaeWristMotor.getAppliedOutput() * algaeWristMotor.getBusVoltage();
         inputs.algaeWristCurrent = algaeWristMotor.getOutputCurrent();
