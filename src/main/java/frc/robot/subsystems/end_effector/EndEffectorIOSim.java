@@ -87,7 +87,7 @@ public class EndEffectorIOSim extends EndEffectorIOVortex {
         );
 
         this.algaeWristMotor.iterate(
-            Units.radiansToRotations(-this.algaeWrist.getVelocityRadPerSec()),
+            Units.radiansToRotations(this.algaeWrist.getVelocityRadPerSec()),
             RoboRioSim.getVInVoltage(),
             0.02
         );
