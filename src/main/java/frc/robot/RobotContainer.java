@@ -92,7 +92,7 @@ public class RobotContainer {
             operator.circle().whileTrue(endEffector.sysIdQuasistaticReverse());
             operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
             operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
-            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, 0));
+            operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, -0.1));
 
         
     }
