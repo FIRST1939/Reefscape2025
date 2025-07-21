@@ -21,9 +21,9 @@ public class EndEffector extends SubsystemBase {
     
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
-    public final static ArmFeedforward algaeWristFeedforward = new ArmFeedforward(0.23704, 0.1146, 20.95);
+    public final static ArmFeedforward algaeWristFeedforward = new ArmFeedforward(0.23704, 0.1146, 0);
 
-    
+         
     private final SysIdRoutine sysIdRoutine;
 
     public EndEffector (EndEffectorIO io) {
