@@ -24,6 +24,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     protected final SparkFlex algaeWristMotor = new SparkFlex(EndEffectorConstants.ALGAE_WRIST_CAN, MotorType.kBrushless);
     
     private final SparkClosedLoopController algaeWristController = algaeWristMotor.getClosedLoopController();
+    private final SparkClosedLoopController coralIntakeController = coralIntakeMotor.getClosedLoopController();
     protected final RelativeEncoder coralIntakeEncoder = this.coralIntakeMotor.getEncoder();
     protected final RelativeEncoder algaeIntakeEncoder = this.algaeIntakeMotor.getEncoder();
     protected final RelativeEncoder algaeWristEncoder = this.algaeWristMotor.getEncoder();
@@ -48,7 +49,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         .allowedClosedLoopError(0);      
 
         algaeWristconfig.closedLoop.velocityFF(1/20.95);
-        
 
         coralIntakeconfig.limitSwitch.forwardLimitSwitchEnabled(false);
 
@@ -74,8 +74,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         algaeIntakeMotor.configure(algaeIntakeconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         algaeWristMotor.configure(algaeWristconfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
        
-
-
         algaeWristEncoder.setPosition(0.25);
         
     }
@@ -97,7 +95,6 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         inputs.algaeIntakeVoltage = algaeIntakeMotor.getAppliedOutput() * algaeIntakeMotor.getBusVoltage();
         inputs.algaeIntakeCurrent = algaeIntakeMotor.getOutputCurrent();
         inputs.algaeIntakeTemperature = algaeIntakeMotor.getMotorTemperature();
-        
         
         inputs.algaeWristPosition = algaeWristEncoder.getPosition();
         inputs.algaeWristVelocity = algaeWristEncoder.getVelocity();
@@ -130,6 +127,12 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     public void setAlgaeWristControllerReference (double position, double feedforward) {
         
         algaeWristController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedforward);
+    }
+
+    @Override
+    public void setCoralIntakeControllerReference (double position, double feedforward) {
+        
+        coralIntakeController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedforward);
     }
         
     }

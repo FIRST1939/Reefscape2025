@@ -22,7 +22,7 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
     public final static ArmFeedforward algaeWristFeedforward = new ArmFeedforward(0.23704, 0.1146, 0);
-
+    public final static SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0, 0, 0);
          
     private final SysIdRoutine sysIdRoutine;
 
@@ -33,13 +33,13 @@ public class EndEffector extends SubsystemBase {
         this.sysIdRoutine = new SysIdRoutine(
             new SysIdRoutine.Config(Volts.per(Units.Second).of(1), Volts.of(2), Seconds.of(10)),
             new SysIdRoutine.Mechanism(
-            voltage -> io.setAlgaeWristVoltage(voltage.in(Units.Volts)),
+            voltage -> io.setCoralIntakeVoltage(voltage.in(Units.Volts)),
             log -> {
             log
-                .motor("algaeWrist")
-                .voltage(Volts.of(inputs.algaeWristVoltage))
-                .angularPosition(Rotations.of(inputs.algaeWristPosition))
-                .angularVelocity(RotationsPerSecond.of(inputs.algaeWristVelocity));
+                .motor("coralIntake")
+                .voltage(Volts.of(inputs.coralIntakeVoltage))
+                .angularPosition(Rotations.of(inputs.coralIntakePosition))
+                .angularVelocity(RotationsPerSecond.of(inputs.coralIntakeVelocity));
         },
 
         this
@@ -76,20 +76,17 @@ public class EndEffector extends SubsystemBase {
         return inputs.coralBeambreak;
     }
 
-    public void setCoralIntakeVelocity (double velocity) {
-
-        //this.io.setCoralIntakeVoltage(this.coralIntakeFeedforward.calculate(velocity));
-    }
-
     public void setAlgaeWristPosition (double position) {
 
         this.io.setAlgaeWristControllerReference(position, algaeWristFeedforward.calculate(edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakePosition), edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakeVelocity)));
-
-
     }
 
+    public void setAlgaeIntakeVoltage(double voltage) {
+        
+        this.io.setAlgaeIntakeVoltage(voltage);
+    }    
+
     public Command sysIdQuasistaticForward() {
-        Logger.recordOutput("sysIdQuasistaticForward running", true);
         return sysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
     }
 
@@ -105,12 +102,9 @@ public class EndEffector extends SubsystemBase {
         return sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
     }
 
-    public void setAlgaeIntakeVoltage(double voltage) {
-        
-        this.io.setAlgaeIntakeVoltage(voltage);
-    }    
-  
+    public void setCoralIntakeVelocity (double position) {
 
-    
+        this.io.setCoralIntakeControllerReference(position, coralIntakeFeedforward.calculate(edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakePosition), edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakeVelocity)));
+    }
 
 }
