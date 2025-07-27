@@ -132,7 +132,7 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     @Override
     public void setCoralIntakeControllerReference (double position, double feedforward) {
         
-        coralIntakeController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedforward);
+        coralIntakeController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedforward);
     }
         
     }
