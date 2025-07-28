@@ -1,17 +1,10 @@
 package frc.robot.subsystems.end_effector;
 import static edu.wpi.first.units.Units.Radians;
-import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 import org.littletonrobotics.junction.Logger;
-
-import com.revrobotics.spark.SparkBase;
-
-import edu.wpi.first.math.MathUsageId;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -79,7 +72,12 @@ public class EndEffector extends SubsystemBase {
 
     public void setAlgaeWristPosition (double position) {
 
-        this.io.setAlgaeWristControllerReference(position, algaeWristFeedforward.calculate(edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakePosition), edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakeVelocity)));
+        this.io.setAlgaeWristControllerReference(position, 
+            algaeWristFeedforward.calculate(
+                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakePosition), 
+                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.algaeIntakeVelocity)
+            )
+        );
     }
 
     public void setAlgaeIntakeVoltage(double voltage) {
@@ -103,9 +101,15 @@ public class EndEffector extends SubsystemBase {
         return sysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
     }
 
-    public void setCoralIntakeVelocity (double position) {
+    public void setCoralIntakeVelocity (double velocity) {
 
-        this.io.setCoralIntakeControllerReference(position, coralIntakeFeedforward.calculate(edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakePosition), edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakeVelocity)));
+        this.io.setCoralIntakeControllerReference(
+            velocity,
+            coralIntakeFeedforward.calculate(
+                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakePosition), 
+                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakeVelocity)
+            )
+        );
     }
 
 }
