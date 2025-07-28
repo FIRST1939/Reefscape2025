@@ -1,5 +1,7 @@
 package frc.robot.commands.end_effector;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,7 +23,7 @@ public class IndexCoralIn extends Command {
 
     @Override
     public void initialize () {
-
+        Logger.recordOutput("IndexCoral Running", true);
         this.isFinished = false;
         this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_INDEX_IN_SPEED);
     }
@@ -34,7 +36,7 @@ public class IndexCoralIn extends Command {
 
     @Override
     public void end (boolean interrupted) {
-
+        Logger.recordOutput("IndexCoral Running", true);
         this.endEffector.setCoralIntakeVelocity(0.0);
     }
 }
