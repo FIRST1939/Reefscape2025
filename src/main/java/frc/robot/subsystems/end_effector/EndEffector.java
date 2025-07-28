@@ -1,4 +1,5 @@
 package frc.robot.subsystems.end_effector;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
@@ -22,7 +23,7 @@ public class EndEffector extends SubsystemBase {
     private final EndEffectorIO io;
     private final EndEffectorIOInputsAutoLogged inputs = new EndEffectorIOInputsAutoLogged();
     public final static ArmFeedforward algaeWristFeedforward = new ArmFeedforward(0.23704, 0.1146, 0);
-    public final static SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0, 0, 0);
+    public final static SimpleMotorFeedforward coralIntakeFeedforward = new SimpleMotorFeedforward(0, 0.16222, 0.23237);
          
     private final SysIdRoutine sysIdRoutine;
 
@@ -38,7 +39,7 @@ public class EndEffector extends SubsystemBase {
             log
                 .motor("coralIntake")
                 .voltage(Volts.of(inputs.coralIntakeVoltage))
-                .angularPosition(Rotations.of(inputs.coralIntakePosition))
+                .angularPosition(Radians.of(inputs.coralIntakePosition))
                 .angularVelocity(RotationsPerSecond.of(inputs.coralIntakeVelocity));
         },
 
