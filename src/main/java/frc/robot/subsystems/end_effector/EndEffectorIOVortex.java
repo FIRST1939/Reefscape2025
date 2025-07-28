@@ -2,7 +2,6 @@ package frc.robot.subsystems.end_effector;
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -11,9 +10,6 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
-
-import edu.wpi.first.math.controller.ArmFeedforward;
-import frc.robot.util.SetPointConstants;
 
 public class EndEffectorIOVortex implements EndEffectorIO {
 
@@ -37,6 +33,18 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         SparkFlexConfig algaeIntakeconfig = new SparkFlexConfig();
         SparkFlexConfig algaeWristconfig = new SparkFlexConfig();
 
+
+        coralIntakeconfig.closedLoop
+        .p(0.027725)
+        .i(0)
+        .d(0)
+        .outputRange(-12, 12);
+
+        coralIntakeconfig.closedLoop.maxMotion
+        .maxVelocity(2)
+        .maxAcceleration(4)
+        .allowedClosedLoopError(0);      
+
         algaeWristconfig.closedLoop
         .p(169.0)
         .i(0.0)
@@ -44,8 +52,8 @@ public class EndEffectorIOVortex implements EndEffectorIO {
         .outputRange(-12.0, 12.0);
 
         algaeWristconfig.closedLoop.maxMotion
-        .maxVelocity(2)
-        .maxAcceleration(4)
+        .maxVelocity(50)
+        .maxAcceleration(300)
         .allowedClosedLoopError(0);      
 
         algaeWristconfig.closedLoop.velocityFF(1/20.95);
@@ -126,13 +134,13 @@ public class EndEffectorIOVortex implements EndEffectorIO {
     @Override
     public void setAlgaeWristControllerReference (double position, double feedforward) {
         
-        algaeWristController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot0, feedforward);
+        algaeWristController.setReference(position, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedforward);
     }
 
     @Override
     public void setCoralIntakeControllerReference (double position, double feedforward) {
         
-        coralIntakeController.setReference(position, ControlType.kPosition, ClosedLoopSlot.kSlot1, feedforward);
+        coralIntakeController.setReference(position, ControlType.kVelocity, ClosedLoopSlot.kSlot1, feedforward);
     }
         
     }
