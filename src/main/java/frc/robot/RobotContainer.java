@@ -16,6 +16,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ConfirmAlliance;
+import frc.robot.commands.end_effector.RunCoralIntakeVelocity;
 import frc.robot.commands.end_effector.SetAlgaeWristPosition;
 import frc.robot.subsystems.elevator.Elevator;
 import frc.robot.subsystems.elevator.ElevatorConstants;
@@ -93,6 +94,7 @@ public class RobotContainer {
             operator.triangle().whileTrue(endEffector.sysIdDynamicForward());
             operator.cross().whileTrue(endEffector.sysIdDynamicReverse());
             operator.L1().whileTrue(new SetAlgaeWristPosition(this.endEffector, 0));
+            operator.R1().whileTrue(new RunCoralIntakeVelocity(this.endEffector, 5.0));
 
         
     }
