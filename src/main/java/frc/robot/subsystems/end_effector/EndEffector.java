@@ -106,8 +106,8 @@ public class EndEffector extends SubsystemBase {
         this.io.setCoralIntakeControllerReference(
             velocity,
             coralIntakeFeedforward.calculate(
-                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakePosition), 
-                edu.wpi.first.math.util.Units.rotationsToRadians(this.inputs.coralIntakeVelocity)
+                (this.inputs.coralIntakePosition), 
+                (this.inputs.coralIntakeVelocity)
             )
         );
     }
