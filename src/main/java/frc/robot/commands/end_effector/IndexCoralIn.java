@@ -22,12 +22,11 @@ public class IndexCoralIn extends Command {
     }
 
     @Override
-    public void initialize () {
+    public void execute() {
+        System.out.println("IndexCoralIn initialized");
         Logger.recordOutput("IndexCoral Running", true);
-        this.isFinished = false;
-        this.endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_INDEX_IN_SPEED);
+        endEffector.setCoralIntakeVelocity(SetPointConstants.CORAL_INDEX_IN_SPEED);
     }
-
     @Override
     public boolean isFinished () {
 
