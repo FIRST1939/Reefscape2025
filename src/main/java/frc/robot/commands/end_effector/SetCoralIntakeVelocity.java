@@ -10,22 +10,30 @@ public class SetCoralIntakeVelocity extends Command {
     private final double targetVelocity;
 
     public SetCoralIntakeVelocity(EndEffector endEffector, double coralIntakeVelocity) {
-
         this.endEffector = endEffector;
         this.targetVelocity = coralIntakeVelocity;
-
         addRequirements(endEffector);
     }
 
     @Override
     public void initialize() {
         Logger.recordOutput("CoralIntake Running", true);
-        this.endEffector.setCoralIntakeVelocity(this.targetVelocity);
+        endEffector.setCoralIntakeVelocity(targetVelocity);
+    }
+
+    @Override
+    public void execute() {
+        Logger.recordOutput("CoralIntake Velocity", targetVelocity);
     }
 
     @Override
     public void end(boolean interrupted) {
         Logger.recordOutput("CoralIntake Running", false);
-        this.endEffector.setCoralIntakeVelocity(0);
+        endEffector.setCoralIntakeVelocity(0);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }
