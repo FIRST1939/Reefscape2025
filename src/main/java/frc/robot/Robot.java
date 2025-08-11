@@ -62,6 +62,16 @@ public class Robot extends LoggedRobot {
         Pathfinding.setPathfinder(new LocalADStarAK());
         PathfindingCommand.warmupCommand().schedule();
 
+        CommandScheduler.getInstance().onCommandInitialize(
+            c -> System.out.println("INIT: " + c.getName())
+        );
+        CommandScheduler.getInstance().onCommandFinish(
+            c -> System.out.println("END: " + c.getName())
+        );
+        CommandScheduler.getInstance().onCommandInterrupt(
+            c -> System.out.println("INTERRUPT: " + c.getName())
+        );
+
 
     }
 
