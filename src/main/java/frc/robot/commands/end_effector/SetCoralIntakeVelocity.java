@@ -17,7 +17,7 @@ public class SetCoralIntakeVelocity extends Command {
 
     @Override
     public void initialize() {
-        Logger.recordOutput("CoralIntake Running", true);
+        Logger.recordOutput("SetCoralIntakeVelocity Command Running", true);
         endEffector.setCoralIntakeVelocity(targetVelocity);
     }
 
@@ -28,7 +28,7 @@ public class SetCoralIntakeVelocity extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        Logger.recordOutput("CoralIntake Running", false);
+        Logger.recordOutput("SetCoralIntakeVelocity Command Running", false);
         endEffector.setCoralIntakeVelocity(0);
     }
 
