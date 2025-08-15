@@ -1,17 +1,41 @@
 package frc.robot.subsystems.elevator;
-
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+import static edu.wpi.first.units.Units.Seconds;
+import static edu.wpi.first.units.Units.Volts;
 import org.littletonrobotics.junction.Logger;
-
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.units.Units;
+
 
 public class Elevator extends SubsystemBase {
     
     private final ElevatorIO io;
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
+    private final SysIdRoutine elevatorSysIdRoutine;
+
     public Elevator (ElevatorIO io) {
 
         this.io = io;
+
+        elevatorSysIdRoutine = new SysIdRoutine(
+            new SysIdRoutine.Config(Volts.per(Units.Second).of(1), Volts.of(2), Seconds.of(10)),
+            new SysIdRoutine.Mechanism(
+            voltage -> io.setElevatorVoltage(voltage.in(Units.Volts)),
+            log -> {
+            log
+                .motor("coralIntake")
+                .voltage(Volts.of(getVoltage()))
+                .angularPosition(Radians.of(getHeight()))
+                .angularVelocity(RotationsPerSecond.of(getVelocity()));
+        },
+
+        this
+        ) 
+    );
     }
 
     @Override
