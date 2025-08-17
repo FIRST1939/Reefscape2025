@@ -71,5 +71,21 @@ public class Elevator extends SubsystemBase {
     public double getTemperature () {
         return ((this.inputs.leadMotorTemperature) + (this.inputs.followerMotorTemperature) / 2 );
     }
+/* 
+    public Command sysIdQuasistaticForward() {
+        return elevatorSysIdRoutine.quasistatic(SysIdRoutine.Direction.kForward);
+    }
 
+    public Command sysIdQuasistaticReverse() {
+        return elevatorSysIdRoutine.quasistatic(SysIdRoutine.Direction.kReverse);
+    }
+
+    public Command sysIdDynamicForward() {
+        return elevatorSysIdRoutine.dynamic(SysIdRoutine.Direction.kForward);
+    }
+
+    public Command sysIdDynamicReverse() {
+        return elevatorSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
+    }
+        */
 }
