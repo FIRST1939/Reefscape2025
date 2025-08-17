@@ -4,7 +4,11 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 import org.littletonrobotics.junction.Logger;
+
+import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.units.Units;
@@ -16,6 +20,8 @@ public class Elevator extends SubsystemBase {
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private final SysIdRoutine elevatorSysIdRoutine;
+    public final static ElevatorFeedforward coralIntakeFeedforward = new ElevatorFeedforward(0, 0, 0);
+      
 
     public Elevator (ElevatorIO io) {
 
@@ -65,4 +71,5 @@ public class Elevator extends SubsystemBase {
     public double getTemperature () {
         return ((this.inputs.leadMotorTemperature) + (this.inputs.followerMotorTemperature) / 2 );
     }
+
 }
