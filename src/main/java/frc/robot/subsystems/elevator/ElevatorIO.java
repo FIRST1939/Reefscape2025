@@ -26,4 +26,5 @@ public interface ElevatorIO {
     }
 
     public default void updateInputs (ElevatorIOInputs inputs) {}
+    public default void setElevatorVoltage (double volts) {}
 }
