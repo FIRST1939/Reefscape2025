@@ -20,7 +20,7 @@ public class Elevator extends SubsystemBase {
     private final ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
 
     private final SysIdRoutine elevatorSysIdRoutine;
-    public final static ElevatorFeedforward coralIntakeFeedforward = new ElevatorFeedforward(0, 0, 0);
+    public final static ElevatorFeedforward elevatorFeedforward = new ElevatorFeedforward(0, 0, 0);
       
 
     public Elevator (ElevatorIO io) {
@@ -33,7 +33,7 @@ public class Elevator extends SubsystemBase {
             voltage -> io.setElevatorVoltage(voltage.in(Units.Volts)),
             log -> {
             log
-                .motor("coralIntake")
+                .motor("elevator")
                 .voltage(Volts.of(getVoltage()))
                 .angularPosition(Radians.of(getHeight()))
                 .angularVelocity(RotationsPerSecond.of(getVelocity()));
@@ -88,4 +88,15 @@ public class Elevator extends SubsystemBase {
         return elevatorSysIdRoutine.dynamic(SysIdRoutine.Direction.kReverse);
     }
         */
+
+        public void setElevatorVelocity (double velocity) {
+
+            /*this.io.setCoralIntakeControllerReference(
+                velocity,
+                elevatorFeedforward.calculate(
+                    (this.getHeight()), 
+                    (this.getVelocity())
+                )
+            );
+        } */
 }
